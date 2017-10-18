@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Kaho 1st commit
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
