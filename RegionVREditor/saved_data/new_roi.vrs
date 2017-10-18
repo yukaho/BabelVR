@@ -1,0 +1,89 @@
+{
+  "savedTime": "2017-06-28T12:47:08.7226009+08:00",
+  "file_name": "new_roi",
+  "version": "0.1a",
+  "scene_nodes": [
+    {
+      "id": 0,
+      "s_name": "Node_00",
+      "initailize_actions": [],
+      "running_actions": [],
+      "end_actions": [],
+      "graph_pos_x": -190.112671,
+      "graph_pos_y": 70.6338043,
+      "movie_list": [],
+      "current_movie_index": 0,
+      "update_status": 0
+    },
+    {
+      "id": 1,
+      "s_name": "Node_01",
+      "initailize_actions": [],
+      "running_actions": [],
+      "end_actions": [],
+      "graph_pos_x": 95.52112,
+      "graph_pos_y": 55.42253,
+      "movie_list": [],
+      "current_movie_index": 0,
+      "update_status": 0
+    }
+  ],
+  "roi_list": [
+    {
+      "vertics": [
+        {
+          "x": -1.0,
+          "y": 1.0,
+          "z": 0.0
+        },
+        {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 0.0
+        },
+        {
+          "x": -1.0,
+          "y": -1.0,
+          "z": 0.0
+        },
+        {
+          "x": 1.0,
+          "y": -1.0,
+          "z": 0.0
+        }
+      ],
+      "flag": "Active",
+      "scene_index": -1,
+      "video_index": 2,
+      "audio_index": -1
+    },
+    {
+      "vertics": [
+        {
+          "x": -1.0,
+          "y": 1.0,
+          "z": 0.0
+        },
+        {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 0.0
+        },
+        {
+          "x": -1.0,
+          "y": -1.0,
+          "z": 0.0
+        },
+        {
+          "x": 1.0,
+          "y": -1.0,
+          "z": 0.0
+        }
+      ],
+      "flag": "Active",
+      "scene_index": -1,
+      "video_index": -1,
+      "audio_index": -1
+    }
+  ]
+}

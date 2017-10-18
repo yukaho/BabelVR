@@ -1,0 +1,298 @@
+{
+  "savedTime": "2017-06-28T14:11:33.2536009+08:00",
+  "file_name": "modified_record_6",
+  "version": "0.1a",
+  "scene_nodes": [
+    {
+      "id": 0,
+      "s_name": "Node_00",
+      "initailize_actions": [
+        {
+          "action_flag": "SetVideo",
+          "parameters_list": [1]
+        }
+      ],
+      "running_actions": [],
+      "end_actions": [],
+      "graph_pos_x": -243.774689,
+      "graph_pos_y": 7.92958069,
+      "movie_list": 
+      [
+          "K:/Assignment_CityU/Research/Kaho/Babel_Import_Data/Scenes/test001/s01_030.mp4",
+          "K:/Assignment_CityU/Research/Kaho/Babel_Import_Data/Scenes/test001/Scene_sFLYTHRU_animation.mov",
+          "K:/Assignment_CityU/Research/Kaho/Babel_Import_Data/Scenes/test001/s01_020.mp4"
+      ],
+      "current_movie_index": 0,
+      "Active_ROIList": [
+        {
+          "vertics": [
+            {
+              "x": -1.0,
+              "y": 1.0,
+              "z": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 0.0
+            },
+            {
+              "x": -1.0,
+              "y": -1.0,
+              "z": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": -1.0,
+              "z": 0.0
+            }
+          ],
+          "flag": "Active",
+          "content_type": 1,
+          "scene_index": -1,
+          "video_index": 2,
+          "audio_index": -1
+        },
+        {
+           "vertics": [
+            {
+              "x": -1.0,
+              "y": 1.0,
+              "z": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 0.0
+            },
+            {
+              "x": -1.0,
+              "y": -1.0,
+              "z": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": -1.0,
+              "z": 0.0
+            }
+          ],
+          "flag": "Active",
+          "content_type": 1,
+          "scene_index": -1,
+          "video_index": 0,
+          "audio_index": -1
+        }
+      ],
+      "Passive_ROIList": [
+        {
+          "vertics": [
+            {
+              "x": -1.0,
+              "y": 1.0,
+              "z": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 0.0
+            },
+            {
+              "x": -1.0,
+              "y": -1.0,
+              "z": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": -1.0,
+              "z": 0.0
+            }
+          ],
+          "flag": "Passive",
+          "content_type": 0,
+          "scene_index": 1,
+          "video_index": -1,
+          "audio_index": -1
+        },
+
+        {
+          "vertics": [
+            {
+              "x": -1.0,
+              "y": 1.0,
+              "z": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 0.0
+            },
+            {
+              "x": -1.0,
+              "y": -1.0,
+              "z": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": -1.0,
+              "z": 0.0
+            }
+          ],
+          "flag": "Passive",
+          "content_type": 0,
+          "scene_index": 2,
+          "video_index": -1,
+          "audio_index": -1
+        }
+      ],
+      "update_status": 0
+    },
+    {
+      "id": 1,
+      "s_name": "Node_01",
+      "initailize_actions": [{"action_flag": "SetVideo","parameters_list": [0]}],
+      "running_actions": [],
+      "end_actions": [{"action_flag":"SwitchSceneDefault","parameters_list":[2]}],
+      "graph_pos_x": 242.9859,
+      "graph_pos_y": 58.6338043,
+      "movie_list": ["K:/Assignment_CityU/Research/Kaho/Babel_Import_Data/Scenes/test001/s01_010.mp4"],
+      "current_movie_index": 0,
+      "Active_ROIList": [
+        {
+          "vertics": [
+            {
+              "x": -1.0,
+              "y": 1.0,
+              "z": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 0.0
+            },
+            {
+              "x": -1.0,
+              "y": -1.0,
+              "z": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": -1.0,
+              "z": 0.0
+            }
+          ],
+          "flag": "Active",
+          "content_type": 1,
+          "scene_index": -1,
+          "video_index": 0,
+          "audio_index": -1
+        }
+      ],
+      "Passive_ROIList": [
+        {
+          "vertics": [
+            {
+              "x": -1.0,
+              "y": 1.0,
+              "z": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 0.0
+            },
+            {
+              "x": -1.0,
+              "y": -1.0,
+              "z": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": -1.0,
+              "z": 0.0
+            }
+          ],
+          "flag": "Passive",
+          "content_type": 1,
+          "scene_index": -1,
+          "video_index": 2,
+          "audio_index": -1
+        }
+      ],
+      "update_status": 0
+    },
+    {
+      "id": 2,
+      "s_name": "Node_02",
+      "initailize_actions": [{"action_flag": "SetVideo","parameters_list": [0]}],
+      "running_actions": [],
+      "end_actions": [{"action_flag":"SwitchSceneMaxGazingTime"}],
+      "graph_pos_x": 562.4225,
+      "graph_pos_y": 13.0,
+      "movie_list": ["K:/Assignment_CityU/Research/Kaho/Babel_Import_Data/Scenes/test001/s01_020.mp4"],
+      "current_movie_index": 0,
+      "Active_ROIList": [
+        {
+          "vertics": [
+            {
+              "x": -1.0,
+              "y": 1.0,
+              "z": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 0.0
+            },
+            {
+              "x": -1.0,
+              "y": -1.0,
+              "z": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": -1.0,
+              "z": 0.0
+            }
+          ],
+          "flag": "Active",
+          "content_type": 1,
+          "scene_index": -1,
+          "video_index": 0,
+          "audio_index": -1
+        }
+      ],
+      "Passive_ROIList": [
+        {
+          "vertics": [
+            {
+              "x": -1.0,
+              "y": 1.0,
+              "z": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 0.0
+            },
+            {
+              "x": -1.0,
+              "y": -1.0,
+              "z": 0.0
+            },
+            {
+              "x": 1.0,
+              "y": -1.0,
+              "z": 0.0
+            }
+          ],
+          "flag": "Passive",
+          "content_type": 1,
+          "scene_index": -1,
+          "video_index": 2,
+          "audio_index": -1
+        }
+      ],
+      "update_status": 0
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "savedTime": "2017-06-13T12:49:29.7691791+08:00",
+  "file_name": "modified_record_4",
+  "version": "0.1a",
+  "scene_nodes": [
+    {
+      "id": 0,
+      "s_name": "Node_00",
+      "initailize_actions": [
+        {
+          "action_flag": "SetVideo",
+          "parameters_list": [
+            1,
+            {
+              "x": 3.0,
+              "y": 3.0,
+              "z": 3.0
+            }
+          ]
+        }
+      ],
+      "running_actions": [],
+      "end_actions": [{"action_flag":"SwitchSceneDefault","parameters_list":[1]}],
+      "graph_pos_x": 335.4452,
+      "graph_pos_y": -7.76178,
+      "movie_list": ["K:/Assignment_CityU/Research/Kaho/Babel_Import_Data/Scenes/test001/s01_030.mp4","K:/Assignment_CityU/Research/Kaho/Babel_Import_Data/Scenes/test001/Scene_sFLYTHRU_animation.mov","K:/Assignment_CityU/Research/Kaho/Babel_Import_Data/Scenes/test001/s01_020.mp4"],
+      "current_movie_index": 0,
+      "update_status": 0
+    },
+    {
+      "id": 1,
+      "s_name": "Node_01",
+      "initailize_actions": [{"action_flag": "SetVideo","parameters_list": [0,{"x":3.0,"y": 3.0,"z": 3.0}]}],
+      "running_actions": [],
+      "end_actions": [{"action_flag":"SwitchSceneDefault","parameters_list":[2]}],
+      "graph_pos_x": 259.269653,
+      "graph_pos_y": -14.5329285,
+      "movie_list": ["K:/Assignment_CityU/Research/Kaho/Babel_Import_Data/Scenes/test001/s01_010.mp4"],
+      "current_movie_index": 0,
+      "update_status": 0
+    },
+    {
+      "id": 2,
+      "s_name": "Node_02",
+      "initailize_actions": [{"action_flag": "SetVideo","parameters_list": [0,{"x":3.0,"y": 3.0,"z": 3.0}]}],
+      "running_actions": [],
+      "end_actions": [],
+      "graph_pos_x": 157.702209,
+      "graph_pos_y": -131.335449,
+      "movie_list": ["K:/Assignment_CityU/Research/Kaho/Babel_Import_Data/Scenes/test001/s01_020.mp4"],
+      "current_movie_index": 0,
+      "update_status": 0
+    }
+  ],
+  "roi_list": [
+{"vertics":[{"x":-5.0,"y":5.0,"z":0.0},{"x":5.0,"y":5.0,"z":0.0},{"x":-5.0,"y":-5.0,"z":0.0},{"x":5.0,"y":-5.0,"z":0.0}]},{"vertics":[{"x":-5.0,"y":5.0,"z":0.0},{"x":5.0,"y":5.0,"z":0.0},{"x":-5.0,"y":-5.0,"z":0.0},{"x":5.0,"y":-5.0,"z":0.0}]},{"vertics":[{"x":-5.0,"y":5.0,"z":0.0},{"x":5.0,"y":5.0,"z":0.0},{"x":-5.0,"y":-5.0,"z":0.0},{"x":5.0,"y":-5.0,"z":0.0}]},{"vertics":[{"x":-10.0,"y":10.0,"z":0.0},{"x":5.0,"y":5.0,"z":0.0},{"x":-5.0,"y":-5.0,"z":0.0},{"x":5.0,"y":-5.0,"z":0.0}]}
+  ]
+}

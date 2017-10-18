@@ -1,0 +1,114 @@
+{
+  "savedTime": "2017-06-20T16:43:41.6524001+08:00",
+  "file_name": "mockup_data_3",
+  "version": "0.1a",
+  "scene_nodes": [
+    {
+      "id": 0,
+      "s_name": "Node_00",
+      "initailize_actions": [],
+      "running_actions": [],
+      "end_actions": [],
+      "graph_pos_x": -47.7183228,
+      "graph_pos_y": 48.49295,
+      "movie_list": [],
+      "current_movie_index": 0,
+      "update_status": 0
+    }
+  ],
+  "roi_list": [
+    {
+      "vertics": [
+        {
+          "x": -1.0,
+          "y": 1.0,
+          "z": 0.0
+        },
+        {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 0.0
+        },
+        {
+          "x": -1.0,
+          "y": -1.0,
+          "z": 0.0
+        },
+        {
+          "x": 1.0,
+          "y": -1.0,
+          "z": 0.0
+        }
+      ],
+      "action": {
+        "action_flag": "SetVideo",
+        "parameters_list": [
+          1
+        ]
+      },
+      "flag": "Active"
+    },
+    {
+      "vertics": [
+        {
+          "x": -1.0,
+          "y": 1.0,
+          "z": 0.0
+        },
+        {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 0.0
+        },
+        {
+          "x": -1.0,
+          "y": -1.0,
+          "z": 0.0
+        },
+        {
+          "x": 1.0,
+          "y": -1.0,
+          "z": 0.0
+        }
+      ],
+      "action": {
+        "action_flag": "SetVideo",
+        "parameters_list": [
+          2
+        ]
+      },
+      "flag": "Active"
+    },
+	{
+      "vertics": [
+        {
+          "x": -1.0,
+          "y": 1.0,
+          "z": 0.0
+        },
+        {
+          "x": 1.0,
+          "y": 1.0,
+          "z": 0.0
+        },
+        {
+          "x": -1.0,
+          "y": -1.0,
+          "z": 0.0
+        },
+        {
+          "x": 1.0,
+          "y": -1.0,
+          "z": 0.0
+        }
+      ],
+      "action": {
+        "action_flag": "SetVideo",
+        "parameters_list": [
+          2
+        ]
+      },
+      "flag": "Passive"
+    }
+  ]
+}

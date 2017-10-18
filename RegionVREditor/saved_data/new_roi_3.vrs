@@ -1,0 +1,574 @@
+{
+  "savedTime": "2017-07-11T22:15:40.0334058+08:00",
+  "file_name": "new_roi_3",
+  "version": "0.1a",
+  "scene_nodes": [
+    {
+      "id": 0,
+      "s_name": "Node_00",
+      "initailize_actions": [],
+      "running_actions": [],
+      "end_actions": [],
+      "graph_pos_x": -166.297913,
+      "graph_pos_y": 72.81764,
+      "shot_list": [
+        {
+          "shot_id": 0,
+          "movie_dir": "dir_path",
+          "Active_ROIList": [
+            {
+              "roi_name": "ROI#0",
+              "vertics": [
+                {
+                  "x": -1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": -1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                }
+              ],
+              "flag": "Active",
+              "content_type": -1,
+              "scene_index": -1,
+              "video_index": 2,
+              "audio_index": -1,
+              "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ],
+          "Passive_ROIList": [
+            {
+              "roi_name": "ROI#0",
+              "vertics": [
+                {
+                  "x": -1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": -1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                }
+              ],
+              "flag": "Active",
+              "content_type": -1,
+              "scene_index": -1,
+              "video_index": 2,
+              "audio_index": -1,
+              "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ]
+        },
+        {
+          "shot_id": 1,
+          "movie_dir": "dir_path",
+          "Active_ROIList": [
+            {
+              "roi_name": "ROI#2",
+              "vertics": [
+                {
+                  "x": -1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": -1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                }
+              ],
+              "flag": "Active",
+              "content_type": -1,
+              "scene_index": -1,
+              "video_index": 2,
+              "audio_index": -1,
+              "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ],
+          "Passive_ROIList": [
+            {
+              "roi_name": "ROI#2",
+              "vertics": [
+                {
+                  "x": -1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": -1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                }
+              ],
+              "flag": "Active",
+              "content_type": -1,
+              "scene_index": -1,
+              "video_index": 2,
+              "audio_index": -1,
+              "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ]
+        }
+      ],
+      "update_status": 0,
+      "currentShotNode": null
+    },
+    {
+      "id": 1,
+      "s_name": "Node_01",
+      "initailize_actions": [],
+      "running_actions": [],
+      "end_actions": [],
+      "graph_pos_x": 236.37677,
+      "graph_pos_y": -72.7142639,
+      "shot_list": [
+        {
+          "shot_id": 2,
+          "movie_dir": "dir_path",
+          "Active_ROIList": [
+            {
+              "roi_name": "ROI#4",
+              "vertics": [
+                {
+                  "x": -1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": -1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                }
+              ],
+              "flag": "Active",
+              "content_type": -1,
+              "scene_index": -1,
+              "video_index": 2,
+              "audio_index": -1,
+              "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ],
+          "Passive_ROIList": [
+            {
+              "roi_name": "ROI#4",
+              "vertics": [
+                {
+                  "x": -1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": -1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                }
+              ],
+              "flag": "Active",
+              "content_type": -1,
+              "scene_index": -1,
+              "video_index": 2,
+              "audio_index": -1,
+              "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ]
+        },
+        {
+          "shot_id": 3,
+          "movie_dir": "dir_path",
+          "Active_ROIList": [
+            {
+              "roi_name": "ROI#6",
+              "vertics": [
+                {
+                  "x": -1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": -1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                }
+              ],
+              "flag": "Active",
+              "content_type": -1,
+              "scene_index": -1,
+              "video_index": 2,
+              "audio_index": -1,
+              "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ],
+          "Passive_ROIList": [
+            {
+              "roi_name": "ROI#6",
+              "vertics": [
+                {
+                  "x": -1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": -1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                }
+              ],
+              "flag": "Active",
+              "content_type": -1,
+              "scene_index": -1,
+              "video_index": 2,
+              "audio_index": -1,
+              "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ]
+        }
+      ],
+      "update_status": 0,
+      "currentShotNode": null
+    },
+    {
+      "id": 2,
+      "s_name": "Node_02",
+      "initailize_actions": [],
+      "running_actions": [],
+      "end_actions": [],
+      "graph_pos_x": 293.27655,
+      "graph_pos_y": 48.74469,
+      "shot_list": [
+        {
+          "shot_id": 4,
+          "movie_dir": "dir_path",
+          "Active_ROIList": [
+            {
+              "roi_name": "ROI#8",
+              "vertics": [
+                {
+                  "x": -1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": -1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                }
+              ],
+              "flag": "Active",
+              "content_type": -1,
+              "scene_index": -1,
+              "video_index": 2,
+              "audio_index": -1,
+              "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ],
+          "Passive_ROIList": [
+            {
+              "roi_name": "ROI#8",
+              "vertics": [
+                {
+                  "x": -1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": -1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                }
+              ],
+              "flag": "Active",
+              "content_type": -1,
+              "scene_index": -1,
+              "video_index": 2,
+              "audio_index": -1,
+              "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ]
+        },
+        {
+          "shot_id": 5,
+          "movie_dir": "dir_path",
+          "Active_ROIList": [
+            {
+              "roi_name": "ROI#10",
+              "vertics": [
+                {
+                  "x": -1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": -1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                }
+              ],
+              "flag": "Active",
+              "content_type": -1,
+              "scene_index": -1,
+              "video_index": 2,
+              "audio_index": -1,
+              "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ],
+          "Passive_ROIList": [
+            {
+              "roi_name": "ROI#10",
+              "vertics": [
+                {
+                  "x": -1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": -1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                },
+                {
+                  "x": 1.0,
+                  "y": -1.0,
+                  "z": 0.0
+                }
+              ],
+              "flag": "Active",
+              "content_type": -1,
+              "scene_index": -1,
+              "video_index": 2,
+              "audio_index": -1,
+              "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ]
+        }
+      ],
+      "update_status": 0,
+      "currentShotNode": null
+    }
+  ]
+}
