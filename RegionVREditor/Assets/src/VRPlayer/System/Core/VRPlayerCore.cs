@@ -61,12 +61,13 @@ public class VRPlayerCore : MonoBehaviour
     void Start()
     {
 
+        //create new scene node
         NodeList = new List<SceneNode>();
 
         Debug.Log("VR Player Ready.");
-
+   
         //open file
-        string path = EditorUtility.OpenFilePanel("Please select your saved template", "", "");
+        string path = EditorUtility.OpenFilePanel("Please select your saved template", Application.dataPath+ "/../../Data/saved_data/", "");
         openFile(path);
 
 
