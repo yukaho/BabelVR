@@ -21,14 +21,10 @@ public class VRPlayerCore : MonoBehaviour
     List<SceneNode> NodeList;
     public SceneNode current_node;
 
-    [Header("ROI Settings")]
+    [Header("ROI")]
     //Region Of Interest Group (gameobj)
     public GameObject ROI_group;
 
-
-
-    [TextArea]
-    public string ROIGroupInformation = "All roi will be sorted in descending order by score in roi group";
 
     //Camera Base Transform
     public Transform headset_base;
@@ -39,9 +35,12 @@ public class VRPlayerCore : MonoBehaviour
     //locator for collision experiment
     public GameObject target_anchor;
 
-    [Header("Current Scene Node")]
+ 
     //Display Information Debug Only
+    [HideInInspector]
     public string SceneNode;
+
+    [HideInInspector]
     public string SceneNodeStatus;
 
     [Header("Information Collector")]
@@ -57,17 +56,24 @@ public class VRPlayerCore : MonoBehaviour
     public ApplyToMesh mesh_content;
 
 
+    [SerializeField]
+    private string currentNode_info="Empty";
+
+    [SerializeField]
+    private string lastseen_roi = "Empty";
 
     void Start()
     {
+
+
 
         //create new scene node
         NodeList = new List<SceneNode>();
 
         Debug.Log("VR Player Ready.");
-   
+
         //open file
-        string path = EditorUtility.OpenFilePanel("Please select your saved template", Application.dataPath+ "/../../Data/saved_data/", "");
+        string path = EditorUtility.OpenFilePanel("Please select your saved template", Application.dataPath + "/../../Data/saved_data/", "");
         openFile(path);
 
 
@@ -84,13 +90,34 @@ public class VRPlayerCore : MonoBehaviour
             current_node.update(this);
             SceneNodeStatus = current_node.update_status.ToString();
             SceneNode = current_node.s_name;
+
+
+
+            currentNode_info = SceneNode + " - " + SceneNodeStatus;
+
+
+            for (int s = 0; s < current_node.shot_list.Count; s++)
+            {
+                if (current_node.currentShotNode == current_node.shot_list[s])
+                    currentNode_info += "\n-> Shot#" + s + " - " + current_node.shot_list[s].getShotVideoFileName() + "*";
+                else
+                    currentNode_info += "\n-> Shot#" + s + " - " + current_node.shot_list[s].getShotVideoFileName();
+            }
+
         }
+
+
+
 
 
     }
 
     void FixedUpdate()
     {
+        //
+        //Detect headset gazing to ROIs
+        //
+
         //get forward vector of headset
         Vector3 fwd = headset_cam.TransformDirection(Vector3.forward);
         RaycastHit hitInfo;
@@ -98,9 +125,6 @@ public class VRPlayerCore : MonoBehaviour
 
         if (Physics.Raycast(ray, out hitInfo))
         {
-            //print("There is something in front of the object!");
-
-
             //draw debug collision ray
             Debug.DrawLine(ray.origin, hitInfo.point, Color.yellow);
             target_anchor.SetActive(true);
@@ -108,7 +132,7 @@ public class VRPlayerCore : MonoBehaviour
             // Debug.Log(hitInfo.collider.GetComponent<RegionOfInterestMesh>().ToString());
 
 
-
+            //which type of roi was hit
             switch (hitInfo.collider.GetComponent<RegionOfInterestMesh>().roi.flag)
             {
                 case RegionOfInterestFlag.Active:
@@ -121,12 +145,8 @@ public class VRPlayerCore : MonoBehaviour
                     break;
             }
 
-
-
             //sort roi list
             SortROI();
-
-
 
         }
         else
@@ -144,7 +164,7 @@ public class VRPlayerCore : MonoBehaviour
         current_node.currentShotNode.Passive_ROIList.Sort((x, y) => -1 * x.score.CompareTo(y.score));
         foreach (RegionOfInterest roi in current_node.currentShotNode.Passive_ROIList)
         {
-            Debug.Log("##"+roi.mesh_object);
+            Debug.Log("##" + roi.mesh_object);
             roi.mesh_object.transform.parent = null;
             roi.mesh_object.transform.parent = ROI_group.transform.FindChild("PassiveROIGroup");
 
@@ -219,13 +239,13 @@ public class VRPlayerCore : MonoBehaviour
                 mp.Control.Play();
                 break;
             case MediaPlayerEvent.EventType.FirstFrameReady:
-                Debug.Log("VR Video:"+mp.name+" First frame ready");
+                Debug.Log("VR Video:" + mp.name + " First frame ready");
                 break;
             case MediaPlayerEvent.EventType.FinishedPlaying:
                 current_node.update_status = Babel.System.Data.SceneNode.NodeStatus.end;
                 break;
         }
-    
+
     }
 
     //set video
@@ -235,7 +255,7 @@ public class VRPlayerCore : MonoBehaviour
 
         //set player 
         mesh_content.Player = VideoList.GetChild(videolist_index).GetComponent<MediaPlayer>();
-    
+
 
         //set current shot node in current scene node
         current_node.currentShotNode = current_node.shot_list[videolist_index];
@@ -244,7 +264,7 @@ public class VRPlayerCore : MonoBehaviour
         current_node.loadROI();
 
         //set camera angle
-        Debug.Log("Set Initial Angle:"+ current_node.currentShotNode.camera_orientation.getUnityVector3());
+        Debug.Log("Set Initial Angle:" + current_node.currentShotNode.camera_orientation.getUnityVector3());
         headset_base.rotation = current_node.currentShotNode.camera_orientation.getUnityRotationQuaternion();
 
 
@@ -296,4 +316,15 @@ public class VRPlayerCore : MonoBehaviour
         }
     }
 
+
+    public void setROIVisibility(bool visible)
+    {
+
+        //set all ROIs' visibility that exist within the list
+        for (int i = 0; i < ROI_group.transform.GetChild(0).childCount; i++)
+        {
+            ROI_group.transform.GetChild(0).GetChild(i).GetComponent<Renderer>().enabled = visible;
+
+        }
+    }
 }
