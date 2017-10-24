@@ -7,12 +7,14 @@ using UnityEngine;
 public class RegionOfInterestMesh : MonoBehaviour
 {
 
+    //
+    //Vector3[] vertics_unity;
+    //Vector2[] uv;
+    //int[] newTriangles;
 
-    Vector3[] vertics_unity;
     public Mesh mesh;
     public Material material;
-    Vector2[] uv;
-    int[] newTriangles;
+
     public RegionOfInterest roi;
     public int Interest_Score;
 
@@ -42,11 +44,11 @@ public class RegionOfInterestMesh : MonoBehaviour
     void Update()
     {
 
-        if (mesh != null)
-        {
-            // will make the mesh appear in the scene at origin position
-            Graphics.DrawMesh(mesh, this.transform.position, this.transform.rotation, material, 0);
-        }
+        //if (mesh != null)
+        //{
+        //    // will make the mesh appear in the scene at origin position
+        //    Graphics.DrawMesh(mesh, this.transform.position, this.transform.rotation, material, 0);
+        //}
 
         transform.LookAt(GameObject.Find("Camera (eye)").transform);
 
@@ -85,7 +87,10 @@ public class RegionOfInterestMesh : MonoBehaviour
 
         //set up mesh and colider on object
         GetComponent<MeshFilter>().mesh = mesh;
+        GetComponent<Renderer>().enabled = true;
         GetComponent<MeshCollider>().sharedMesh = mesh;
+
+
 
 
 
@@ -167,7 +172,7 @@ public class RegionOfInterestMesh : MonoBehaviour
         Vector3 direction_vector = p1 - p0;
 
         //update position of this ROI
-        Debug.Log((float)core.current_node.current_frame / core.current_node.total_frames);
+        //Debug.Log((float)core.current_node.current_frame / core.current_node.total_frames);
         this.transform.position = p0 + (direction_vector * ((float)core.current_node.current_frame / target_keyframe.time_code));
 
         //if current frame reach target time_code, jump to next key frame

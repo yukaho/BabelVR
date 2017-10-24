@@ -39,6 +39,8 @@ namespace Babel.System.Data
 
 
         //ignore attribute
+        [JsonPropertyIgnore]
+        public string video_filename;
 
         public ShotNode()
         {
@@ -90,6 +92,18 @@ namespace Babel.System.Data
                 created_mesh.name = "P_ROI_#" + RegionOfInterest.passive_roi_count.ToString("D3");
                 RegionOfInterest.passive_roi_count++;
             }
+        }
+
+        public string getShotVideoFileName()
+        {
+            if (video_filename == null)
+            {
+             
+                string[] split = movie_dir.Split('/');
+                video_filename = split[split.Length - 1];
+            }
+
+            return video_filename;
         }
     }
 }
