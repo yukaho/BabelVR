@@ -17,6 +17,11 @@ public class RegionOfInterestAnimationData
     [JsonPropertyAttribute]
     public SimpleVector3 position;
 
+    //Scale
+    [JsonPropertyAttribute]
+    public SimpleVector3 scale;
 
+    //rotation
+    public SimpleVector3 rotation;
 }
 

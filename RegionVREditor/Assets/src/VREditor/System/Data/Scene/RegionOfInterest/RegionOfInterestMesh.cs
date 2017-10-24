@@ -21,24 +21,36 @@ public class RegionOfInterestMesh : MonoBehaviour
     VRPlayerCore core;
     ApplyToMesh mesh_content;
 
+    //camera
+    [SerializeField]
+    private Camera eye_cam;
 
 
     [Header("Animation Data")]
     public int total_keyframe_length;
     public string from_keyframe_index;
     public string to_keyframe_index;
-    public int current_frame;
-    public int total_frames;
+    private int current_frame;
+    private int target_frame;
+    private int total_frames;
     RegionOfInterestAnimationData current_keyframe;
     RegionOfInterestAnimationData target_keyframe;
+
+
+    public Transform look_at_transform;
+    public float x;
+    public float y;
 
     // Use this for initialization
     void Start()
     {
         core = GameObject.Find("VRPlayerSystem").GetComponent<VRPlayerCore>();
         mesh_content = core.mesh_content;
+        eye_cam = GameObject.Find("Camera (eye)").GetComponent<Camera>();
 
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -50,13 +62,46 @@ public class RegionOfInterestMesh : MonoBehaviour
         //    Graphics.DrawMesh(mesh, this.transform.position, this.transform.rotation, material, 0);
         //}
 
-        transform.LookAt(GameObject.Find("Camera (eye)").transform);
 
+        //keep the mesh facing to camera
+        this.transform.LookAt(eye_cam.transform);
+        lookAt(eye_cam.transform);
+
+        //update interest scoring
         Interest_Score = roi.score;
 
+        //update position,scale and rotation from keyframes
+        //return if the player is not playing
+        if (!core.current_node.currentShotNode.isReadyToPlay)
+            return;
 
-        //update key frame positiion
-        updateKeyframePosition();
+        //update keyframe
+        if (!updateKeyframe())
+            return;
+
+        //update positiion from key frame
+        updatePosition();
+
+        //update scale frome key frame
+        updateScale();
+
+        //update rotation frome key frame
+        updateRotation();
+
+
+
+
+    }
+
+    public void lookAt(Transform t)
+    {
+        Vector3 dir = t.position - this.transform.position;
+
+        float r = Vector3.Distance(this.transform.position, t.position);
+        y = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg;
+        x = Mathf.Atan2(dir.z, dir.y) * Mathf.Rad2Deg;
+
+
 
     }
 
@@ -135,15 +180,8 @@ public class RegionOfInterestMesh : MonoBehaviour
         //mesh.name = "Generated Mesh";
     }
 
-    public void updateKeyframePosition()
+    private bool updateKeyframe()
     {
-        //return if the player is not playing
-        if (!core.current_node.currentShotNode.isReadyToPlay)
-            return;
-
-        //Link current frame of video
-        current_frame = core.current_node.current_frame;
-
         //Link totatl frames of video
         total_frames = core.current_node.total_frames;
 
@@ -151,29 +189,25 @@ public class RegionOfInterestMesh : MonoBehaviour
         total_keyframe_length = roi.animation_data.Length;
 
         //Link current & next index index of key frame
-        from_keyframe_index = roi.animation_keyframe_current_index+"";
-        to_keyframe_index = roi.animation_keyframe_current_index+1+"";
+        from_keyframe_index = roi.animation_keyframe_current_index + "";
+        to_keyframe_index = roi.animation_keyframe_current_index + 1 + "";
 
         //End key frame, stop update
         if (roi.animation_keyframe_current_index >= roi.animation_data.Length - 1)
         {
             to_keyframe_index = "End of KeyFrame";
-            return;
+            return false;
         }
-            
-     
+
         ////update keyframe
         current_keyframe = roi.animation_data[roi.animation_keyframe_current_index];
-        target_keyframe = roi.animation_data[roi.animation_keyframe_current_index+1];
+        target_keyframe = roi.animation_data[roi.animation_keyframe_current_index + 1];
 
-        //calculate direction vector
-        Vector3 p0 = current_keyframe.position.getUnityVector3();
-        Vector3 p1 = target_keyframe.position.getUnityVector3();
-        Vector3 direction_vector = p1 - p0;
+        //Link current frame of video
+        current_frame = core.current_node.current_frame;
 
-        //update position of this ROI
-        //Debug.Log((float)core.current_node.current_frame / core.current_node.total_frames);
-        this.transform.position = p0 + (direction_vector * ((float)core.current_node.current_frame / target_keyframe.time_code));
+        //Link frame of next keyframe
+        target_frame = target_keyframe.time_code;
 
         //if current frame reach target time_code, jump to next key frame
         if (target_keyframe.time_code == current_frame)
@@ -181,5 +215,67 @@ public class RegionOfInterestMesh : MonoBehaviour
             roi.animation_keyframe_current_index++;
         }
 
+        return true;
+
     }
+
+    private void updatePosition()
+    {
+
+        //create incremental vector
+        Vector3 incremental_vector;
+
+        Vector3 test = current_keyframe.position.getUnityVector3();
+
+        //calculate incremental vector
+        calLinearVector(current_keyframe.position.getUnityVector3(),
+            target_keyframe.position.getUnityVector3(), current_frame,
+            target_keyframe.time_code, out incremental_vector);
+
+        //update position of this ROI
+        this.transform.position = current_keyframe.position.getUnityVector3() + incremental_vector;
+
+
+
+    }
+
+    private void updateScale()
+    {
+        //create incremental vector
+        Vector3 incremental_vector;
+
+        //calculate incremental vector
+        calLinearVector(current_keyframe.scale.getUnityVector3(),
+            target_keyframe.scale.getUnityVector3(),
+            current_frame,
+            target_keyframe.time_code, out incremental_vector);
+
+        //update position of this ROI
+        this.transform.localScale = current_keyframe.scale.getUnityVector3() + incremental_vector;
+    }
+
+    private void updateRotation()
+    {
+
+        return;
+        //create incremental vector
+        Vector3 incremental_vector;
+
+        //calculate incremental vector
+        calLinearVector(current_keyframe.rotation.getUnityVector3(),
+            target_keyframe.rotation.getUnityVector3(),
+            current_frame,
+            target_keyframe.time_code, out incremental_vector);
+
+        //update position of this ROI
+        this.transform.rotation = Quaternion.Euler(current_keyframe.scale.getUnityVector3() + incremental_vector);
+
+    }
+    public void calLinearVector(Vector3 p0, Vector3 p1, int current_frame, int target_frame, out Vector3 calculated_vector)
+    {
+        calculated_vector = new Vector3();
+        Vector3 direction_vector = p1 - p0;
+        calculated_vector = direction_vector * ((float)current_frame / target_frame);
+    }
+
 }
