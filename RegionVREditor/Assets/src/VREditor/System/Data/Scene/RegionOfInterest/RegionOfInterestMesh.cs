@@ -64,11 +64,13 @@ public class RegionOfInterestMesh : MonoBehaviour
 
 
         //keep the mesh facing to camera
-        this.transform.LookAt(eye_cam.transform);
+       
         lookAt(eye_cam.transform);
 
         //update interest scoring
         Interest_Score = roi.score;
+
+      
 
         //update position,scale and rotation from keyframes
         //return if the player is not playing
@@ -92,15 +94,13 @@ public class RegionOfInterestMesh : MonoBehaviour
 
 
     }
-
+   
     public void lookAt(Transform t)
     {
-        Vector3 dir = t.position - this.transform.position;
 
-        float r = Vector3.Distance(this.transform.position, t.position);
-        y = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg;
-        x = Mathf.Atan2(dir.z, dir.y) * Mathf.Rad2Deg;
+       
 
+       
 
 
     }
@@ -251,13 +251,21 @@ public class RegionOfInterestMesh : MonoBehaviour
             target_keyframe.time_code, out incremental_vector);
 
         //update position of this ROI
-        this.transform.localScale = current_keyframe.scale.getUnityVector3() + incremental_vector;
+        Vector3 new_scale = current_keyframe.scale.getUnityVector3() + incremental_vector;
+
+        //prevent non-centre pivot case
+        new_scale.z = 0;
+
+        //assign new scale
+        this.transform.localScale = new_scale;
     }
 
+
+   
     private void updateRotation()
     {
 
-        return;
+        
         //create incremental vector
         Vector3 incremental_vector;
 
@@ -268,7 +276,16 @@ public class RegionOfInterestMesh : MonoBehaviour
             target_keyframe.time_code, out incremental_vector);
 
         //update position of this ROI
-        this.transform.rotation = Quaternion.Euler(current_keyframe.scale.getUnityVector3() + incremental_vector);
+        // this.transform.rotation = Quaternion.Euler(current_keyframe.scale.getUnityVector3() + incremental_vector);
+
+        float new_rotation_z = (current_keyframe.scale.getUnityVector3() + incremental_vector).z;
+
+        this.transform.LookAt(eye_cam.transform);
+        this.transform.Rotate(Vector3.forward, incremental_vector.z);
+
+
+
+        
 
     }
     public void calLinearVector(Vector3 p0, Vector3 p1, int current_frame, int target_frame, out Vector3 calculated_vector)
