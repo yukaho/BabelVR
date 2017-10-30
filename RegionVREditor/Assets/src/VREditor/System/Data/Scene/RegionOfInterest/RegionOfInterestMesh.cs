@@ -44,9 +44,7 @@ public class RegionOfInterestMesh : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        core = GameObject.Find("VRPlayerSystem").GetComponent<VRPlayerCore>();
-        mesh_content = core.mesh_content;
-        eye_cam = GameObject.Find("Camera (eye)").GetComponent<Camera>();
+
 
     }
 
@@ -64,43 +62,36 @@ public class RegionOfInterestMesh : MonoBehaviour
 
 
         //keep the mesh facing to camera
-       
+
         lookAt(eye_cam.transform);
 
         //update interest scoring
         Interest_Score = roi.score;
 
-      
 
-        //update position,scale and rotation from keyframes
         //return if the player is not playing
         if (!core.current_node.currentShotNode.isReadyToPlay)
             return;
 
         //update keyframe
-        if (!updateKeyframe())
-            return;
+        updateKeyframe();
 
-        //update positiion from key frame
-        updatePosition();
+        //update position,rotation & scale tranformation from keyframes
+        updateTransform();
 
-        //update scale frome key frame
-        updateScale();
 
-        //update rotation frome key frame
-        updateRotation();
 
 
 
 
     }
-   
+
     public void lookAt(Transform t)
     {
 
-       
+        this.transform.LookAt(eye_cam.transform);
 
-       
+
 
 
     }
@@ -117,6 +108,11 @@ public class RegionOfInterestMesh : MonoBehaviour
         this.transform.rotation = Quaternion.Euler(roi.rotation.getUnityVector3());
 
 
+        core = GameObject.Find("VRPlayerSystem").GetComponent<VRPlayerCore>();
+        mesh_content = core.mesh_content;
+        eye_cam = GameObject.Find("Camera (eye)").GetComponent<Camera>();
+
+
 
         //create mesh by detection shape type
         switch (roi.roi_detection_shape)
@@ -129,16 +125,22 @@ public class RegionOfInterestMesh : MonoBehaviour
                 break;
         }
 
+        //assign material based on type
+        switch (roi.flag)
+        {
+            case RegionOfInterestFlag.Active:
+                material = Resources.Load<Material>("Materials/ROI_Active");
+                break;
+            case RegionOfInterestFlag.Passive:
+                material = Resources.Load<Material>("Materials/ROI_Passive");
+                break;
+        }
 
         //set up mesh and colider on object
         GetComponent<MeshFilter>().mesh = mesh;
+        GetComponent<MeshRenderer>().material = material;
         GetComponent<Renderer>().enabled = true;
         GetComponent<MeshCollider>().sharedMesh = mesh;
-
-
-
-
-
         return;
 
 
@@ -182,6 +184,9 @@ public class RegionOfInterestMesh : MonoBehaviour
 
     private bool updateKeyframe()
     {
+        if (roi.animation_data.Length <= 0)
+            return false;
+
         //Link totatl frames of video
         total_frames = core.current_node.total_frames;
 
@@ -190,18 +195,13 @@ public class RegionOfInterestMesh : MonoBehaviour
 
         //Link current & next index index of key frame
         from_keyframe_index = roi.animation_keyframe_current_index + "";
-        to_keyframe_index = roi.animation_keyframe_current_index + 1 + "";
+        to_keyframe_index = roi.animation_keyframe_next_index + "";
 
-        //End key frame, stop update
-        if (roi.animation_keyframe_current_index >= roi.animation_data.Length - 1)
-        {
-            to_keyframe_index = "End of KeyFrame";
-            return false;
-        }
-
-        ////update keyframe
+        //set current keyframe
         current_keyframe = roi.animation_data[roi.animation_keyframe_current_index];
-        target_keyframe = roi.animation_data[roi.animation_keyframe_current_index + 1];
+
+        //set target keyframe
+        target_keyframe = roi.animation_data[roi.animation_keyframe_next_index];
 
         //Link current frame of video
         current_frame = core.current_node.current_frame;
@@ -209,14 +209,44 @@ public class RegionOfInterestMesh : MonoBehaviour
         //Link frame of next keyframe
         target_frame = target_keyframe.time_code;
 
+
+
         //if current frame reach target time_code, jump to next key frame
-        if (target_keyframe.time_code == current_frame)
+        if (current_frame == target_frame)
         {
-            roi.animation_keyframe_current_index++;
+            ////update keyframe
+            roi.animation_keyframe_current_index = roi.animation_keyframe_next_index;
+            roi.animation_keyframe_next_index++;
+
+            //End key frame, stop update
+            if (roi.animation_keyframe_next_index >= roi.animation_data.Length)
+            {
+                to_keyframe_index = "End of KeyFrame";
+                roi.animation_keyframe_next_index = roi.animation_keyframe_current_index;
+            }
         }
+
 
         return true;
 
+    }
+
+
+    private void updateTransform()
+    {
+        if (current_keyframe == null || target_keyframe == null)
+            return;
+
+        Debug.Log("UPDATING TRANSFORM");
+
+        //update positiion from key frame
+        updatePosition();
+
+        //update scale frome key frame
+        updateScale();
+
+        //update rotation frome key frame
+        updateRotation();
     }
 
     private void updatePosition()
@@ -238,7 +268,6 @@ public class RegionOfInterestMesh : MonoBehaviour
 
 
     }
-
     private void updateScale()
     {
         //create incremental vector
@@ -254,18 +283,16 @@ public class RegionOfInterestMesh : MonoBehaviour
         Vector3 new_scale = current_keyframe.scale.getUnityVector3() + incremental_vector;
 
         //prevent non-centre pivot case
-        new_scale.z = 0;
+        new_scale.z = 1;
 
         //assign new scale
         this.transform.localScale = new_scale;
+        //this.GetComponent<MeshCollider>().transform.localScale = this.transform.localScale;
     }
-
-
-   
     private void updateRotation()
     {
 
-        
+
         //create incremental vector
         Vector3 incremental_vector;
 
@@ -280,12 +307,12 @@ public class RegionOfInterestMesh : MonoBehaviour
 
         float new_rotation_z = (current_keyframe.scale.getUnityVector3() + incremental_vector).z;
 
-        this.transform.LookAt(eye_cam.transform);
+
         this.transform.Rotate(Vector3.forward, incremental_vector.z);
+        this.GetComponent<MeshCollider>().transform.rotation = this.transform.rotation;
 
 
 
-        
 
     }
     public void calLinearVector(Vector3 p0, Vector3 p1, int current_frame, int target_frame, out Vector3 calculated_vector)

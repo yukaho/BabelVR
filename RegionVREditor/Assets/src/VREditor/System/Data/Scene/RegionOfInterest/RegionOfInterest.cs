@@ -12,7 +12,7 @@ namespace Babel.System.Data
     public class RegionOfInterest
     {
 
-      
+
         public enum ROI_Shape { RECTANGLE, CIRCLE }
 
 
@@ -30,11 +30,6 @@ namespace Babel.System.Data
 
         [JsonPropertyAttribute]
         public RegionOfInterestAnimationData[] animation_data;
-        //[JsonPropertyAttribute]
-        //public SimpleVector3[] vertics;
-
-        //[JsonPropertyAttribute]
-        //public SceneAction action;
 
         [JsonPropertyAttribute]
         [JsonConverter(typeof(StringEnumConverter))]
@@ -66,6 +61,7 @@ namespace Babel.System.Data
 
         //current keyframe
         public int animation_keyframe_current_index = 0;
+        public int animation_keyframe_next_index = 0;
         public RegionOfInterestAnimationData animation_current_keyframe;
 
         //interest scoring
@@ -117,7 +113,26 @@ namespace Babel.System.Data
             new_mesh = GameObject.Instantiate(new_mesh);
             new_mesh.GetComponent<RegionOfInterestMesh>().initializeMesh(this);
             this.mesh_object = new_mesh;
-            //new_mesh.transform.rotation =Quaternion.EulerAngles(this.rotation.getUnityVector3());
+
+            //update current frame index based current frame        
+            int find_index = -1;
+            for (int i = 0; i < animation_data.Length; i++)
+            {
+                if (core.current_node.current_frame >= animation_data[i].time_code)
+                {
+                    find_index++;
+                }
+            }
+            animation_keyframe_current_index = find_index;
+
+            if (animation_keyframe_current_index + 1 < animation_data.Length)
+            {
+                animation_keyframe_next_index = animation_keyframe_current_index + 1;
+            }
+            else
+            {
+                animation_keyframe_next_index = animation_keyframe_current_index;
+            }
 
 
             return new_mesh;
@@ -134,7 +149,7 @@ namespace Babel.System.Data
         public override string ToString()
         {
 
- 
+
 
             return this.roi_detection_shape.ToString();
             //return vertics[0] + "," +

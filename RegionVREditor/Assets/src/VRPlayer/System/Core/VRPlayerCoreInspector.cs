@@ -20,8 +20,13 @@ public class VRPlayerCoreInspector : Editor
     bool internal_attribute = false;
 
 
-    //Serialize
+    //Serialized properties
     SerializedProperty currentNode_info;
+
+
+    SerializedProperty currentNode_lastSeenROI_info;
+    SerializedProperty currentNode_firstSeenROI_info;
+
     public void OnEnable()
     {
         //get reference of core script
@@ -30,24 +35,26 @@ public class VRPlayerCoreInspector : Editor
         //find properties from vr player core
         currentNode_info = serializedObject.FindProperty("currentNode_info");
 
-
+        //ROI Properties
+        currentNode_lastSeenROI_info = serializedObject.FindProperty("currentNode_info_lastSeen_roi");
+        currentNode_firstSeenROI_info = serializedObject.FindProperty("currentNode_info_firstSeen_roi");
     }
 
-    
-  
+
+
 
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
 
-        //show ROI Settings
-        GUIROISettings();
-
         //show scene node
         GUISceneNode();
 
-        //show video in current node
-        GUIVideo();
+        //show ROI Settings
+        GUIROISettings();
+
+        //show ROI Info
+        GUIROI();
 
         //show Internal Attribute GUI
         GUIInternalAttribute();
@@ -69,6 +76,33 @@ public class VRPlayerCoreInspector : Editor
         ROI_visbility_toggle = EditorGUILayout.Toggle("ROI Visibility", ROI_visbility_toggle);
         core.setROIVisibility(ROI_visbility_toggle);
 
+    }
+
+    public void GUIROI()
+    {
+        if (!Application.isPlaying)
+            return;
+
+
+        EditorGUILayout.LabelField("Passive ROIs Information", EditorStyles.boldLabel);
+
+        //create text bg
+        Texture2D bg = new Texture2D(100, 15);
+        FillTextureColor(bg, new Color(0.0f, 0.0f, 0.0f));
+
+        //set new style for node
+        GUIStyle roi_display = new GUIStyle();
+        //set text color
+        roi_display.normal.textColor = new Color(0, 0.8f, 0);
+        roi_display.normal.background = bg;
+        roi_display.fontStyle = FontStyle.Bold;
+
+        //show label
+        GUIContent content = new GUIContent(
+            "Last Seen ROI: " + currentNode_lastSeenROI_info.stringValue + "\n" +
+            "First Seen ROI: " + currentNode_firstSeenROI_info.stringValue + "\n"
+           );
+        EditorGUILayout.LabelField(content, roi_display, GUILayout.Height(roi_display.CalcHeight(content, EditorGUIUtility.fieldWidth)));
     }
     public void GUISceneNode()
     {
@@ -150,13 +184,9 @@ public class VRPlayerCoreInspector : Editor
 
     }
 
-    public void GUIVideo()
-    {
-        foreach (Transform v in core.VideoList)
-        {
 
-        }
-    }
+
+
     public void FillTextureColor(Texture2D t, Color color)
     {
         //get pixels

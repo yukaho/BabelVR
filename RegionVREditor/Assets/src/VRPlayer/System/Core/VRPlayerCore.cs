@@ -46,6 +46,7 @@ public class VRPlayerCore : MonoBehaviour
     [Header("Information Collector")]
     //Collecting Info
     public GameObject LastSeenROI;
+    public GameObject FirstSeenROI;
 
     //
     //AVPro Video Player
@@ -60,7 +61,10 @@ public class VRPlayerCore : MonoBehaviour
     private string currentNode_info="Empty";
 
     [SerializeField]
-    private string lastseen_roi = "Empty";
+    private string currentNode_info_lastSeen_roi = "Empty";
+
+    [SerializeField]
+    private string currentNode_info_firstSeen_roi = "Empty";
 
     void Start()
     {
@@ -126,10 +130,10 @@ public class VRPlayerCore : MonoBehaviour
         if (Physics.Raycast(ray, out hitInfo))
         {
             //draw debug collision ray
-            Debug.DrawLine(ray.origin, hitInfo.point, Color.yellow);
+            Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
             target_anchor.SetActive(true);
             target_anchor.transform.position = hitInfo.point;
-            // Debug.Log(hitInfo.collider.GetComponent<RegionOfInterestMesh>().ToString());
+             Debug.Log("HIT: "+hitInfo.collider.GetComponent<RegionOfInterestMesh>().ToString());
 
 
             //which type of roi was hit
@@ -141,7 +145,14 @@ public class VRPlayerCore : MonoBehaviour
                     break;
                 case RegionOfInterestFlag.Passive:
                     LastSeenROI = hitInfo.collider.gameObject;
+                    currentNode_info_lastSeen_roi = LastSeenROI.name;
                     hitInfo.collider.GetComponent<RegionOfInterestMesh>().roi.addScore(1);
+
+                    if (FirstSeenROI == null)
+                    {
+                        FirstSeenROI = LastSeenROI;
+                        currentNode_info_firstSeen_roi = FirstSeenROI.name;
+                    }
                     break;
             }
 
@@ -292,7 +303,7 @@ public class VRPlayerCore : MonoBehaviour
     //trigger ROI
     public void triggerROI(RegionOfInterest roi)
     {
-
+        Debug.Log("TRRRRRRRRWAEWQAEQE");
         //reference link
         int content_type;
         int content_index;

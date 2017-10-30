@@ -72,11 +72,14 @@ namespace Babel.System.Data
             Transform group = GameObject.Find("RegionOfInterestGroup").transform;
 
 
+            Transform active_rois = group.FindChild("ActiveROIGroup");
+            Transform passive_rois = group.FindChild("PassiveROIGroup");
+
             //load active ROI from current shot node
             foreach (RegionOfInterest roi in Active_ROIList)
             {
                 GameObject created_mesh = roi.createMesh();
-                created_mesh.transform.parent = group.FindChild("ActiveROIGroup");
+                created_mesh.transform.parent = active_rois;
                 created_mesh.GetComponent<RegionOfInterestMesh>().roi.flag = RegionOfInterestFlag.Active;
                 created_mesh.name = "A_ROI_#" + RegionOfInterest.active_roi_count.ToString("D3");
                 RegionOfInterest.active_roi_count++;
@@ -87,7 +90,7 @@ namespace Babel.System.Data
             foreach (RegionOfInterest roi in Passive_ROIList)
             {
                 GameObject created_mesh = roi.createMesh();
-                created_mesh.transform.parent = group.FindChild("PassiveROIGroup");
+                created_mesh.transform.parent = passive_rois;
                 created_mesh.GetComponent<RegionOfInterestMesh>().roi.flag = RegionOfInterestFlag.Passive;
                 created_mesh.name = "P_ROI_#" + RegionOfInterest.passive_roi_count.ToString("D3");
                 RegionOfInterest.passive_roi_count++;
