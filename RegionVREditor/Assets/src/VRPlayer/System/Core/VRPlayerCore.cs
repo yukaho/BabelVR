@@ -18,7 +18,7 @@ public class VRPlayerCore : MonoBehaviour
 
 
     //Node List
-    List<SceneNode> NodeList;
+    public List<SceneNode> SceneNodeList;
     public SceneNode current_node;
 
     [Header("ROI")]
@@ -35,7 +35,7 @@ public class VRPlayerCore : MonoBehaviour
     //locator for collision experiment
     public GameObject target_anchor;
 
- 
+
     //Display Information Debug Only
     [HideInInspector]
     public string SceneNode;
@@ -57,8 +57,14 @@ public class VRPlayerCore : MonoBehaviour
     public ApplyToMesh mesh_content;
 
 
+
+    /// <summary>
+    /// Inspector Data 
+    /// </summary>
+
+
     [SerializeField]
-    private string currentNode_info="Empty";
+    private string currentNode_info = "Empty";
 
     [SerializeField]
     private string currentNode_info_lastSeen_roi = "Empty";
@@ -66,13 +72,22 @@ public class VRPlayerCore : MonoBehaviour
     [SerializeField]
     private string currentNode_info_firstSeen_roi = "Empty";
 
+    [SerializeField]
+    private string currentNode_info_roi_score_list = "Empty";
+
+    [SerializeField]
+    private int currentNode_currentframes = 0;
+
+    [SerializeField]
+    private string currentNode_endAction = "Empty";
+
     void Start()
     {
 
 
 
         //create new scene node
-        NodeList = new List<SceneNode>();
+        SceneNodeList = new List<SceneNode>();
 
         Debug.Log("VR Player Ready.");
 
@@ -95,17 +110,34 @@ public class VRPlayerCore : MonoBehaviour
             SceneNodeStatus = current_node.update_status.ToString();
             SceneNode = current_node.s_name;
 
+            //#########
+            //update node info on inspector
+            //#########
 
 
+            //update node status
             currentNode_info = SceneNode + " - " + SceneNodeStatus;
 
-
+            //update relationship between show and scene node
             for (int s = 0; s < current_node.shot_list.Count; s++)
             {
                 if (current_node.currentShotNode == current_node.shot_list[s])
                     currentNode_info += "\n-> Shot#" + s + " - " + current_node.shot_list[s].getShotVideoFileName() + "*";
                 else
                     currentNode_info += "\n-> Shot#" + s + " - " + current_node.shot_list[s].getShotVideoFileName();
+            }
+
+            //update frames
+            currentNode_currentframes = current_node.current_frame;
+
+            //update 
+            if (current_node.end_actions.Count > 0)
+            {
+                currentNode_endAction = current_node.end_actions[0].action_flag.ToString();
+            }
+            else
+            {
+                currentNode_endAction = "Non-Defined";
             }
 
         }
@@ -133,7 +165,7 @@ public class VRPlayerCore : MonoBehaviour
             Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
             target_anchor.SetActive(true);
             target_anchor.transform.position = hitInfo.point;
-             Debug.Log("HIT: "+hitInfo.collider.GetComponent<RegionOfInterestMesh>().ToString());
+            Debug.Log("HIT: " + hitInfo.collider.GetComponent<RegionOfInterestMesh>().ToString());
 
 
             //which type of roi was hit
@@ -166,11 +198,19 @@ public class VRPlayerCore : MonoBehaviour
             target_anchor.SetActive(false);
         }
 
+
+
+        //refresh rois list in inspector view
+        getPassiveROIScoringList();
+
     }
 
 
     public void SortROI()
     {
+        if (current_node == null || current_node.currentShotNode == null)
+            return;
+
         //Sort only passive ROIs in current shot node
         current_node.currentShotNode.Passive_ROIList.Sort((x, y) => -1 * x.score.CompareTo(y.score));
         foreach (RegionOfInterest roi in current_node.currentShotNode.Passive_ROIList)
@@ -181,6 +221,7 @@ public class VRPlayerCore : MonoBehaviour
 
 
         }
+
 
     }
 
@@ -208,12 +249,12 @@ public class VRPlayerCore : MonoBehaviour
             //
             //clear data
             //
-            NodeList.Clear();
+            SceneNodeList.Clear();
 
 
             foreach (SceneNode sn in data.scene_nodes)
             {
-                NodeList.Add(sn);
+                SceneNodeList.Add(sn);
             }
 
 
@@ -294,7 +335,7 @@ public class VRPlayerCore : MonoBehaviour
             current_node.unloadContent();
         }
 
-        current_node = NodeList[index];
+        current_node = SceneNodeList[index];
 
 
     }
@@ -337,5 +378,21 @@ public class VRPlayerCore : MonoBehaviour
             ROI_group.transform.GetChild(0).GetChild(i).GetComponent<Renderer>().enabled = visible;
 
         }
+    }
+
+
+    public string getPassiveROIScoringList()
+    {
+        currentNode_info_roi_score_list = "----Passive ROIs Scoring List----\n";
+        if (current_node != null && current_node.currentShotNode != null)
+        {
+            for (int i = 0; i < current_node.currentShotNode.Passive_ROIList.Count; i++)
+            {
+                RegionOfInterest roi = current_node.currentShotNode.Passive_ROIList[i];
+                currentNode_info_roi_score_list += roi.mesh_object.gameObject.name + " - " +
+                   roi.score + "\n";
+            }
+        }
+        return currentNode_info_roi_score_list;
     }
 }

@@ -70,7 +70,9 @@ public class RegionOfInterestMesh : MonoBehaviour
 
 
         //return if the player is not playing
-        if (!core.current_node.currentShotNode.isReadyToPlay)
+        if (core.current_node==null||
+            core.current_node.currentShotNode==null||
+            !core.current_node.currentShotNode.isReadyToPlay)
             return;
 
         //update keyframe

@@ -16,8 +16,8 @@
       "running_actions": [],
       "end_actions": [
         {
-          "action_flag": "SwitchSceneRandom",
-          "parameters_list": [0]
+          "action_flag": "SwitchSceneMaxGazingTime",
+          "parameters_list": []
         }
       ],
       "graph_pos_x": -449.971863,
@@ -139,7 +139,7 @@
               "roi_detection_shape": "RECTANGLE",
               "flag": "Passive",
               "content_type": 0,
-              "scene_index": 1,
+              "scene_index": 2,
               "video_index": -1,
               "audio_index": -1,
               "position": {
@@ -256,7 +256,12 @@
     {
       "id": 1,
       "s_name": "Node_01",
-      "initailize_actions": [],
+      "initailize_actions": [
+        {
+          "action_flag": "SetVideo",
+          "parameters_list": [0]
+        }
+      ],
       "running_actions": [],
       "end_actions": [],
       "graph_pos_x": 65.52112,
@@ -264,7 +269,7 @@
       "shot_list": [
         {
           "shot_id": 2,
-          "movie_dir": "dir_path",
+          "movie_dir": "K:/Assignment_CityU/Research/Kaho/Git-Data/BabelVR/Data/import_data/s01_020.mp4",
           "camera_orientation": {
                 "x": 0.0,
                 "y": 0.0,
@@ -291,7 +296,12 @@
     {
       "id": 2,
       "s_name": "Node_02",
-      "initailize_actions": [],
+      "initailize_actions": [
+        {
+          "action_flag": "SetVideo",
+          "parameters_list": [0]
+        }
+      ],
       "running_actions": [],
       "end_actions": [],
       "graph_pos_x": 455.943726,
@@ -299,7 +309,7 @@
       "shot_list": [
         {
           "shot_id": 4,
-          "movie_dir": "dir_path",
+          "movie_dir": "K:/Assignment_CityU/Research/Kaho/Git-Data/BabelVR/Data/import_data/s01_030.mp4",
           "camera_orientation": {
                 "x": 0.0,
                 "y": 0.0,
@@ -310,7 +320,7 @@
         },
         {
           "shot_id": 5,
-          "movie_dir": "dir_path",
+          "movie_dir": "K:/Assignment_CityU/Research/Kaho/Git-Data/BabelVR/Data/import_data/s01_030.mp4",
           "camera_orientation": {
                 "x": 0.0,
                 "y": 0.0,

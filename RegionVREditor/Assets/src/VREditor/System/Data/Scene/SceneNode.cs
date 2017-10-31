@@ -61,10 +61,12 @@ namespace Babel.System.Data
 
         //current playing frame of video
         [JsonPropertyIgnore]
+        [SerializeField]
         public int current_frame;
 
         //totatl frame of video
         [JsonPropertyIgnore]
+        [SerializeField]
         public int total_frames;
 
 

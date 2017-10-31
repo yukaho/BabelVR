@@ -21,7 +21,7 @@ namespace Babel.System.Data
 
         public SceneAction()
         {
-            setParameters(0, new SimpleVector3(3,3,3));
+            setParameters(0, new SimpleVector3(3, 3, 3));
         }
 
         public void setParameters(params object[] in_parameters_list)
@@ -61,35 +61,51 @@ namespace Babel.System.Data
 
                     break;
                 case Flag.SwitchSceneDefault:
+                    Debug.Log("Switch Scene - Default");
                     scene_index = Convert.ToInt32(parameters_list[0]);
                     core.switchSceneNode(scene_index);
                     break;
                 case Flag.SwitchSceneMaxGazingTime:
-
+                    Debug.Log("Switch Scene - Max Gazing");
                     //get maximum gazing time ROI and switch to corresponding node
                     Ref_ROI = core.current_node.currentShotNode.Passive_ROIList[0];
                     core.triggerROI(Ref_ROI);
                     break;
                 case Flag.SwitchSceneMinGazingTime:
-
+                    Debug.Log("Switch Scene - Min Gazing");
                     //get mininal gazing time ROI and switch to corresponding node
                     Ref_ROI = core.current_node.currentShotNode.Passive_ROIList[core.current_node.currentShotNode.Passive_ROIList.Count - 1];
                     core.triggerROI(Ref_ROI);
                     break;
                 case Flag.SwitchSceneLastSeenRegion:
-
+                    Debug.Log("Switch Scene - Last Seen ROI");
                     //Get last seen ROI and switch to corresponding node
                     Ref_ROI = core.LastSeenROI.GetComponent<RegionOfInterestMesh>().roi;
                     core.triggerROI(Ref_ROI);
                     break;
                 case Flag.SwitchSceneFirstSeenRegion:
-
+                    Debug.Log("Switch Scene - First Seen ROI");
+                    //Get last seen ROI and switch to corresponding node
+                    Ref_ROI = core.FirstSeenROI.GetComponent<RegionOfInterestMesh>().roi;
+                    core.triggerROI(Ref_ROI);
                     break;
                 case Flag.SwitchSceneSeenAt:
+                    Debug.Log("Switch Scene - Seen At");
 
                     break;
                 case Flag.SwitchSceneRandom:
+                    int ran_index = UnityEngine.Random.Range(0, core.SceneNodeList.Count);
+                    SceneNode ref_node = core.SceneNodeList[ran_index];
 
+                    //get another node if same
+                    while (core.current_node == ref_node)
+                    {
+                        ran_index = UnityEngine.Random.Range(0, core.SceneNodeList.Count);
+                        ref_node = core.SceneNodeList[ran_index];
+                    }
+                    //pick scene node randomly 
+                    Debug.Log("Switch Scene - Random");
+                    core.switchSceneNode(ran_index);
                     break;
 
                 case Flag.TimeToScene:
@@ -102,13 +118,13 @@ namespace Babel.System.Data
             }
         }
 
-        public SceneAction(SceneAction.Flag f,params object[] obj)
+        public SceneAction(SceneAction.Flag f, params object[] obj)
         {
             this.action_flag = f;
 
             parameters_list = new object[obj.Length];
 
-           for (int i = 0; i < obj.Length; i++)
+            for (int i = 0; i < obj.Length; i++)
             {
                 parameters_list[i] = obj[i];
             }

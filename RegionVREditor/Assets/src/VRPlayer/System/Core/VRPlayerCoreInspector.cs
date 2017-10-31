@@ -26,7 +26,10 @@ public class VRPlayerCoreInspector : Editor
 
     SerializedProperty currentNode_lastSeenROI_info;
     SerializedProperty currentNode_firstSeenROI_info;
+    SerializedProperty currentNode_info_roi_score_list;
 
+    SerializedProperty currentNode_endAction;
+    SerializedProperty currentNode_currentframes;
     public void OnEnable()
     {
         //get reference of core script
@@ -38,6 +41,11 @@ public class VRPlayerCoreInspector : Editor
         //ROI Properties
         currentNode_lastSeenROI_info = serializedObject.FindProperty("currentNode_info_lastSeen_roi");
         currentNode_firstSeenROI_info = serializedObject.FindProperty("currentNode_info_firstSeen_roi");
+        currentNode_info_roi_score_list = serializedObject.FindProperty("currentNode_info_roi_score_list");
+
+        //current frames
+        currentNode_currentframes = serializedObject.FindProperty("currentNode_currentframes");
+        currentNode_endAction = serializedObject.FindProperty("currentNode_endAction");
     }
 
 
@@ -62,6 +70,7 @@ public class VRPlayerCoreInspector : Editor
     }
 
 
+    
 
     public void GUIROISettings()
     {
@@ -100,7 +109,8 @@ public class VRPlayerCoreInspector : Editor
         //show label
         GUIContent content = new GUIContent(
             "Last Seen ROI: " + currentNode_lastSeenROI_info.stringValue + "\n" +
-            "First Seen ROI: " + currentNode_firstSeenROI_info.stringValue + "\n"
+            "First Seen ROI: " + currentNode_firstSeenROI_info.stringValue + "\n"+ 
+            currentNode_info_roi_score_list.stringValue
            );
         EditorGUILayout.LabelField(content, roi_display, GUILayout.Height(roi_display.CalcHeight(content, EditorGUIUtility.fieldWidth)));
     }
@@ -109,12 +119,22 @@ public class VRPlayerCoreInspector : Editor
         if (!Application.isPlaying)
             return;
 
-        //Current Scene Monitior
-        EditorGUILayout.LabelField("Current Scene Node", EditorStyles.boldLabel);
-
         //create text bg
         Texture2D bg = new Texture2D(100, 15);
         FillTextureColor(bg, new Color(0.0f, 0.0f, 0.0f));
+
+        //Current Scene Monitior
+        EditorGUILayout.LabelField("Current Scene Node", EditorStyles.boldLabel);
+
+        GUIStyle end_action_style = new GUIStyle();
+        end_action_style.normal.textColor = new Color(0, 0.8f, 0);
+        end_action_style.normal.background = bg;
+
+        EditorGUILayout.LabelField("End Action : ", currentNode_endAction.stringValue, end_action_style);
+        //Movie Slider
+        EditorGUILayout.Slider(new GUIContent("Video Timecode(frames) :"),currentNode_currentframes.intValue, 0, core.current_node.total_frames);
+
+   
 
         //set new style for node
         GUIStyle node_custom = new GUIStyle();
