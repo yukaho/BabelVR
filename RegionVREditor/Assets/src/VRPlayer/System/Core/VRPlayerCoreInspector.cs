@@ -30,6 +30,11 @@ public class VRPlayerCoreInspector : Editor
 
     SerializedProperty currentNode_endAction;
     SerializedProperty currentNode_currentframes;
+
+
+    //create text bg
+    Texture2D bg;
+
     public void OnEnable()
     {
         //get reference of core script
@@ -46,6 +51,9 @@ public class VRPlayerCoreInspector : Editor
         //current frames
         currentNode_currentframes = serializedObject.FindProperty("currentNode_currentframes");
         currentNode_endAction = serializedObject.FindProperty("currentNode_endAction");
+
+        bg = new Texture2D(100, 15);
+        FillTextureColor(bg, new Color(0.0f, 0.0f, 0.0f));
     }
 
 
@@ -53,6 +61,7 @@ public class VRPlayerCoreInspector : Editor
 
     public override void OnInspectorGUI()
     {
+        //serialize object update data
         serializedObject.Update();
 
         //show scene node
@@ -95,9 +104,7 @@ public class VRPlayerCoreInspector : Editor
 
         EditorGUILayout.LabelField("Passive ROIs Information", EditorStyles.boldLabel);
 
-        //create text bg
-        Texture2D bg = new Texture2D(100, 15);
-        FillTextureColor(bg, new Color(0.0f, 0.0f, 0.0f));
+
 
         //set new style for node
         GUIStyle roi_display = new GUIStyle();
@@ -119,9 +126,7 @@ public class VRPlayerCoreInspector : Editor
         if (!Application.isPlaying)
             return;
 
-        //create text bg
-        Texture2D bg = new Texture2D(100, 15);
-        FillTextureColor(bg, new Color(0.0f, 0.0f, 0.0f));
+
 
         //Current Scene Monitior
         EditorGUILayout.LabelField("Current Scene Node", EditorStyles.boldLabel);

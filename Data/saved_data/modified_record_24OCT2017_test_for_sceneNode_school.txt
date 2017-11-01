@@ -1,0 +1,345 @@
+{
+  "savedTime": "2017-10-17T14:24:34.4856019+08:00",
+  "file_name": "modified_record_8",
+  "version": "0.1a",
+  "scene_nodes": [
+    {
+      "id": 0,
+      "s_name": "Node_00",
+      "initailize_actions": [
+        {
+          "action_flag": "SetVideo",
+          "parameters_list": [0]
+        }
+
+      ],
+      "running_actions": [],
+      "end_actions": [
+        {
+		//SwitchSceneDefault(int scene_index)
+		//SwitchSceneMaxGazingTime
+		//SwitchSceneMinGazingTime
+		//SwitchSceneLastSeenRegion
+		//SwitchSceneFirstSeenRegion
+		//SwitchSceneSeenAt(int frame_num)
+		//SwitchSceneRandom
+          "action_flag": "SwitchSceneLastSeenRegion",
+          "parameters_list": []
+        }
+      ],
+      "graph_pos_x": -449.971863,
+      "graph_pos_y": -56.2957764,
+      "shot_list": [
+        {
+          "shot_id": 0,
+          "movie_dir": "L:/GitHub/BabelVR/Data/import_data/Scenes/s01_010.mp4",
+          "camera_orientation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+          "Active_ROIList": [
+            {
+              "roi_name": "ROI#0",
+              "animation_data": [
+              {
+              "time_code": 0,
+              "position": {"x":0.0,"y":0.0,"z":0.0},
+              "scale": {"x":1.0,"y":1.0,"z":1.0},
+              "rotation": {"x":0.0,"y":0.0,"z":0.0}
+              },
+               {
+              "time_code": 120,
+              "position": {"x":2.0,"y":2.0,"z":2.0},
+              "scale": {"x":1.0,"y":1.0,"z":1.0},
+              "rotation": {"x":0.0,"y":0.0,"z":0.0}
+              }
+              ],
+              "roi_detection_shape": "CIRCLE",
+              "flag": "Active",
+              "content_type": 1,
+              "scene_index": -1,
+              "video_index": 1,
+              "audio_index": -1,
+              "position": {
+                "x": 3.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            },
+            {
+              "roi_name": "ROI#1",
+              "animation_data": [
+              {
+              "time_code": 0,
+              "position": {"x":-1.0,"y":-1.0,"z":-1.0},
+              "scale": {"x":1.0,"y":1.0,"z":1.0},
+              "rotation": {"x":0.0,"y":0.0,"z":0.0}
+              },
+			  {
+              "time_code": 220,
+              "position": {"x":-2.0,"y":-2.0,"z":-2.0},
+              "scale": {"x":1.0,"y":1.0,"z":1.0},
+              "rotation": {"x":0.0,"y":0.0,"z":0.0}
+              }
+              ],
+              "roi_detection_shape": "RECTANGLE",
+              "flag": "Active",
+              "content_type": 1,
+              "scene_index": -1,
+              "video_index": 2,
+              "audio_index": -1,
+              "position": {
+                "x": -3.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ],
+          "Passive_ROIList": [
+          {
+              "roi_name": "ROI#3",
+              "animation_data": [
+              {
+              "time_code": 0,
+              "position": {"x":-1.0,"y":-1.0,"z":-1.0},
+              "scale": {"x":1.0,"y":1.0,"z":1.0},
+              "rotation": {"x":0.0,"y":0.0,"z":0.0}
+              },
+        {
+              "time_code": 220,
+              "position": {"x":-3.0,"y":2.0,"z":0.0},
+              "scale": {"x":1,"y":1,"z":1},
+              "rotation": {"x":0.0,"y":0.0,"z":0.0}
+              }
+              ],
+              "roi_detection_shape": "RECTANGLE",
+              "flag": "Passive",
+              "content_type": 0,
+              "scene_index": 1,
+              "video_index": -1,
+              "audio_index": -1,
+              "position": {
+                "x": -3.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            },
+            {
+              "roi_name": "ROI#4",
+              "animation_data": [],
+              "roi_detection_shape": "RECTANGLE",
+              "flag": "Passive",
+              "content_type": 0,
+              "scene_index": 2,
+              "video_index": -1,
+              "audio_index": -1,
+              "position": {
+                "x": -3.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+
+            
+          ]
+        },
+         {
+          "shot_id": 1,
+          "movie_dir": "L:/GitHub/BabelVR/Data/import_data/Scenes/s01_020.mp4",
+          "camera_orientation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+          "Active_ROIList": [
+            {
+              "roi_name": "ROI#2",
+              "animation_data": [
+              {
+              "time_code": 0,
+              "position": {"x":0.0,"y":0.0,"z":0.0},
+              "scale": {"x":1.0,"y":1.0,"z":1.0},
+              "rotation": {"x":0.0,"y":0.0,"z":0.0}
+              },
+              {
+              "time_code": 240,
+              "position": {"x":-3.0,"y":-3.0,"z":-3.0},
+              "scale": {"x":1.0,"y":1.0,"z":1.0},
+              "rotation": {"x":0.0,"y":0.0,"z":0.0}
+              }
+              ],
+              "roi_detection_shape": "RECTANGLE",
+              "flag": "Active",
+              "content_type": 1,
+              "scene_index": -1,
+              "video_index": 0,
+              "audio_index": -1,
+              "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ],
+          "Passive_ROIList": []
+        },
+        {
+          "shot_id": 2,
+          "movie_dir": "L:/GitHub/BabelVR/Data/import_data/Scenes/s01_030.mp4",
+          "camera_orientation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+          "Active_ROIList": [
+            {
+              "roi_name": "ROI#3",
+              "animation_data": [
+              {
+              "time_code": 0,
+              "position": {"x":0.0,"y":0.0,"z":0.0},
+              "scale": {"x":1.0,"y":1.0,"z":1.0},
+              "rotation": {"x":0.0,"y":0.0,"z":0.0}
+              },
+              {
+              "time_code": 240,
+              "position": {"x":-3.0,"y":-3.0,"z":-3.0},
+              "scale": {"x":1.0,"y":1.0,"z":1.0},
+              "rotation": {"x":0.0,"y":0.0,"z":0.0}
+              }
+
+
+              ],
+              "roi_detection_shape": "RECTANGLE",
+              "flag": "Active",
+              "content_type": 1,
+              "scene_index": -1,
+              "video_index": 0,
+              "audio_index": -1,
+              "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 20.0
+              },
+              "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ],
+          "Passive_ROIList": []
+        }
+      ],
+      "update_status": 0,
+      "currentShotNode": null
+    },
+    {
+      "id": 1,
+      "s_name": "Node_01",
+      "initailize_actions": [
+        {
+          "action_flag": "SetVideo",
+          "parameters_list": [0]
+        }
+      ],
+      "running_actions": [],
+      "end_actions": [],
+      "graph_pos_x": 65.52112,
+      "graph_pos_y": -12.3521118,
+      "shot_list": [
+        {
+          "shot_id": 2,
+          "movie_dir": "L:/GitHub/BabelVR/Data/import_data/Scenes/s01_020.mp4",
+          "camera_orientation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+          "Active_ROIList": [],
+          "Passive_ROIList": []
+        },
+        {
+          "shot_id": 3,
+          "movie_dir": "dir_path",
+          "camera_orientation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+          "Active_ROIList": [],
+          "Passive_ROIList": []          
+        }
+      ],
+      "update_status": 0,
+      "currentShotNode": null
+    },
+    {
+      "id": 2,
+      "s_name": "Node_02",
+      "initailize_actions": [
+        {
+          "action_flag": "SetVideo",
+          "parameters_list": [0]
+        }
+      ],
+      "running_actions": [],
+      "end_actions": [],
+      "graph_pos_x": 455.943726,
+      "graph_pos_y": -36.0141,
+      "shot_list": [
+        {
+          "shot_id": 4,
+          "movie_dir": "L:/GitHub/BabelVR/Data/import_data/Scenes/s01_030.mp4",
+          "camera_orientation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+          "Active_ROIList": [],
+          "Passive_ROIList": []
+        },
+        {
+          "shot_id": 5,
+          "movie_dir": "L:/GitHub/BabelVR/Data/import_data/Scenes/s01_030.mp4",
+          "camera_orientation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+          "Active_ROIList": [],
+          "Passive_ROIList": [],
+          "update_status": 0,
+          "currentShotNode": null
+        }
+        ]
+      }
+    
+  ]
+}
