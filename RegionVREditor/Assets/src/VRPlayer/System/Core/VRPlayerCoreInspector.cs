@@ -36,10 +36,6 @@ public class VRPlayerCoreInspector : Editor
     SerializedProperty currentNode_currentframes;
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 04aa7f649886873af384a47fee13bac5faeea425
     //create text bg
     Texture2D bg;
 
@@ -118,10 +114,7 @@ public class VRPlayerCoreInspector : Editor
 
         EditorGUILayout.LabelField("Passive ROIs Information", EditorStyles.boldLabel);
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 04aa7f649886873af384a47fee13bac5faeea425
 
         //set new style for node
         GUIStyle roi_display = new GUIStyle();
