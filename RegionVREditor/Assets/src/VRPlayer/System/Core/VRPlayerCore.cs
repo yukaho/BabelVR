@@ -47,6 +47,8 @@ public class VRPlayerCore : MonoBehaviour
     //Collecting Info
     public GameObject LastSeenROI;
     public GameObject FirstSeenROI;
+    public GameObject CurrentGazingROI;
+    public List<GazingLog> GazingLog_List;
 
     //
     //AVPro Video Player
@@ -81,6 +83,9 @@ public class VRPlayerCore : MonoBehaviour
     [SerializeField]
     private string currentNode_endAction = "Empty";
 
+    [SerializeField]
+    private string currentNode_info_roi_log = "Empty";
+
     void Start()
     {
 
@@ -88,6 +93,9 @@ public class VRPlayerCore : MonoBehaviour
 
         //create new scene node
         SceneNodeList = new List<SceneNode>();
+
+        //creqte new log next
+        GazingLog_List = new List<GazingLog>();
 
         Debug.Log("VR Player Ready.");
 
@@ -176,9 +184,17 @@ public class VRPlayerCore : MonoBehaviour
                     triggerROI(hitInfo.collider.GetComponent<RegionOfInterestMesh>().roi);
                     break;
                 case RegionOfInterestFlag.Passive:
+                    if (CurrentGazingROI != null && !CurrentGazingROI.GetComponent<RegionOfInterestMesh>().Equals( hitInfo.collider.gameObject.GetComponent<RegionOfInterestMesh>()))
+                    {
+                        CurrentGazingROI.GetComponent<RegionOfInterestMesh>().OnExit();
+                    }
+
                     LastSeenROI = hitInfo.collider.gameObject;
+                    CurrentGazingROI= hitInfo.collider.gameObject; 
                     currentNode_info_lastSeen_roi = LastSeenROI.name;
                     hitInfo.collider.GetComponent<RegionOfInterestMesh>().roi.addScore(1);
+                    hitInfo.collider.GetComponent<RegionOfInterestMesh>().OnEntered();
+
 
                     if (FirstSeenROI == null)
                     {
@@ -194,7 +210,12 @@ public class VRPlayerCore : MonoBehaviour
         }
         else
         {
-            LastSeenROI = null;
+            if (CurrentGazingROI != null)
+            {
+                //gazing nothing
+                CurrentGazingROI.GetComponent<RegionOfInterestMesh>().OnExit();   
+            }
+            CurrentGazingROI = null;
             target_anchor.SetActive(false);
         }
 
@@ -367,8 +388,6 @@ public class VRPlayerCore : MonoBehaviour
                 break;
         }
     }
-
-
     public void setROIVisibility(bool visible)
     {
 
@@ -379,8 +398,6 @@ public class VRPlayerCore : MonoBehaviour
 
         }
     }
-
-
     public string getPassiveROIScoringList()
     {
         currentNode_info_roi_score_list = "----Passive ROIs Scoring List----\n";
@@ -395,4 +412,22 @@ public class VRPlayerCore : MonoBehaviour
         }
         return currentNode_info_roi_score_list;
     }
+
+
+    public void addGazingLog(RegionOfInterestMesh roi_mesh, GazingAction flag)
+    {
+        //add new log to the list
+        GazingLog_List.Add(new GazingLog(roi_mesh.roi, currentNode_currentframes, flag));
+
+
+        currentNode_info_roi_log = "";
+        int i = 0;
+        foreach (GazingLog log in GazingLog_List)
+        {
+            currentNode_info_roi_log += i++.ToString("D3")+". "+log + "\n";
+            
+        }
+    }
+
+
 }

@@ -16,8 +16,8 @@
       "running_actions": [],
       "end_actions": [
         {
-          "action_flag": "SwitchSceneMaxGazingTime",
-          "parameters_list": []
+          "action_flag": "SwitchSceneSeenAt",
+          "parameters_list": [110]
         }
       ],
       "graph_pos_x": -449.971863,

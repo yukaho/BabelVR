@@ -19,6 +19,9 @@ public class VRPlayerCoreInspector : Editor
     //toggle internal attribute
     bool internal_attribute = false;
 
+    //toggle gazing log
+    bool gazing_log = false;
+
 
     //Serialized properties
     SerializedProperty currentNode_info;
@@ -27,13 +30,24 @@ public class VRPlayerCoreInspector : Editor
     SerializedProperty currentNode_lastSeenROI_info;
     SerializedProperty currentNode_firstSeenROI_info;
     SerializedProperty currentNode_info_roi_score_list;
+    SerializedProperty currentNode_info_roi_log;
 
     SerializedProperty currentNode_endAction;
     SerializedProperty currentNode_currentframes;
+
+
+
+    //create text bg
+    Texture2D bg;
+
     public void OnEnable()
     {
         //get reference of core script
         core = (VRPlayerCore)target;
+
+        //GUI 2D Texture
+        bg = new Texture2D(100, 15);
+        FillTextureColor(bg, new Color(0.0f, 0.0f, 0.0f));
 
         //find properties from vr player core
         currentNode_info = serializedObject.FindProperty("currentNode_info");
@@ -42,6 +56,8 @@ public class VRPlayerCoreInspector : Editor
         currentNode_lastSeenROI_info = serializedObject.FindProperty("currentNode_info_lastSeen_roi");
         currentNode_firstSeenROI_info = serializedObject.FindProperty("currentNode_info_firstSeen_roi");
         currentNode_info_roi_score_list = serializedObject.FindProperty("currentNode_info_roi_score_list");
+        currentNode_info_roi_log = serializedObject.FindProperty("currentNode_info_roi_log");
+
 
         //current frames
         currentNode_currentframes = serializedObject.FindProperty("currentNode_currentframes");
@@ -70,7 +86,7 @@ public class VRPlayerCoreInspector : Editor
     }
 
 
-    
+
 
     public void GUIROISettings()
     {
@@ -95,9 +111,6 @@ public class VRPlayerCoreInspector : Editor
 
         EditorGUILayout.LabelField("Passive ROIs Information", EditorStyles.boldLabel);
 
-        //create text bg
-        Texture2D bg = new Texture2D(100, 15);
-        FillTextureColor(bg, new Color(0.0f, 0.0f, 0.0f));
 
         //set new style for node
         GUIStyle roi_display = new GUIStyle();
@@ -109,10 +122,22 @@ public class VRPlayerCoreInspector : Editor
         //show label
         GUIContent content = new GUIContent(
             "Last Seen ROI: " + currentNode_lastSeenROI_info.stringValue + "\n" +
-            "First Seen ROI: " + currentNode_firstSeenROI_info.stringValue + "\n"+ 
+            "First Seen ROI: " + currentNode_firstSeenROI_info.stringValue + "\n" +
             currentNode_info_roi_score_list.stringValue
            );
         EditorGUILayout.LabelField(content, roi_display, GUILayout.Height(roi_display.CalcHeight(content, EditorGUIUtility.fieldWidth)));
+
+
+        GUIShowButton("Passive ROIs Log", ref gazing_log);
+
+        if (gazing_log)
+        {
+            EditorGUILayout.LabelField("Passive ROIs Log", EditorStyles.boldLabel);
+            content = new GUIContent(currentNode_info_roi_log.stringValue);
+            EditorGUILayout.LabelField(content, roi_display, GUILayout.Height(roi_display.CalcHeight(content, EditorGUIUtility.fieldWidth)));
+
+        }
+
     }
     public void GUISceneNode()
     {
@@ -132,9 +157,9 @@ public class VRPlayerCoreInspector : Editor
 
         EditorGUILayout.LabelField("End Action : ", currentNode_endAction.stringValue, end_action_style);
         //Movie Slider
-        EditorGUILayout.Slider(new GUIContent("Video Timecode(frames) :"),currentNode_currentframes.intValue, 0, core.current_node.total_frames);
+        EditorGUILayout.Slider(new GUIContent("Video Timecode(frames) :"), currentNode_currentframes.intValue, 0, core.current_node.total_frames);
 
-   
+
 
         //set new style for node
         GUIStyle node_custom = new GUIStyle();
@@ -222,6 +247,43 @@ public class VRPlayerCoreInspector : Editor
 
         //set pixels, write color
         t.SetPixels(bg_colors);
+    }
+
+
+
+    public void GUIShowButton(string title, ref bool toggle)
+    {
+        
+        if (toggle)
+        {
+            if (GUILayout.Button("Hide "+ title))
+            {
+                //Toggle
+                if (toggle)
+                {
+                    toggle = false;
+                }
+                else
+                {
+                    toggle = true;
+                }
+            }
+        }
+        else
+        {
+            if (GUILayout.Button("Show "+ title))
+            {
+                //Toggle
+                if (toggle)
+                {
+                    toggle = false;
+                }
+                else
+                {
+                    toggle = true;
+                }
+            }
+        }
     }
 
 }

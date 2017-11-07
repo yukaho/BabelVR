@@ -92,6 +92,41 @@ namespace Babel.System.Data
                 case Flag.SwitchSceneSeenAt:
                     Debug.Log("Switch Scene - Seen At");
 
+                    GazingLog log_0 = new GazingLog();
+                    GazingLog log_1 = new GazingLog();
+                    int target_frame = Convert.ToInt32(parameters_list[0]);
+
+
+                    for (int g = 0; g < core.GazingLog_List.Count; g++)
+                    {
+                        if (core.GazingLog_List[g].timecode <= target_frame)
+                        {
+                            log_0 = core.GazingLog_List[g];
+                            if (g + 1 < core.GazingLog_List.Count)
+                            {
+                                log_1 = core.GazingLog_List[g + 1];
+                            }
+                        }
+                    }
+
+
+
+
+                    if (log_0.flag == GazingAction.ENTERED)
+                    {
+                        
+
+                        if (log_0.roi != null)
+                        {
+                            Ref_ROI = log_0.roi;
+                            core.triggerROI(Ref_ROI);
+                        }
+                     
+
+                    }
+
+
+
                     break;
                 case Flag.SwitchSceneRandom:
                     int ran_index = UnityEngine.Random.Range(0, core.SceneNodeList.Count);

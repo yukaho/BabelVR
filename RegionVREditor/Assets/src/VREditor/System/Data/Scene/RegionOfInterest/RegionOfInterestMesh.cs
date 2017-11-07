@@ -41,6 +41,25 @@ public class RegionOfInterestMesh : MonoBehaviour
     public float x;
     public float y;
 
+
+    //collision of gazing
+    private bool entered;
+
+    public void OnEntered()
+    {
+        if (entered)
+            return;
+
+        entered = true;
+        core.addGazingLog(this, GazingAction.ENTERED);
+    }
+
+    public void OnExit()
+    {
+        entered = false;
+        core.addGazingLog(this, GazingAction.LEFT);
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -238,9 +257,7 @@ public class RegionOfInterestMesh : MonoBehaviour
     {
         if (current_keyframe == null || target_keyframe == null)
             return;
-
-        Debug.Log("UPDATING TRANSFORM");
-
+        
         //update positiion from key frame
         updatePosition();
 
