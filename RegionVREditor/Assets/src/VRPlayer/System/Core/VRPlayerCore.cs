@@ -392,11 +392,16 @@ public class VRPlayerCore : MonoBehaviour
     {
 
         //set all ROIs' visibility that exist within the list
-        for (int i = 0; i < ROI_group.transform.GetChild(0).childCount; i++)
-        {
-            ROI_group.transform.GetChild(0).GetChild(i).GetComponent<Renderer>().enabled = visible;
 
+        for (int g = 0; g < 2; g++)
+        {
+            for (int i = 0; i < ROI_group.transform.GetChild(g).childCount; i++)
+            {
+                ROI_group.transform.GetChild(g).GetChild(i).GetComponent<Renderer>().enabled = visible;
+
+            }
         }
+
     }
     public string getPassiveROIScoringList()
     {
