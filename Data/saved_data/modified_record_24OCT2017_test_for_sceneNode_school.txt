@@ -23,8 +23,8 @@
 		//SwitchSceneFirstSeenRegion
 		//SwitchSceneSeenAt(int frame_num)
 		//SwitchSceneRandom
-          "action_flag": "SwitchSceneLastSeenRegion",
-          "parameters_list": []
+          "action_flag": "SwitchSceneSeenAt",
+          "parameters_list": [110]
         }
       ],
       "graph_pos_x": -449.971863,
