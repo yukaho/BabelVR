@@ -30,6 +30,9 @@ namespace Babel.System.Data
         [JsonPropertyAttribute]
         public List<RegionOfInterest> Passive_ROIList;
 
+        [JsonPropertyAttribute]
+        public List<AudioData> AudioData_List;
+
         //factory id generation
         [JsonIgnoreAttribute]
         public static int shot_count = 0;
@@ -46,6 +49,7 @@ namespace Babel.System.Data
         {
             Active_ROIList = new List<RegionOfInterest>();
             Passive_ROIList = new List<RegionOfInterest>();
+            AudioData_List = new List<AudioData>();
             movie_dir = "";
             shot_id = shot_count++;
             isReadyToPlay = false;
@@ -67,8 +71,12 @@ namespace Babel.System.Data
             }
         }
 
-        public void loadROI()
+        public void loadShotNode()
         {
+
+            //
+            //ROI
+            //
             Transform group = GameObject.Find("RegionOfInterestGroup").transform;
 
 
@@ -80,7 +88,7 @@ namespace Babel.System.Data
             {
                 GameObject created_mesh = roi.createMesh();
                 created_mesh.transform.parent = active_rois;
-                created_mesh.GetComponent<RegionOfInterestMesh>().roi.flag = RegionOfInterestFlag.Active;
+                created_mesh.GetComponent<RegionOfInterestObject>().roi.flag = RegionOfInterestFlag.Active;
                 created_mesh.name = "A_ROI_#" + RegionOfInterest.active_roi_count.ToString("D3");
                 RegionOfInterest.active_roi_count++;
             }
@@ -91,10 +99,25 @@ namespace Babel.System.Data
             {
                 GameObject created_mesh = roi.createMesh();
                 created_mesh.transform.parent = passive_rois;
-                created_mesh.GetComponent<RegionOfInterestMesh>().roi.flag = RegionOfInterestFlag.Passive;
+                created_mesh.GetComponent<RegionOfInterestObject>().roi.flag = RegionOfInterestFlag.Passive;
                 created_mesh.name = "P_ROI_#" + RegionOfInterest.passive_roi_count.ToString("D3");
                 RegionOfInterest.passive_roi_count++;
             }
+
+            //
+            //Audio
+            //
+
+            GameObject AudioObjectGroup = GameObject.Find("AudioObjectGroup");
+
+            foreach (AudioData data in AudioData_List)
+            {
+                GameObject created_audio_obj = data.createObject();
+                created_audio_obj.transform.parent = AudioObjectGroup.transform;
+
+            }
+
+
         }
 
         public string getShotVideoFileName()

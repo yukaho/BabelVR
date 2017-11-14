@@ -80,13 +80,13 @@ namespace Babel.System.Data
                 case Flag.SwitchSceneLastSeenRegion:
                     Debug.Log("Switch Scene - Last Seen ROI");
                     //Get last seen ROI and switch to corresponding node
-                    Ref_ROI = core.LastSeenROI.GetComponent<RegionOfInterestMesh>().roi;
+                    Ref_ROI = core.LastSeenROI.GetComponent<RegionOfInterestObject>().roi;
                     core.triggerROI(Ref_ROI);
                     break;
                 case Flag.SwitchSceneFirstSeenRegion:
                     Debug.Log("Switch Scene - First Seen ROI");
                     //Get last seen ROI and switch to corresponding node
-                    Ref_ROI = core.FirstSeenROI.GetComponent<RegionOfInterestMesh>().roi;
+                    Ref_ROI = core.FirstSeenROI.GetComponent<RegionOfInterestObject>().roi;
                     core.triggerROI(Ref_ROI);
                     break;
                 case Flag.SwitchSceneSeenAt:

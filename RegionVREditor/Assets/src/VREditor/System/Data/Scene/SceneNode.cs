@@ -265,13 +265,16 @@ namespace Babel.System.Data
             }
         }
 
-        public void loadROI()
+        public void loadShotNode()
         {
             //clear All ROI in game if exists
             clearROI();
 
+            //clear All AudioObject in game if exists
+            clearAudioObject();
+
             //load ROI
-            currentShotNode.loadROI();
+            currentShotNode.loadShotNode();
         }
 
         public void clearROI()
@@ -293,6 +296,17 @@ namespace Babel.System.Data
             for (int i = 0; i < passive_ROIGroup.childCount; i++)
             {
                 GameObject.Destroy(passive_ROIGroup.GetChild(i).gameObject);
+            }
+        }
+
+
+        public void clearAudioObject()
+        {
+            Transform group = GameObject.Find("AudioObjectGroup").transform;
+
+            for(int i = 0; i < group.childCount; i++)
+            {
+                GameObject.Destroy(group.GetChild(i).gameObject);
             }
         }
 

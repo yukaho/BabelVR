@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class RegionOfInterestAnimationData
+public class Keyframe
 {
 
     //keyframe time code 

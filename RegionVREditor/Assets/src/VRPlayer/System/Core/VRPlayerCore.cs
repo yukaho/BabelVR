@@ -173,27 +173,27 @@ public class VRPlayerCore : MonoBehaviour
             Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
             target_anchor.SetActive(true);
             target_anchor.transform.position = hitInfo.point;
-            Debug.Log("HIT: " + hitInfo.collider.GetComponent<RegionOfInterestMesh>().ToString());
+            Debug.Log("HIT: " + hitInfo.collider.GetComponent<RegionOfInterestObject>().ToString());
 
 
             //which type of roi was hit
-            switch (hitInfo.collider.GetComponent<RegionOfInterestMesh>().roi.flag)
+            switch (hitInfo.collider.GetComponent<RegionOfInterestObject>().roi.flag)
             {
                 case RegionOfInterestFlag.Active:
-                    //  hitInfo.collider.GetComponent<RegionOfInterestMesh>().roi.triggerAction();
-                    triggerROI(hitInfo.collider.GetComponent<RegionOfInterestMesh>().roi);
+                    //  hitInfo.collider.GetComponent<RegionOfInterestObject>().roi.triggerAction();
+                    triggerROI(hitInfo.collider.GetComponent<RegionOfInterestObject>().roi);
                     break;
                 case RegionOfInterestFlag.Passive:
-                    if (CurrentGazingROI != null && !CurrentGazingROI.GetComponent<RegionOfInterestMesh>().Equals( hitInfo.collider.gameObject.GetComponent<RegionOfInterestMesh>()))
+                    if (CurrentGazingROI != null && !CurrentGazingROI.GetComponent<RegionOfInterestObject>().Equals( hitInfo.collider.gameObject.GetComponent<RegionOfInterestObject>()))
                     {
-                        CurrentGazingROI.GetComponent<RegionOfInterestMesh>().OnExit();
+                        CurrentGazingROI.GetComponent<RegionOfInterestObject>().OnExit();
                     }
 
                     LastSeenROI = hitInfo.collider.gameObject;
                     CurrentGazingROI= hitInfo.collider.gameObject; 
                     currentNode_info_lastSeen_roi = LastSeenROI.name;
-                    hitInfo.collider.GetComponent<RegionOfInterestMesh>().roi.addScore(1);
-                    hitInfo.collider.GetComponent<RegionOfInterestMesh>().OnEntered();
+                    hitInfo.collider.GetComponent<RegionOfInterestObject>().roi.addScore(1);
+                    hitInfo.collider.GetComponent<RegionOfInterestObject>().OnEntered();
 
 
                     if (FirstSeenROI == null)
@@ -213,7 +213,7 @@ public class VRPlayerCore : MonoBehaviour
             if (CurrentGazingROI != null)
             {
                 //gazing nothing
-                CurrentGazingROI.GetComponent<RegionOfInterestMesh>().OnExit();   
+                CurrentGazingROI.GetComponent<RegionOfInterestObject>().OnExit();   
             }
             CurrentGazingROI = null;
             target_anchor.SetActive(false);
@@ -334,7 +334,7 @@ public class VRPlayerCore : MonoBehaviour
         current_node.currentShotNode = current_node.shot_list[videolist_index];
 
         //reload ROI from shot node
-        current_node.loadROI();
+        current_node.loadShotNode();
 
         //set camera angle
         Debug.Log("Set Initial Angle:" + current_node.currentShotNode.camera_orientation.getUnityVector3());
@@ -414,7 +414,7 @@ public class VRPlayerCore : MonoBehaviour
     }
 
 
-    public void addGazingLog(RegionOfInterestMesh roi_mesh, GazingAction flag)
+    public void addGazingLog(RegionOfInterestObject roi_mesh, GazingAction flag)
     {
         //add new log to the list
         GazingLog_List.Add(new GazingLog(roi_mesh.roi, currentNode_currentframes, flag));

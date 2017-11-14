@@ -29,7 +29,7 @@ namespace Babel.System.Data
         public ROI_Shape roi_detection_shape;
 
         [JsonPropertyAttribute]
-        public RegionOfInterestAnimationData[] animation_data;
+        public Keyframe[] animation_data;
 
         [JsonPropertyAttribute]
         [JsonConverter(typeof(StringEnumConverter))]
@@ -59,10 +59,7 @@ namespace Babel.System.Data
         /// </summary>
         /// 
 
-        //current keyframe
-        public int animation_keyframe_current_index = 0;
-        public int animation_keyframe_next_index = 0;
-        public RegionOfInterestAnimationData animation_current_keyframe;
+
 
         //interest scoring
         [JsonIgnore]
@@ -109,9 +106,10 @@ namespace Babel.System.Data
 
             //get core in game
             this.core = GameObject.Find("VRPlayerSystem").GetComponent<VRPlayerCore>();
-            GameObject new_mesh = Resources.Load<GameObject>("Prefab/RegionOfInterestMesh");
+            GameObject new_mesh = Resources.Load<GameObject>("Prefab/RegionOfInterestObject");
             new_mesh = GameObject.Instantiate(new_mesh);
-            new_mesh.GetComponent<RegionOfInterestMesh>().initializeMesh(this);
+            RegionOfInterestObject roi_m = new_mesh.GetComponent<RegionOfInterestObject>();
+            roi_m.initializeMesh(this);
             this.mesh_object = new_mesh;
 
             //update current frame index based current frame        
@@ -123,15 +121,15 @@ namespace Babel.System.Data
                     find_index++;
                 }
             }
-            animation_keyframe_current_index = find_index;
+            roi_m.animation_keyframe_current_index = find_index;
 
-            if (animation_keyframe_current_index + 1 < animation_data.Length)
+            if (roi_m.animation_keyframe_current_index + 1 < animation_data.Length)
             {
-                animation_keyframe_next_index = animation_keyframe_current_index + 1;
+                roi_m.animation_keyframe_next_index = roi_m.animation_keyframe_current_index + 1;
             }
             else
             {
-                animation_keyframe_next_index = animation_keyframe_current_index;
+                roi_m.animation_keyframe_next_index = roi_m.animation_keyframe_current_index;
             }
 
 
