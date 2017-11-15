@@ -66,7 +66,7 @@ public class RegionOfInterestObject : KeyframedMonoBehaviour
     {
         //keep the mesh facing to camera
         lookAt(eye_cam.transform);
-  
+
         //update interest scoring
         Interest_Score = roi.score;
 
@@ -82,6 +82,12 @@ public class RegionOfInterestObject : KeyframedMonoBehaviour
 
 
 
+    }
+
+    public override void initialize(params object[] obj)
+    {
+        initializeMesh((RegionOfInterest)obj[0]);
+        base.initialize();
     }
 
     public void initializeMesh(RegionOfInterest roi)

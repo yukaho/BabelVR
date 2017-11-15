@@ -25,16 +25,33 @@ public class KeyframedMonoBehaviour : MonoBehaviour
     public int animation_keyframe_next_index = 0;
     public Keyframe animation_current_keyframe;
 
-    void Update()
+
+    public virtual void initialize(params object[] obj)
     {
+        //update current frame index based current frame        
+        int find_index = -1;
+        for (int i = 0; i < animation_data.Length; i++)
+        {
+            if (core.current_node.current_frame >= animation_data[i].time_code)
+            {
+                find_index++;
+            }
+        }
+        animation_keyframe_current_index = find_index;
 
-
+        if (animation_keyframe_current_index + 1 < animation_data.Length)
+        {
+            animation_keyframe_next_index = animation_keyframe_current_index + 1;
+        }
+        else
+        {
+            animation_keyframe_next_index = animation_keyframe_current_index;
+        }
     }
-
     protected void updateAnimation()
     {
         //return if the player is not playing
-        if (core==null||
+        if (core == null ||
             core.current_node == null ||
             core.current_node.currentShotNode == null ||
             !core.current_node.currentShotNode.isReadyToPlay)
@@ -46,8 +63,6 @@ public class KeyframedMonoBehaviour : MonoBehaviour
         //update position,rotation & scale tranformation from keyframes
         updateTransform();
     }
-
-
     private bool updateKeyframe()
     {
         if (animation_data.Length <= 0)
@@ -183,8 +198,6 @@ public class KeyframedMonoBehaviour : MonoBehaviour
 
 
     }
-
-
     /// <summary>
     /// calculate linear vector between 2 vectors
     /// </summary>
@@ -195,7 +208,7 @@ public class KeyframedMonoBehaviour : MonoBehaviour
     /// <param name="calculated_vector"> result </param>
     public void calLinearVector(Vector3 p0, Vector3 p1, int current_frame, int target_frame, out Vector3 calculated_vector)
     {
-        if (current_frame == 0)
+        if (current_frame == 0 || target_frame == 0)
         {
             //return zero vector out if current frame is zero
             calculated_vector = new Vector3(0, 0, 0);
