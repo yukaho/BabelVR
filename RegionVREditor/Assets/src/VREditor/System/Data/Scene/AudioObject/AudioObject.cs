@@ -11,6 +11,12 @@ public class AudioObject : KeyframedMonoBehaviour
 
     }
 
+    public override void initialize(params object[] obj)
+    {
+        initializeObject((AudioData)obj[0]);
+        base.initialize();
+    }
+
     public void initializeObject(AudioData data)
     {
         Debug.Log("Load Audio");

@@ -109,28 +109,10 @@ namespace Babel.System.Data
             GameObject new_mesh = Resources.Load<GameObject>("Prefab/RegionOfInterestObject");
             new_mesh = GameObject.Instantiate(new_mesh);
             RegionOfInterestObject roi_m = new_mesh.GetComponent<RegionOfInterestObject>();
-            roi_m.initializeMesh(this);
+            roi_m.initialize(this);
             this.mesh_object = new_mesh;
 
-            //update current frame index based current frame        
-            int find_index = -1;
-            for (int i = 0; i < animation_data.Length; i++)
-            {
-                if (core.current_node.current_frame >= animation_data[i].time_code)
-                {
-                    find_index++;
-                }
-            }
-            roi_m.animation_keyframe_current_index = find_index;
 
-            if (roi_m.animation_keyframe_current_index + 1 < animation_data.Length)
-            {
-                roi_m.animation_keyframe_next_index = roi_m.animation_keyframe_current_index + 1;
-            }
-            else
-            {
-                roi_m.animation_keyframe_next_index = roi_m.animation_keyframe_current_index;
-            }
 
 
             return new_mesh;

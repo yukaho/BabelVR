@@ -19,7 +19,7 @@ public class AudioData
     {
         //load prefab from asset
         GameObject return_obj = GameObject.Instantiate(Resources.Load<GameObject>("Prefab/AudioObject"));
-        return_obj.GetComponent<AudioObject>().initializeObject(this);
+        return_obj.GetComponent<AudioObject>().initialize(this);
    
         return return_obj;
     }
