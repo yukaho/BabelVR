@@ -31,8 +31,13 @@ public class AudioObject : KeyframedMonoBehaviour
     public void loadAudioSource(string path)
     {
         //wait for implement
-        AudioSource source = this.GetComponent<AudioSource>();
-        source.clip = Resources.Load<AudioClip>("Media/Audio/M249 SAW");
+        //AudioSource source = this.GetComponent<AudioSource>();
+        //source.clip = Resources.Load<AudioClip>("Media/Audio/M249 SAW");
+        AudioSource source = GetComponent<AudioSource>();
+        WaveFileReader reader = new WaveFileReader("X:/Tamar/Work/ProgramTool/WaveFileReader/TestFiles/LeanOn.wav");
+        AudioClip clip = AudioClip.Create("TEST", reader.samples_array.Length,2, reader.getSampleRate(),false);
+        clip.SetData(reader.samples_array, 0);
+        source.clip = clip;
         source.loop = true;
         source.Play();
 
