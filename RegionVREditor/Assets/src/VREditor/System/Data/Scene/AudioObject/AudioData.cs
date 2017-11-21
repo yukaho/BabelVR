@@ -12,6 +12,15 @@ public class AudioData
     //file directory
     public string file_dir;
 
+    //audio playtime
+    public int audio_playtime;
+
+    //audio volume
+    public float audio_volume;
+
+    //audio volume
+    public bool audio_loop;
+
     //keyframes data
     public Keyframe[] animation_data;
 

@@ -7,6 +7,7 @@ using System.Text;
 
 public class FileReader
 {
+    protected string file_name;
     protected string file_dir;
     protected byte[] data_array;
 
@@ -14,6 +15,9 @@ public class FileReader
     {
         //reference to file directory
         this.file_dir = @file_dir;
+
+        string[] spit = file_dir.Split('/');
+        this.file_name = spit[spit.Length - 1];
 
 
 
@@ -75,6 +79,11 @@ public class FileReader
 
 
         return return_array;
+    }
+
+    public string getFileName()
+    {
+        return file_name;
     }
 }
 

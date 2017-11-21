@@ -6,6 +6,12 @@ using UnityEngine;
 
 public class AudioObject : KeyframedMonoBehaviour
 {
+
+    AudioData audio_data;
+    AudioSource source;
+    AudioClip clip;
+    WaveFileReader reader;
+    bool oneshoted;
     void Start()
     {
 
@@ -20,6 +26,13 @@ public class AudioObject : KeyframedMonoBehaviour
     public void initializeObject(AudioData data)
     {
         Debug.Log("Load Audio");
+
+        //reference audio data
+        audio_data = data;
+
+        //set oneshoted equals false
+        oneshoted = false;
+
         //reference the vr player system
         core = GameObject.Find("VRPlayerSystem").GetComponent<VRPlayerCore>();
 
@@ -31,27 +44,42 @@ public class AudioObject : KeyframedMonoBehaviour
         this.GetComponent<TextMesh>().name = this.name;
 
         //load audio source
-        loadAudioSource("");
+        loadAudioSource(audio_data.file_dir);
     }
 
     public void loadAudioSource(string path)
     {
-        //wait for implement
-        //AudioSource source = this.GetComponent<AudioSource>();
-        //source.clip = Resources.Load<AudioClip>("Media/Audio/M249 SAW");
-        AudioSource source = GetComponent<AudioSource>();
-        WaveFileReader reader = new WaveFileReader("X:/Tamar/Work/ProgramTool/WaveFileReader/TestFiles/LeanOn.wav");
-        AudioClip clip = AudioClip.Create("TEST", reader.samples_array.Length,2, reader.getSampleRate(),false);
+        
+        //get audiosource component
+        source = GetComponent<AudioSource>();
+
+        //load audio to file reader
+        reader = new WaveFileReader(path);
+
+        //create audio clip
+        clip = AudioClip.Create(reader.getFileName(), reader.samples_array.Length, 2, reader.getSampleRate(), false);
+
+        //set samples array
         clip.SetData(reader.samples_array, 0);
+
+        //link clip & do configuration
         source.clip = clip;
-        source.loop = true;
-        source.Play();
+        source.loop = audio_data.audio_loop;
+        source.volume = audio_data.audio_volume;
 
     }
     void Update()
     {
         //update keyframe from super class
         base.updateAnimation();
+
+
+        //play at time
+        if (!oneshoted && current_frame >= audio_data.audio_playtime && source.clip.loadState == AudioDataLoadState.Loaded)
+        {
+            source.Play();
+            oneshoted = true;
+        }
     }
 }
 

@@ -21,8 +21,6 @@ public class WaveFileReader : FileReader
         //read file to byte arrary
         base.Read(file_dir);
 
-        samples_array = new float[5];
-
         Console.WriteLine("Raw Audio Data Size:" + getSubchunk2Size());
         Console.WriteLine("BitsPerSample:" + getBitsPerSample());
         int totalSamples = getSubchunk2Size() / (getBitsPerSample() / 8);
