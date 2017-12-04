@@ -86,6 +86,9 @@ public class VRPlayerCore : MonoBehaviour
     [SerializeField]
     private string currentNode_info_roi_log = "Empty";
 
+    //Loading Thread
+    Thread loading_thread;
+
     void Start()
     {
 
@@ -105,6 +108,36 @@ public class VRPlayerCore : MonoBehaviour
 
 
 
+ 
+
+        //Create All Instance Objects in Game 
+        CreateInstance();
+
+        //Load Video and Audio Asynchronously
+        //start loading thread
+        loading_thread = new Thread(Load);
+        loading_thread.Start();
+
+
+    }
+
+    void CreateInstance()
+    {
+        foreach (SceneNode node in SceneNodeList)
+        {
+            node.CreateInstances(this);
+        }
+    }
+
+    void Load()
+    {
+        foreach(SceneNode node in SceneNodeList)
+        {
+            node.Load(this);
+        }
+
+        loading_thread.Join();
+        Debug.Log("End of Loading.");
     }
 
     // Update is called once per frame
@@ -173,7 +206,7 @@ public class VRPlayerCore : MonoBehaviour
             Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
             target_anchor.SetActive(true);
             target_anchor.transform.position = hitInfo.point;
-            Debug.Log("HIT: " + hitInfo.collider.GetComponent<RegionOfInterestObject>().ToString());
+      //      Debug.Log("HIT: " + hitInfo.collider.GetComponent<RegionOfInterestObject>().ToString());
 
 
             //which type of roi was hit
@@ -184,13 +217,13 @@ public class VRPlayerCore : MonoBehaviour
                     triggerROI(hitInfo.collider.GetComponent<RegionOfInterestObject>().roi);
                     break;
                 case RegionOfInterestFlag.Passive:
-                    if (CurrentGazingROI != null && !CurrentGazingROI.GetComponent<RegionOfInterestObject>().Equals( hitInfo.collider.gameObject.GetComponent<RegionOfInterestObject>()))
+                    if (CurrentGazingROI != null && !CurrentGazingROI.GetComponent<RegionOfInterestObject>().Equals(hitInfo.collider.gameObject.GetComponent<RegionOfInterestObject>()))
                     {
                         CurrentGazingROI.GetComponent<RegionOfInterestObject>().OnExit();
                     }
 
                     LastSeenROI = hitInfo.collider.gameObject;
-                    CurrentGazingROI= hitInfo.collider.gameObject; 
+                    CurrentGazingROI = hitInfo.collider.gameObject;
                     currentNode_info_lastSeen_roi = LastSeenROI.name;
                     hitInfo.collider.GetComponent<RegionOfInterestObject>().roi.addScore(1);
                     hitInfo.collider.GetComponent<RegionOfInterestObject>().OnEntered();
@@ -213,7 +246,7 @@ public class VRPlayerCore : MonoBehaviour
             if (CurrentGazingROI != null)
             {
                 //gazing nothing
-                CurrentGazingROI.GetComponent<RegionOfInterestObject>().OnExit();   
+                CurrentGazingROI.GetComponent<RegionOfInterestObject>().OnExit();
             }
             CurrentGazingROI = null;
             target_anchor.SetActive(false);
@@ -238,7 +271,7 @@ public class VRPlayerCore : MonoBehaviour
         {
             Debug.Log("##" + roi.mesh_object);
             roi.mesh_object.transform.parent = null;
-            roi.mesh_object.transform.parent = ROI_group.transform.FindChild("PassiveROIGroup");
+            roi.mesh_object.transform.parent = ROI_group.transform.FindChild("PassiveROIs");
 
 
         }
@@ -278,24 +311,6 @@ public class VRPlayerCore : MonoBehaviour
                 SceneNodeList.Add(sn);
             }
 
-
-            //foreach (RegionOfInterest roi in data.roi_list)
-            //{
-            //    switch (roi.flag)
-            //    {
-            //        case RegionOfInterestFlag.Active:
-            //            Active_ROIList.Add(roi);
-            //            break;
-            //        case RegionOfInterestFlag.Passive:
-            //            Passive_ROIList.Add(roi);
-            //            break;
-            //    }
-
-            //    roi.createMesh();
-
-            //}
-
-
             //** wait for implement, load first scene node as default node
             switchSceneNode(0);
 
@@ -309,7 +324,12 @@ public class VRPlayerCore : MonoBehaviour
         {
             case MediaPlayerEvent.EventType.ReadyToPlay:
                 //auto play
-                mp.Control.Play();
+                if (mp.Equals(mesh_content.Player))
+                {
+                    mesh_content.Player.Control.Play();
+
+                }
+                
                 break;
             case MediaPlayerEvent.EventType.FirstFrameReady:
                 Debug.Log("VR Video:" + mp.name + " First frame ready");
@@ -324,17 +344,20 @@ public class VRPlayerCore : MonoBehaviour
     //set video
     public void setVideo(int videolist_index)
     {
-        Debug.Log("Set #VIDEO_" + videolist_index);
-
-        //set player 
-        mesh_content.Player = VideoList.GetChild(videolist_index).GetComponent<MediaPlayer>();
 
 
         //set current shot node in current scene node
         current_node.currentShotNode = current_node.shot_list[videolist_index];
 
+        ROI_group = current_node.currentShotNode.shotdata_obj.GetChild(2).gameObject;
+
+        Debug.Log("Set #VIDEO_" + current_node.currentShotNode.shotdata_obj.GetChild(0).GetChild(0).GetComponent<MediaPlayer>());
+
+        //set player 
+        mesh_content.Player = current_node.currentShotNode.shotdata_obj.GetChild(0).GetChild(0).GetComponent<MediaPlayer>();
+
         //reload ROI from shot node
-        current_node.loadShotNode();
+        //current_node.loadShotNode();
 
         //set camera angle
         Debug.Log("Set Initial Angle:" + current_node.currentShotNode.camera_orientation.getUnityVector3());
@@ -348,6 +371,8 @@ public class VRPlayerCore : MonoBehaviour
     public void switchSceneNode(int index)
     {
         Debug.Log("Switch To Scene Node" + index);
+
+        //clear media player
         mesh_content.Player = null;
 
         //unload all contents include videos,ROIs, if current node exists
@@ -356,8 +381,9 @@ public class VRPlayerCore : MonoBehaviour
             current_node.unloadContent();
         }
 
+        //switch to specified scene node
         current_node = SceneNodeList[index];
-
+       
 
     }
 
@@ -365,7 +391,7 @@ public class VRPlayerCore : MonoBehaviour
     //trigger ROI
     public void triggerROI(RegionOfInterest roi)
     {
-        Debug.Log("TRRRRRRRRWAEWQAEQE");
+
         //reference link
         int content_type;
         int content_index;
@@ -429,8 +455,8 @@ public class VRPlayerCore : MonoBehaviour
         int i = 0;
         foreach (GazingLog log in GazingLog_List)
         {
-            currentNode_info_roi_log += i++.ToString("D3")+". "+log + "\n";
-            
+            currentNode_info_roi_log += i++.ToString("D3") + ". " + log + "\n";
+
         }
     }
 

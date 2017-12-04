@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Babel.System.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,9 @@ public class AudioData
 
     //keyframes data
     public Keyframe[] animation_data;
+
+    [JsonPropertyIgnore]
+    public AudioObject audio_obj;
 
     public GameObject createObject()
     {

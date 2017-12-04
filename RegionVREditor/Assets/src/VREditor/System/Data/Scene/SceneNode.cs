@@ -70,6 +70,20 @@ namespace Babel.System.Data
         public int total_frames;
 
 
+        /// <summary>
+        /// Loading Attributes
+        /// </summary>
+        /// 
+        [JsonPropertyIgnore]
+        public int totalFiles_count;
+
+        [JsonPropertyIgnore]
+        public int currentLoadedFiles_count;
+
+        [JsonPropertyIgnore]
+        public bool isLoaded;
+
+
         public SceneNode()
         {
 
@@ -96,70 +110,27 @@ namespace Babel.System.Data
             }
 
             ///
-            ///TEST Case , Please comment below during player run-time.
+            /// Loading
             ///
+            //set Loaded to false
+            isLoaded = false;
 
-            //ShotNode[] ns = new ShotNode[2];
-            //ns[0] = new ShotNode();
-            //ns[1] = new ShotNode();
+        }
 
-            //ns[0].movie_dir = "dir_path";
+        public int getTotalFilesCount()
+        {
+            totalFiles_count = 0;
+            foreach (ShotNode ShotNode in shot_list)
+            {
+                totalFiles_count += ShotNode.getFilesCount();
+            }
 
-            //RegionOfInterest[] roi = new RegionOfInterest[4];
+            return totalFiles_count;
+        }
 
-            //SimpleVector3 transform = new SimpleVector3(0, 0, 5);
-            //int length = 1;
-
-            ////create default mesh
-            //roi[1] = new RegionOfInterest();
-            //roi[1].flag = RegionOfInterestFlag.Active;
-            //roi[1].vertics = new SimpleVector3[4];
-            //roi[1].vertics[0] = new SimpleVector3(-length, length, 0);
-            //roi[1].vertics[1] = new SimpleVector3(length, length, 0);
-            //roi[1].vertics[2] = new SimpleVector3(-length, -length, 0);
-            //roi[1].vertics[3] = new SimpleVector3(length, -length, 0);
-            //roi[1].video_index = 1;
-            //ns[0].Active_ROIList.Add(roi[1]);
-
-            //roi[2] = new RegionOfInterest();
-            //roi[2].flag = RegionOfInterestFlag.Active;
-            //roi[2].vertics = new SimpleVector3[4];
-            //roi[2].vertics[0] = new SimpleVector3(-length, length, 0);
-            //roi[2].vertics[1] = new SimpleVector3(length, length, 0);
-            //roi[2].vertics[2] = new SimpleVector3(-length, -length, 0);
-            //roi[2].vertics[3] = new SimpleVector3(length, -length, 0);
-            //roi[1].video_index = 2;
-            //ns[0].Passive_ROIList.Add(roi[1]);
-
-
-            //ns[1].movie_dir = "dir_path";
-
-            ////create default mesh
-            //roi[1] = new RegionOfInterest();
-            //roi[1].flag = RegionOfInterestFlag.Active;
-            //roi[1].vertics = new SimpleVector3[4];
-            //roi[1].vertics[0] = new SimpleVector3(-length, length, 0);
-            //roi[1].vertics[1] = new SimpleVector3(length, length, 0);
-            //roi[1].vertics[2] = new SimpleVector3(-length, -length, 0);
-            //roi[1].vertics[3] = new SimpleVector3(length, -length, 0);
-            //roi[1].video_index = 1;
-            //ns[1].Active_ROIList.Add(roi[1]);
-
-            //roi[2] = new RegionOfInterest();
-            //roi[2].flag = RegionOfInterestFlag.Passive;
-            //roi[2].vertics = new SimpleVector3[4];
-            //roi[2].vertics[0] = new SimpleVector3(-length, length, 0);
-            //roi[2].vertics[1] = new SimpleVector3(length, length, 0);
-            //roi[2].vertics[2] = new SimpleVector3(-length, -length, 0);
-            //roi[2].vertics[3] = new SimpleVector3(length, -length, 0);
-            //roi[1].video_index = 2;
-            //ns[1].Passive_ROIList.Add(roi[1]);
-
-
-            ////add to shot list
-            //shot_list.Add(ns[0]);
-            //shot_list.Add(ns[1]);
-
+        public void OnLoadEvent()
+        {
+            currentLoadedFiles_count++;
         }
 
 
@@ -214,24 +185,32 @@ namespace Babel.System.Data
         }
 
 
-
-
         public void update(VRPlayerCore core)
         {
+            //if node wasn't loaded with its content, return
+            if (!isLoaded)
+            {
+                Debug.Log("File:" + currentLoadedFiles_count + "/" + getTotalFilesCount());
+                return;
+            }
+
             switch (update_status)
             {
                 case NodeStatus.initialization:
 
+                    //Load
+                    //Load(core);
+
                     //load all the movie
-                    loadVRMovie(core);
+                    //loadVRMovie(core);
+
+                    Debug.Log("Executing Actions in Running Stage...");
 
                     //execute initial setting
                     executeInitializationActions(core);
 
                     //switch status
                     update_status = NodeStatus.running;
-                    Debug.Log("Executing Actions in Running Stage...");
-
 
                     break;
                 case NodeStatus.running:
@@ -240,7 +219,7 @@ namespace Babel.System.Data
                     executeRunningActions(core);
 
                     //update timecode info
-                    float current_time = core.mesh_content.Player.Control.GetCurrentTimeMs()/1000;
+                    float current_time = core.mesh_content.Player.Control.GetCurrentTimeMs() / 1000;
                     float total_duration = core.mesh_content.Player.Info.GetDurationMs() / 1000;
                     float fps = core.mesh_content.Player.Info.GetVideoFrameRate();
                     current_frame = (int)(fps * current_time);
@@ -279,6 +258,7 @@ namespace Babel.System.Data
 
         public void clearROI()
         {
+
             RegionOfInterest.active_roi_count = 0;
             RegionOfInterest.passive_roi_count = 0;
 
@@ -304,14 +284,55 @@ namespace Babel.System.Data
         {
             Transform group = GameObject.Find("AudioObjectGroup").transform;
 
-            for(int i = 0; i < group.childCount; i++)
+            for (int i = 0; i < group.childCount; i++)
             {
                 GameObject.Destroy(group.GetChild(i).gameObject);
             }
         }
 
+        public void CreateInstances(VRPlayerCore core)
+        {
+            //Create Scene Data Object
+            GameObject scene = new GameObject();
+            scene.transform.parent = core.gameObject.transform;
+            scene.name = "Scene<" + this.s_name + ">";
+
+            //Create Shot Data Object from Prefab, Load Data
+            foreach (ShotNode shotnode in shot_list)
+            {
+                GameObject shot_data = GameObject.Instantiate(Resources.Load<GameObject>("Prefab/ShotData"), scene.transform);
+                shot_data.name = "Shot<" + shotnode.shot_id + ">";
+                shot_data.transform.parent = scene.transform;
+                shotnode.OnShotNodeContentLoaded += Shotnode_OnShotNodeContentLoaded;
+                shotnode.shotdata_obj = shot_data.transform;
+                shotnode.CreateInstances(core, shot_data.transform);
+            }
+        }
+
+
+        public void Load(VRPlayerCore core)
+        {
+
+
+            //Create Shot Data Object from Prefab, Load Data
+            foreach (ShotNode shotnode in shot_list)
+            {
+               shotnode.Load(core);
+            }
+
+            //Content Loaded
+            isLoaded = true;
+
+        }
+
+        private void Shotnode_OnShotNodeContentLoaded(object sender, EventArgs e)
+        {
+            currentLoadedFiles_count++;
+        }
+
         public void loadVRMovie(VRPlayerCore core)
         {
+
             //new Movie lists
             loaded_mov_list = new List<MediaPlayer>();
 
@@ -330,8 +351,6 @@ namespace Babel.System.Data
                 mp.m_VideoPath = node.movie_dir;
                 mp.m_StereoPacking = StereoPacking.TopBottom;
                 mp.m_Loop = false;
-
-
                 loaded_mov_list.Add(mp);
                 mp.Events.AddListener(core.OnVideoEvent);
                 mp.Events.AddListener(node.OnVideoEvent);
@@ -353,6 +372,9 @@ namespace Babel.System.Data
             }
 
             Debug.Log("Loading Movies...Done");
+
+
+
         }
 
 

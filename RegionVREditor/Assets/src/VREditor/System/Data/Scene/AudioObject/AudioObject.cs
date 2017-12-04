@@ -25,10 +25,9 @@ public class AudioObject : KeyframedMonoBehaviour
 
     public void initializeObject(AudioData data)
     {
-        Debug.Log("Load Audio");
-
-        //reference audio data
+        //reference audio data on both side
         audio_data = data;
+        data.audio_obj = this;
 
         //set oneshoted equals false
         oneshoted = false;
@@ -40,21 +39,22 @@ public class AudioObject : KeyframedMonoBehaviour
         this.animation_data = data.animation_data;
 
         //set name of object
-        this.name = data.audio_name;
+        string[] split = audio_data.file_dir.Split('/');
+        this.name = "Audio<" + split[split.Length - 1] + ">";
         this.GetComponent<TextMesh>().name = this.name;
 
-        //load audio source
-        loadAudioSource(audio_data.file_dir);
-    }
-
-    public void loadAudioSource(string path)
-    {
-        
         //get audiosource component
         source = GetComponent<AudioSource>();
 
+
+    }
+
+    public void Load()
+    {
+
+
         //load audio to file reader
-        reader = new WaveFileReader(path);
+        reader = new WaveFileReader(audio_data.file_dir);
 
         //create audio clip
         clip = AudioClip.Create(reader.getFileName(), reader.samples_array.Length, 2, reader.getSampleRate(), false);
@@ -73,6 +73,13 @@ public class AudioObject : KeyframedMonoBehaviour
         //update keyframe from super class
         base.updateAnimation();
 
+        Play();
+    }
+
+    public void Play()
+    {
+        if (clip == null)
+            return;
 
         //play at time
         if (!oneshoted && current_frame >= audio_data.audio_playtime && source.clip.loadState == AudioDataLoadState.Loaded)

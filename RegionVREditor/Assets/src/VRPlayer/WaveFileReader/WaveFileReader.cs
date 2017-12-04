@@ -16,6 +16,11 @@ public class WaveFileReader : FileReader
     }
 
 
+    public void readTitle()
+    {
+
+    }
+
     protected override void Read(string file_dir)
     {
         //read file to byte arrary
