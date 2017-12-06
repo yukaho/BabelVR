@@ -1,9 +1,12 @@
 ﻿// Kaho 1st commit Tamar Change
+#if UNITY_EDITOR
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEditor;
+
 using Newtonsoft.Json;
 using System.IO;
 using Babel.System.Data;
@@ -52,7 +55,7 @@ public class RegionVREditorCore : MonoBehaviour
 
         Debug.Log("Region VR Editor Initializated.");
 
-       
+
 
 
 
@@ -269,7 +272,7 @@ public class RegionVREditorCore : MonoBehaviour
         }
 
 
-      
+
 
         //Testing mock up data
         //for (int i = 0; i < 3; i++)
@@ -377,3 +380,4 @@ public class RegionVREditorCore : MonoBehaviour
     }
 
 }
+#endif

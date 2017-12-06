@@ -1286,7 +1286,7 @@ namespace RenderHeads.Media.AVProVideo
 
             WindowsMediaPlayer.InitialisePlatform();
 
-            mediaPlayer = new WindowsMediaPlayer(this, _optionsWindows.videoApi, _optionsWindows.useHardwareDecoding, _optionsWindows.useTextureMips, _optionsWindows.forceAudioOutputDeviceName, _optionsWindows.useUnityAudio, _optionsWindows.forceAudioResample, _optionsWindows.desiredAudioChannels);
+            mediaPlayer = new WindowsMediaPlayer(_optionsWindows.videoApi, _optionsWindows.useHardwareDecoding, _optionsWindows.useTextureMips, _optionsWindows.forceAudioOutputDeviceName, _optionsWindows.useUnityAudio, _optionsWindows.forceAudioResample, _optionsWindows.desiredAudioChannels);
         
 
 #endif

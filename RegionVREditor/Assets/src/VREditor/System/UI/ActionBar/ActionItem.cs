@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -77,3 +78,4 @@ public class ActionItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         this.GetComponent<Image>().color = c;
     }
 }
+#endif

@@ -8,7 +8,9 @@ using UnityEngine;
 using Babel.System.Data;
 using System.IO;
 using Newtonsoft.Json;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using RenderHeads.Media.AVProVideo;
 using System;
 using System.Threading;
@@ -103,7 +105,9 @@ public class VRPlayerCore : MonoBehaviour
         Debug.Log("VR Player Ready.");
 
         //open file
-        string path = EditorUtility.OpenFilePanel("Please select your saved template", Application.dataPath + "/../../Data/saved_data/", "");
+        // string path = EditorUtility.OpenFilePanel("Please select your saved template", Application.dataPath + "/../../Data/saved_data/", "");
+
+        string path = "L:/GitHub/BabelVR/Data/saved_data/modified_record_21NOV2017.vrs";
         openFile(path);
 
 

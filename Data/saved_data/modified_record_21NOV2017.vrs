@@ -25,7 +25,7 @@
       "shot_list": [
         {
           "shot_id": 0,
-          "movie_dir": "K:/Assignment_CityU/Research/Kaho/Git-Data/BabelVR/Data/import_data/s01_010.mp4",
+          "movie_dir": "L:/GitHub/BabelVR/Data/import_data/Scenes/sFLYTHRU.mov",
           "camera_orientation": {
                 "x": 0.0,
                 "y": 0.0,
@@ -186,7 +186,7 @@
         },
          {
           "shot_id": 1,
-          "movie_dir": "K:/Assignment_CityU/Research/Kaho/Git-Data/BabelVR/Data/import_data/s01_020.mp4",
+          "movie_dir": "L:/GitHub/BabelVR/Data/import_data/Scenes/sFLYTHRU.mov",
           "camera_orientation": {
                 "x": 0.0,
                 "y": 0.0,
@@ -256,7 +256,7 @@
         },
         {
           "shot_id": 2,
-          "movie_dir": "K:/Assignment_CityU/Research/Kaho/Git-Data/BabelVR/Data/import_data/s01_030.mp4",
+          "movie_dir": "",
           "camera_orientation": {
                 "x": 0.0,
                 "y": 0.0,

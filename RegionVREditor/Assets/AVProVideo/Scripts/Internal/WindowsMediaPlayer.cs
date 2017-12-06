@@ -145,7 +145,7 @@ namespace RenderHeads.Media.AVProVideo
             return 2;
         }
 
-        public WindowsMediaPlayer(MediaPlayer _player, Windows.VideoApi videoApi, bool useHardwareDecoding, bool useTextureMips, string audioDeviceOutputName, bool useUnityAudio, bool forceResample, int channels)
+        public WindowsMediaPlayer( Windows.VideoApi videoApi, bool useHardwareDecoding, bool useTextureMips, string audioDeviceOutputName, bool useUnityAudio, bool forceResample, int channels)
         {
             SetOptions(videoApi, useHardwareDecoding, useTextureMips, audioDeviceOutputName, useUnityAudio, forceResample, channels);
             //_textureQuality = _player.masterTextureLimit;

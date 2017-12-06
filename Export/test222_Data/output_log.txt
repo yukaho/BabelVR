@@ -1,0 +1,540 @@
+Mono path[0] = 'L:/GitHub/BabelVR/Export/test222_Data/Managed'
+Mono path[1] = 'L:/GitHub/BabelVR/Export/test222_Data/Mono'
+Mono config path = 'L:/GitHub/BabelVR/Export/test222_Data/Mono/etc'
+PlayerConnection initialized from L:/GitHub/BabelVR/Export/test222_Data (debug = 0)
+PlayerConnection initialized network socket : 0.0.0.0 55143
+Multi-casting "[IP] 144.214.224.228 [Port] 55143 [Flags] 2 [Guid] 515780713 [EditorId] 1890291162 [Version] 1048832 [Id] WindowsPlayer(Kaho-VR) [Debug] 0" to [225.0.0.222:54997]...
+Started listening to [0.0.0.0:55143]
+PlayerConnection already initialized - listening to [0.0.0.0:55143]
+Initialize engine version: 5.5.1f1 (88d00a7498cd)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 980 Ti (ID=0x17c8)
+    Vendor:   NVIDIA
+    VRAM:     6047 MB
+    Driver:   21.21.13.7290
+Begin MonoManager ReloadAssembly
+Platform assembly: L:\GitHub\BabelVR\Export\test222_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading L:\GitHub\BabelVR\Export\test222_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: L:\GitHub\BabelVR\Export\test222_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading L:\GitHub\BabelVR\Export\test222_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: L:\GitHub\BabelVR\Export\test222_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading L:\GitHub\BabelVR\Export\test222_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: L:\GitHub\BabelVR\Export\test222_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading L:\GitHub\BabelVR\Export\test222_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: L:\GitHub\BabelVR\Export\test222_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading L:\GitHub\BabelVR\Export\test222_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: L:\GitHub\BabelVR\Export\test222_Data\Managed\UnityEngine.VR.dll (this message is harmless)
+Loading L:\GitHub\BabelVR\Export\test222_Data\Managed\UnityEngine.VR.dll into Unity Child Domain
+Platform assembly: L:\GitHub\BabelVR\Export\test222_Data\Managed\Newtonsoft.Json.dll (this message is harmless)
+Loading L:\GitHub\BabelVR\Export\test222_Data\Managed\Newtonsoft.Json.dll into Unity Child Domain
+- Completed reload, in  0.023 seconds
+Platform assembly: L:\GitHub\BabelVR\Export\test222_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: L:\GitHub\BabelVR\Export\test222_Data\Managed\System.dll (this message is harmless)
+desktop: 1680x1050 59Hz; virtual: 3360x1050 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+OpenVR initialized!
+ 
+(Filename: C:/buildslave/unity/build/Runtime/VR/OpenVR/OpenVR.cpp Line: 381)
+
+UnloadTime: 0.633675 ms
+Connected to lighthouse:LHR-D5632C61
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+SteamVR:.ctor() (at L:\GitHub\BabelVR\RegionVREditor\Assets\SteamVR\Scripts\SteamVR.cs:253)
+SteamVR:CreateInstance() (at L:\GitHub\BabelVR\RegionVREditor\Assets\SteamVR\Scripts\SteamVR.cs:97)
+SteamVR:get_instance() (at L:\GitHub\BabelVR\RegionVREditor\Assets\SteamVR\Scripts\SteamVR.cs:48)
+SteamVR_Render:OnEnable() (at L:\GitHub\BabelVR\RegionVREditor\Assets\SteamVR\Scripts\SteamVR_Render.cs:283)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/SteamVR/Scripts/SteamVR.cs Line: 253)
+
+[AVProVideo] No camera set for UpdateStereoMaterial component. If you are rendering in stereo then it is recommended to set this.
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:LogWarning(Object)
+RenderHeads.Media.AVProVideo.UpdateStereoMaterial:Awake() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\UpdateStereoMaterial.cs:40)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/AVProVideo/Scripts/Components/UpdateStereoMaterial.cs Line: 40)
+
+VR Player Ready.
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+VRPlayerCore:Start() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:103)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VRPlayer/System/Core/VRPlayerCore.cs Line: 103)
+
+Platform assembly: L:\GitHub\BabelVR\Export\test222_Data\Managed\System.Data.dll (this message is harmless)
+Platform assembly: L:\GitHub\BabelVR\Export\test222_Data\Managed\System.Xml.dll (this message is harmless)
+File: <modified_record_8>
+File Version: <0.1a>
+Date: <10/17/2017 2:24:34 PM>
+Node_00
+Initialization Stage:
+>Action Flag:SetVideo
+Running Stage:
+End Stage:
+>Action Flag:SwitchSceneSeenAt
+
+Node_01
+Initialization Stage:
+>Action Flag:SetVideo
+Running Stage:
+End Stage:
+
+Node_02
+Initialization Stage:
+>Action Flag:SetVideo
+Running Stage:
+End Stage:
+
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+VRPlayerCore:openFile(String) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:305)
+VRPlayerCore:Start() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:111)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VRPlayer/System/Core/VRPlayerCore.cs Line: 305)
+
+Switch To Scene Node0
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+VRPlayerCore:switchSceneNode(Int32) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:377)
+VRPlayerCore:openFile(String) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:319)
+VRPlayerCore:Start() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:111)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VRPlayer/System/Core/VRPlayerCore.cs Line: 377)
+
+[AVProVideo] Opening L:/GitHub/BabelVR/Data/import_data/Scenes/sFLYTHRU.mov (offset 0)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object, Object)
+UnityEngine.Debug:Log(Object, Object)
+RenderHeads.Media.AVProVideo.Helper:LogInfo(String, Object) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Internal\Interfaces.cs:407)
+RenderHeads.Media.AVProVideo.MediaPlayer:OpenVideoFromFile() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:703)
+RenderHeads.Media.AVProVideo.MediaPlayer:OpenVideoFromFile(FileLocation, String, Boolean) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:451)
+Babel.System.Data.ShotNode:CreateInstances(VRPlayerCore, Transform) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\ShotNode.cs:115)
+Babel.System.Data.SceneNode:CreateInstances(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:308)
+VRPlayerCore:CreateInstance() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:132)
+VRPlayerCore:Start() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:118)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/AVProVideo/Scripts/Internal/Interfaces.cs Line: 407)
+
+Reading file from K:/Assignment_CityU/Research/Kaho/Git-Data/BabelVR/Data/import_data/Audio/LeanOn.wav
+Read File Complete. 52300250 Bytes.
+Raw Audio Data Size:52276052
+BitsPerSample:16
+TotalSamples:26138026
+[AVProVideo] Opening L:/GitHub/BabelVR/Data/import_data/Scenes/sFLYTHRU.mov (offset 0)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object, Object)
+UnityEngine.Debug:Log(Object, Object)
+RenderHeads.Media.AVProVideo.Helper:LogInfo(String, Object) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Internal\Interfaces.cs:407)
+RenderHeads.Media.AVProVideo.MediaPlayer:OpenVideoFromFile() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:703)
+RenderHeads.Media.AVProVideo.MediaPlayer:OpenVideoFromFile(FileLocation, String, Boolean) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:451)
+Babel.System.Data.ShotNode:CreateInstances(VRPlayerCore, Transform) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\ShotNode.cs:115)
+Babel.System.Data.SceneNode:CreateInstances(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:308)
+VRPlayerCore:CreateInstance() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:132)
+VRPlayerCore:Start() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:118)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/AVProVideo/Scripts/Internal/Interfaces.cs Line: 407)
+
+Reading file from K:/Assignment_CityU/Research/Kaho/Git-Data/BabelVR/Data/import_data/Audio/LeanOn.wav
+Read File Complete. 52300250 Bytes.
+Raw Audio Data Size:52276052
+BitsPerSample:16
+TotalSamples:26138026
+[AVProVideo] No file path specified
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object, Object)
+UnityEngine.Debug:LogError(Object, Object)
+RenderHeads.Media.AVProVideo.MediaPlayer:OpenVideoFromFile() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:718)
+RenderHeads.Media.AVProVideo.MediaPlayer:OpenVideoFromFile(FileLocation, String, Boolean) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:451)
+Babel.System.Data.ShotNode:CreateInstances(VRPlayerCore, Transform) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\ShotNode.cs:115)
+Babel.System.Data.SceneNode:CreateInstances(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:308)
+VRPlayerCore:CreateInstance() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:132)
+VRPlayerCore:Start() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:118)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/AVProVideo/Scripts/Components/MediaPlayer.cs Line: 718)
+
+File not found!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+Babel.System.Data.ShotNode:CreateInstances(VRPlayerCore, Transform) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\ShotNode.cs:117)
+Babel.System.Data.SceneNode:CreateInstances(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:308)
+VRPlayerCore:CreateInstance() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:132)
+VRPlayerCore:Start() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:118)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VREditor/System/Data/Scene/ShotNode.cs Line: 117)
+
+[AVProVideo] Opening K:/Assignment_CityU/Research/Kaho/Git-Data/BabelVR/Data/import_data/s01_020.mp4 (offset 0)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object, Object)
+UnityEngine.Debug:Log(Object, Object)
+RenderHeads.Media.AVProVideo.Helper:LogInfo(String, Object) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Internal\Interfaces.cs:407)
+RenderHeads.Media.AVProVideo.MediaPlayer:OpenVideoFromFile() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:703)
+RenderHeads.Media.AVProVideo.MediaPlayer:OpenVideoFromFile(FileLocation, String, Boolean) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:451)
+Babel.System.Data.ShotNode:CreateInstances(VRPlayerCore, Transform) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\ShotNode.cs:115)
+Babel.System.Data.SceneNode:CreateInstances(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:308)
+VRPlayerCore:CreateInstance() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:132)
+VRPlayerCore:Start() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:118)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/AVProVideo/Scripts/Internal/Interfaces.cs Line: 407)
+
+[AVProVideo] File not found: dir_path
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object, Object)
+UnityEngine.Debug:LogError(Object, Object)
+RenderHeads.Media.AVProVideo.MediaPlayer:OpenVideoFromFile() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:699)
+RenderHeads.Media.AVProVideo.MediaPlayer:OpenVideoFromFile(FileLocation, String, Boolean) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:451)
+Babel.System.Data.ShotNode:CreateInstances(VRPlayerCore, Transform) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\ShotNode.cs:115)
+Babel.System.Data.SceneNode:CreateInstances(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:308)
+VRPlayerCore:CreateInstance() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:132)
+VRPlayerCore:Start() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:118)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/AVProVideo/Scripts/Components/MediaPlayer.cs Line: 699)
+
+File not found!
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+Babel.System.Data.ShotNode:CreateInstances(VRPlayerCore, Transform) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\ShotNode.cs:117)
+Babel.System.Data.SceneNode:CreateInstances(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:308)
+VRPlayerCore:CreateInstance() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:132)
+VRPlayerCore:Start() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:118)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VREditor/System/Data/Scene/ShotNode.cs Line: 117)
+
+[AVProVideo] Opening K:/Assignment_CityU/Research/Kaho/Git-Data/BabelVR/Data/import_data/s01_030.mp4 (offset 0)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object, Object)
+UnityEngine.Debug:Log(Object, Object)
+RenderHeads.Media.AVProVideo.Helper:LogInfo(String, Object) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Internal\Interfaces.cs:407)
+RenderHeads.Media.AVProVideo.MediaPlayer:OpenVideoFromFile() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:703)
+RenderHeads.Media.AVProVideo.MediaPlayer:OpenVideoFromFile(FileLocation, String, Boolean) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:451)
+Babel.System.Data.ShotNode:CreateInstances(VRPlayerCore, Transform) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\ShotNode.cs:115)
+Babel.System.Data.SceneNode:CreateInstances(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:308)
+VRPlayerCore:CreateInstance() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:132)
+VRPlayerCore:Start() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:118)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/AVProVideo/Scripts/Internal/Interfaces.cs Line: 407)
+
+[AVProVideo] Opening K:/Assignment_CityU/Research/Kaho/Git-Data/BabelVR/Data/import_data/s01_030.mp4 (offset 0)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object, Object)
+UnityEngine.Debug:Log(Object, Object)
+RenderHeads.Media.AVProVideo.Helper:LogInfo(String, Object) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Internal\Interfaces.cs:407)
+RenderHeads.Media.AVProVideo.MediaPlayer:OpenVideoFromFile() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:703)
+RenderHeads.Media.AVProVideo.MediaPlayer:OpenVideoFromFile(FileLocation, String, Boolean) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:451)
+Babel.System.Data.ShotNode:CreateInstances(VRPlayerCore, Transform) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\ShotNode.cs:115)
+Babel.System.Data.SceneNode:CreateInstances(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:308)
+VRPlayerCore:CreateInstance() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:132)
+VRPlayerCore:Start() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:118)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/AVProVideo/Scripts/Internal/Interfaces.cs Line: 407)
+
+Executing Actions in Running Stage...
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+Babel.System.Data.SceneNode:update(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:207)
+VRPlayerCore:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:154)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VREditor/System/Data/Scene/SceneNode.cs Line: 207)
+
+Set #VIDEO_Video<Loading...> (RenderHeads.Media.AVProVideo.MediaPlayer)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+VRPlayerCore:setVideo(Int32) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:358)
+Babel.System.Data.SceneAction:execute(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneAction\SceneAction.cs:54)
+Babel.System.Data.SceneNode:executeInitializationActions(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:401)
+Babel.System.Data.SceneNode:update(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:210)
+VRPlayerCore:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:154)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VRPlayer/System/Core/VRPlayerCore.cs Line: 358)
+
+Set Initial Angle:(0.0, 0.0, 0.0)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+VRPlayerCore:setVideo(Int32) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:367)
+Babel.System.Data.SceneAction:execute(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneAction\SceneAction.cs:54)
+Babel.System.Data.SceneNode:executeInitializationActions(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:401)
+Babel.System.Data.SceneNode:update(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:210)
+VRPlayerCore:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:154)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VRPlayer/System/Core/VRPlayerCore.cs Line: 367)
+
+Executing Actions in Initialization Stage...Done
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+Babel.System.Data.SceneNode:executeInitializationActions(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:404)
+Babel.System.Data.SceneNode:update(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:210)
+VRPlayerCore:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:154)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VREditor/System/Data/Scene/SceneNode.cs Line: 404)
+
+[AVProVideo] Using playback path: DirectShow (4096x4096@12.00)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+RenderHeads.Media.AVProVideo.Helper:LogInfo(String, Object) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Internal\Interfaces.cs:403)
+RenderHeads.Media.AVProVideo.WindowsMediaPlayer:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Internal\WindowsMediaPlayer.cs:621)
+RenderHeads.Media.AVProVideo.MediaPlayer:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:884)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/AVProVideo/Scripts/Internal/Interfaces.cs Line: 403)
+
+[AVProVideo] Using playback path: DirectShow (4096x4096@12.00)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+RenderHeads.Media.AVProVideo.Helper:LogInfo(String, Object) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Internal\Interfaces.cs:403)
+RenderHeads.Media.AVProVideo.WindowsMediaPlayer:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Internal\WindowsMediaPlayer.cs:621)
+RenderHeads.Media.AVProVideo.MediaPlayer:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:884)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/AVProVideo/Scripts/Internal/Interfaces.cs Line: 403)
+
+[AVProVideo] Using playback path: DirectShow (2048x2048@24.00)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+RenderHeads.Media.AVProVideo.Helper:LogInfo(String, Object) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Internal\Interfaces.cs:403)
+RenderHeads.Media.AVProVideo.WindowsMediaPlayer:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Internal\WindowsMediaPlayer.cs:621)
+RenderHeads.Media.AVProVideo.MediaPlayer:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:884)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/AVProVideo/Scripts/Internal/Interfaces.cs Line: 403)
+
+[AVProVideo] Using playback path: DirectShow (2048x2048@24.00)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+RenderHeads.Media.AVProVideo.Helper:LogInfo(String, Object) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Internal\Interfaces.cs:403)
+RenderHeads.Media.AVProVideo.WindowsMediaPlayer:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Internal\WindowsMediaPlayer.cs:621)
+RenderHeads.Media.AVProVideo.MediaPlayer:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:884)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/AVProVideo/Scripts/Internal/Interfaces.cs Line: 403)
+
+[AVProVideo] Using playback path: DirectShow (2048x2048@24.00)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+RenderHeads.Media.AVProVideo.Helper:LogInfo(String, Object) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Internal\Interfaces.cs:403)
+RenderHeads.Media.AVProVideo.WindowsMediaPlayer:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Internal\WindowsMediaPlayer.cs:621)
+RenderHeads.Media.AVProVideo.MediaPlayer:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:884)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/AVProVideo/Scripts/Internal/Interfaces.cs Line: 403)
+
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 55e84 -> priority: 1 
+  Thread -> id: 55e80 -> priority: 1 
+VR Video:Video<sFLYTHRU.mov> First frame ready
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+VRPlayerCore:OnVideoEvent(MediaPlayer, EventType, ErrorCode) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:339)
+UnityEngine.Events.InvokableCall`3:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:252)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`3:Invoke(MediaPlayer, EventType, ErrorCode) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_3.cs:53)
+RenderHeads.Media.AVProVideo.MediaPlayer:FireEventIfPossible(EventType, Boolean) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:1502)
+RenderHeads.Media.AVProVideo.MediaPlayer:UpdateEvents() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:1477)
+RenderHeads.Media.AVProVideo.MediaPlayer:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:890)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VRPlayer/System/Core/VRPlayerCore.cs Line: 339)
+
+VR Video:Video<sFLYTHRU.mov> First frame ready
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+VRPlayerCore:OnVideoEvent(MediaPlayer, EventType, ErrorCode) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:339)
+UnityEngine.Events.InvokableCall`3:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:252)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`3:Invoke(MediaPlayer, EventType, ErrorCode) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_3.cs:53)
+RenderHeads.Media.AVProVideo.MediaPlayer:FireEventIfPossible(EventType, Boolean) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:1502)
+RenderHeads.Media.AVProVideo.MediaPlayer:UpdateEvents() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:1477)
+RenderHeads.Media.AVProVideo.MediaPlayer:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:890)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VRPlayer/System/Core/VRPlayerCore.cs Line: 339)
+
+VR Video:Video<s01_020.mp4> First frame ready
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+VRPlayerCore:OnVideoEvent(MediaPlayer, EventType, ErrorCode) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:339)
+UnityEngine.Events.InvokableCall`3:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:252)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`3:Invoke(MediaPlayer, EventType, ErrorCode) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_3.cs:53)
+RenderHeads.Media.AVProVideo.MediaPlayer:FireEventIfPossible(EventType, Boolean) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:1502)
+RenderHeads.Media.AVProVideo.MediaPlayer:UpdateEvents() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:1477)
+RenderHeads.Media.AVProVideo.MediaPlayer:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:890)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VRPlayer/System/Core/VRPlayerCore.cs Line: 339)
+
+VR Video:Video<s01_030.mp4> First frame ready
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+VRPlayerCore:OnVideoEvent(MediaPlayer, EventType, ErrorCode) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:339)
+UnityEngine.Events.InvokableCall`3:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:252)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`3:Invoke(MediaPlayer, EventType, ErrorCode) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_3.cs:53)
+RenderHeads.Media.AVProVideo.MediaPlayer:FireEventIfPossible(EventType, Boolean) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:1502)
+RenderHeads.Media.AVProVideo.MediaPlayer:UpdateEvents() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:1477)
+RenderHeads.Media.AVProVideo.MediaPlayer:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:890)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VRPlayer/System/Core/VRPlayerCore.cs Line: 339)
+
+VR Video:Video<s01_030.mp4> First frame ready
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+VRPlayerCore:OnVideoEvent(MediaPlayer, EventType, ErrorCode) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:339)
+UnityEngine.Events.InvokableCall`3:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:252)
+UnityEngine.Events.InvokableCallList:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:634)
+UnityEngine.Events.UnityEventBase:Invoke(Object[]) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent.cs:769)
+UnityEngine.Events.UnityEvent`3:Invoke(MediaPlayer, EventType, ErrorCode) (at C:\buildslave\unity\build\Runtime\Export\UnityEvent_3.cs:53)
+RenderHeads.Media.AVProVideo.MediaPlayer:FireEventIfPossible(EventType, Boolean) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:1502)
+RenderHeads.Media.AVProVideo.MediaPlayer:UpdateEvents() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:1477)
+RenderHeads.Media.AVProVideo.MediaPlayer:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:890)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VRPlayer/System/Core/VRPlayerCore.cs Line: 339)
+
+Trigger ROI:CIRCLEct:1ci:1
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+VRPlayerCore:triggerROI(RegionOfInterest) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:406)
+VRPlayerCore:FixedUpdate() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:221)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VRPlayer/System/Core/VRPlayerCore.cs Line: 406)
+
+Set #VIDEO_Video<sFLYTHRU.mov> (RenderHeads.Media.AVProVideo.MediaPlayer)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+VRPlayerCore:setVideo(Int32) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:358)
+VRPlayerCore:triggerROI(RegionOfInterest) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:414)
+VRPlayerCore:FixedUpdate() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:221)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VRPlayer/System/Core/VRPlayerCore.cs Line: 358)
+
+Set Initial Angle:(0.0, 0.0, 0.0)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+VRPlayerCore:setVideo(Int32) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:367)
+VRPlayerCore:triggerROI(RegionOfInterest) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:414)
+VRPlayerCore:FixedUpdate() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:221)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VRPlayer/System/Core/VRPlayerCore.cs Line: 367)
+
+Trigger ROI:CIRCLEct:1ci:1
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+VRPlayerCore:triggerROI(RegionOfInterest) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:406)
+VRPlayerCore:FixedUpdate() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:221)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VRPlayer/System/Core/VRPlayerCore.cs Line: 406)
+
+Set #VIDEO_Video<sFLYTHRU.mov> (RenderHeads.Media.AVProVideo.MediaPlayer)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+VRPlayerCore:setVideo(Int32) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:358)
+VRPlayerCore:triggerROI(RegionOfInterest) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:414)
+VRPlayerCore:FixedUpdate() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:221)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VRPlayer/System/Core/VRPlayerCore.cs Line: 358)
+
+Set Initial Angle:(0.0, 0.0, 0.0)
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+VRPlayerCore:setVideo(Int32) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:367)
+VRPlayerCore:triggerROI(RegionOfInterest) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:414)
+VRPlayerCore:FixedUpdate() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:221)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VRPlayer/System/Core/VRPlayerCore.cs Line: 367)
+
+Switch Scene - Seen At
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+Babel.System.Data.SceneAction:execute(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneAction\SceneAction.cs:93)
+Babel.System.Data.SceneNode:executeEndActions(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:420)
+Babel.System.Data.SceneNode:update(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:232)
+VRPlayerCore:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:154)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VREditor/System/Data/Scene/SceneAction/SceneAction.cs Line: 93)
+
+Executing Actions in End Stage...Done
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+Babel.System.Data.SceneNode:executeEndActions(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:423)
+Babel.System.Data.SceneNode:update(VRPlayerCore) (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VREditor\System\Data\Scene\SceneNode.cs:232)
+VRPlayerCore:Update() (at L:\GitHub\BabelVR\RegionVREditor\Assets\src\VRPlayer\System\Core\VRPlayerCore.cs:154)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/src/VREditor/System/Data/Scene/SceneNode.cs Line: 423)
+
+[AVProVideo] Shutdown
+UnityEngine.DebugLogHandler:Internal_Log(LogType, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+RenderHeads.Media.AVProVideo.Helper:LogInfo(String, Object) (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Internal\Interfaces.cs:403)
+RenderHeads.Media.AVProVideo.MediaPlayer:OnApplicationQuit() (at L:\GitHub\BabelVR\RegionVREditor\Assets\AVProVideo\Scripts\Components\MediaPlayer.cs:946)
+ 
+(Filename: L:/GitHub/BabelVR/RegionVREditor/Assets/AVProVideo/Scripts/Internal/Interfaces.cs Line: 403)
+
+OpenVR Shutdown
+ 
+(Filename: C:/buildslave/unity/build/Runtime/VR/OpenVR/OpenVR.cpp Line: 815)
+
