@@ -162,8 +162,6 @@ public class VRPlayerCoreInspector : Editor
         //Movie Slider
         EditorGUILayout.Slider(new GUIContent("Video Timecode(frames) :"), currentNode_currentframes.intValue, 0, core.current_node.total_frames);
 
-
-
         //set new style for node
         GUIStyle node_custom = new GUIStyle();
         //set text color

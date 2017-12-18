@@ -28,7 +28,32 @@ public class KeyframedMonoBehaviour : MonoBehaviour
 
     public virtual void initialize(params object[] obj)
     {
-        //update current frame index based current frame        
+
+    }
+
+
+    protected void updateAnimation()
+    {
+        //return if the player is not playing
+        //if (core == null ||
+        //    core.current_node == null ||
+        //    core.current_node.currentShotNode == null ||
+        //    !core.current_node.currentShotNode.isReadyToPlay)
+        //    return;
+
+        //update keyframe index
+        updateKeyframeIndex();
+
+        //update keyframe
+        updateKeyframe();
+
+        //update position,rotation & scale tranformation from keyframes
+        updateTransform();
+    }
+
+    protected void updateKeyframeIndex()
+    {
+        //update current frame index based on current frame        
         int find_index = -1;
         for (int i = 0; i < animation_data.Length; i++)
         {
@@ -37,8 +62,12 @@ public class KeyframedMonoBehaviour : MonoBehaviour
                 find_index++;
             }
         }
+
+        //set current index
         animation_keyframe_current_index = find_index;
 
+
+        //next index
         if (animation_keyframe_current_index + 1 < animation_data.Length)
         {
             animation_keyframe_next_index = animation_keyframe_current_index + 1;
@@ -48,21 +77,7 @@ public class KeyframedMonoBehaviour : MonoBehaviour
             animation_keyframe_next_index = animation_keyframe_current_index;
         }
     }
-    protected void updateAnimation()
-    {
-        //return if the player is not playing
-        if (core == null ||
-            core.current_node == null ||
-            core.current_node.currentShotNode == null ||
-            !core.current_node.currentShotNode.isReadyToPlay)
-            return;
 
-        //update keyframe
-        updateKeyframe();
-
-        //update position,rotation & scale tranformation from keyframes
-        updateTransform();
-    }
     private bool updateKeyframe()
     {
         if (animation_data.Length <= 0)
@@ -93,19 +108,19 @@ public class KeyframedMonoBehaviour : MonoBehaviour
 
 
         //if current frame reach target time_code, jump to next key frame
-        if (current_frame == target_frame)
-        {
-            ////update keyframe
-            animation_keyframe_current_index = animation_keyframe_next_index;
-            animation_keyframe_next_index++;
+        //if (current_frame == target_frame)
+        //{
+        //    ////update keyframe
+        //    animation_keyframe_current_index = animation_keyframe_next_index;
+        //    animation_keyframe_next_index++;
 
-            //End key frame, stop update
-            if (animation_keyframe_next_index >= animation_data.Length)
-            {
-                to_keyframe_index = "End of KeyFrame";
-                animation_keyframe_next_index = animation_keyframe_current_index;
-            }
-        }
+        //    //End key frame, stop update
+        //    if (animation_keyframe_next_index >= animation_data.Length)
+        //    {
+        //        to_keyframe_index = "End of KeyFrame";
+        //        animation_keyframe_next_index = animation_keyframe_current_index;
+        //    }
+        //}
 
 
         return true;

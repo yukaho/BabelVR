@@ -71,7 +71,7 @@ namespace Babel.System.Data
                 case MediaPlayerEvent.EventType.ReadyToPlay:
                     string[] split = videoplayer.m_VideoPath.Split('/');
                     videoplayer.gameObject.name = "Video<" + split[split.Length - 1] + ">";
-                    OnShotNodeContentLoaded(this, new EventArgs());
+                    Debug.Log("##READYTOPLAY");
                     isReadyToPlay = true;
                     break;
                 case MediaPlayerEvent.EventType.FirstFrameReady:
@@ -90,11 +90,11 @@ namespace Babel.System.Data
             return (video_files_count + audio_files_count + roi_files_count);
         }
 
-        public void CreateInstances(VRPlayerCore core, Transform shotdata_obj)
+        public void Load(VRPlayerCore core, Transform shotdata_obj)
         {
             //Link Game Object to Node Object
             this.shotdata_obj = shotdata_obj;
-
+       
             //
             //Video
             //
@@ -130,7 +130,7 @@ namespace Babel.System.Data
             //load active ROI from current shot node
             foreach (RegionOfInterest roi in Active_ROIList)
             {
-                GameObject created_mesh = roi.createMesh();
+                GameObject created_mesh = roi.createObject();
                 created_mesh.transform.parent = active_rois;
                 created_mesh.GetComponent<RegionOfInterestObject>().roi.flag = RegionOfInterestFlag.Active;
                 created_mesh.name = "A_ROI_#" + RegionOfInterest.active_roi_count.ToString("D3");
@@ -142,7 +142,7 @@ namespace Babel.System.Data
             //load active ROI from current node
             foreach (RegionOfInterest roi in Passive_ROIList)
             {
-                GameObject created_mesh = roi.createMesh();
+                GameObject created_mesh = roi.createObject();
                 created_mesh.transform.parent = passive_rois;
                 created_mesh.GetComponent<RegionOfInterestObject>().roi.flag = RegionOfInterestFlag.Passive;
                 created_mesh.name = "P_ROI_#" + RegionOfInterest.passive_roi_count.ToString("D3");
@@ -163,64 +163,10 @@ namespace Babel.System.Data
                 data.audio_obj.Load();
                 OnShotNodeContentLoaded(this, new EventArgs());
             }
-        }
-        public void Load(VRPlayerCore core)
-        {
-
-            //foreach (AudioData data in AudioData_List)
-            //{
-            //    //load Audio source
-                  
-            //}
-
+            
         }
 
-        public void loadShotNode()
-        {
 
-            //
-            //ROI
-            //
-            Transform group = GameObject.Find("RegionOfInterestGroup").transform;
-            Transform active_rois = group.FindChild("ActiveROIGroup");
-            Transform passive_rois = group.FindChild("PassiveROIGroup");
-
-            //load active ROI from current shot node
-            foreach (RegionOfInterest roi in Active_ROIList)
-            {
-                GameObject created_mesh = roi.createMesh();
-                created_mesh.transform.parent = active_rois;
-                created_mesh.GetComponent<RegionOfInterestObject>().roi.flag = RegionOfInterestFlag.Active;
-                created_mesh.name = "A_ROI_#" + RegionOfInterest.active_roi_count.ToString("D3");
-                RegionOfInterest.active_roi_count++;
-            }
-
-
-            //load active ROI from current node
-            foreach (RegionOfInterest roi in Passive_ROIList)
-            {
-                GameObject created_mesh = roi.createMesh();
-                created_mesh.transform.parent = passive_rois;
-                created_mesh.GetComponent<RegionOfInterestObject>().roi.flag = RegionOfInterestFlag.Passive;
-                created_mesh.name = "P_ROI_#" + RegionOfInterest.passive_roi_count.ToString("D3");
-                RegionOfInterest.passive_roi_count++;
-            }
-
-            //
-            //Audio
-            //
-
-            GameObject AudioObjectGroup = GameObject.Find("AudioObjectGroup");
-
-            foreach (AudioData data in AudioData_List)
-            {
-                GameObject created_audio_obj = data.createObject();
-                created_audio_obj.transform.parent = AudioObjectGroup.transform;
-
-            }
-
-
-        }
 
         public string getShotVideoFileName()
         {
@@ -232,6 +178,15 @@ namespace Babel.System.Data
             }
 
             return video_filename;
+        }
+
+        public void SetActive(bool b)
+        {            
+            //turn on/off audio
+            shotdata_obj.GetChild(1).gameObject.SetActive(b);
+
+            //turn on/off roi
+            shotdata_obj.GetChild(2).gameObject.SetActive(b);
         }
     }
 }

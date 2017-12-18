@@ -63,6 +63,7 @@ namespace Babel.System.Data
         [JsonPropertyIgnore]
         [SerializeField]
         public int current_frame;
+        public float current_timeMs;
 
         //totatl frame of video
         [JsonPropertyIgnore]
@@ -82,6 +83,9 @@ namespace Babel.System.Data
 
         [JsonPropertyIgnore]
         public bool isLoaded;
+
+        [JsonPropertyIgnore]
+        public GameObject scene_obj;
 
 
         public SceneNode()
@@ -114,6 +118,7 @@ namespace Babel.System.Data
             ///
             //set Loaded to false
             isLoaded = false;
+            current_timeMs = 0;
 
         }
 
@@ -219,6 +224,7 @@ namespace Babel.System.Data
                     executeRunningActions(core);
 
                     //update timecode info
+                    current_timeMs = core.mesh_content.Player.Control.GetCurrentTimeMs();
                     float current_time = core.mesh_content.Player.Control.GetCurrentTimeMs() / 1000;
                     float total_duration = core.mesh_content.Player.Info.GetDurationMs() / 1000;
                     float fps = core.mesh_content.Player.Info.GetVideoFrameRate();
@@ -244,17 +250,7 @@ namespace Babel.System.Data
             }
         }
 
-        public void loadShotNode()
-        {
-            //clear All ROI in game if exists
-            clearROI();
 
-            //clear All AudioObject in game if exists
-            clearAudioObject();
-
-            //load ROI
-            currentShotNode.loadShotNode();
-        }
 
         public void clearROI()
         {
@@ -290,95 +286,37 @@ namespace Babel.System.Data
             }
         }
 
-        public void CreateInstances(VRPlayerCore core)
-        {
-            //Create Scene Data Object
-            GameObject scene = new GameObject();
-            scene.transform.parent = core.gameObject.transform;
-            scene.name = "Scene<" + this.s_name + ">";
-
-            //Create Shot Data Object from Prefab, Load Data
-            foreach (ShotNode shotnode in shot_list)
-            {
-                GameObject shot_data = GameObject.Instantiate(Resources.Load<GameObject>("Prefab/ShotData"), scene.transform);
-                shot_data.name = "Shot<" + shotnode.shot_id + ">";
-                shot_data.transform.parent = scene.transform;
-                shotnode.OnShotNodeContentLoaded += Shotnode_OnShotNodeContentLoaded;
-                shotnode.shotdata_obj = shot_data.transform;
-                shotnode.CreateInstances(core, shot_data.transform);
-            }
-        }
-
-
         public void Load(VRPlayerCore core)
         {
+            //Create Scene Data Object
+            scene_obj = new GameObject();
+            scene_obj.transform.parent = core.gameObject.transform;
+            scene_obj.name = "Scene<" + this.s_name + ">";
+          //  scene_obj.SetActive(false);
 
 
             //Create Shot Data Object from Prefab, Load Data
             foreach (ShotNode shotnode in shot_list)
             {
-               shotnode.Load(core);
+                GameObject shot_data = GameObject.Instantiate(Resources.Load<GameObject>("Prefab/ShotData"), scene_obj.transform);
+                shot_data.name = "Shot<" + shotnode.shot_id + ">";
+                shot_data.transform.parent = scene_obj.transform;
+                shotnode.OnShotNodeContentLoaded += Shotnode_OnShotNodeContentLoaded;
+                shotnode.shotdata_obj = shot_data.transform;
+                shotnode.Load(core, shot_data.transform);
             }
 
             //Content Loaded
             isLoaded = true;
-
         }
+
 
         private void Shotnode_OnShotNodeContentLoaded(object sender, EventArgs e)
         {
             currentLoadedFiles_count++;
         }
 
-        public void loadVRMovie(VRPlayerCore core)
-        {
-
-            //new Movie lists
-            loaded_mov_list = new List<MediaPlayer>();
-
-            GameObject videoList = GameObject.Find("VRVideoList");
-
-            //load all movie to AV Pro object
-            foreach (ShotNode node in shot_list)
-            {
-
-                //Instantiate From Prefab, AVPro Media Player Prefab
-                GameObject obj = Resources.Load<GameObject>("Prefab/AVPro Video Media Player");
-                obj = GameObject.Instantiate(obj, videoList.transform);
-
-                MediaPlayer mp = obj.GetComponent<MediaPlayer>();
-                mp.m_VideoLocation = new MediaPlayer.FileLocation();
-                mp.m_VideoPath = node.movie_dir;
-                mp.m_StereoPacking = StereoPacking.TopBottom;
-                mp.m_Loop = false;
-                loaded_mov_list.Add(mp);
-                mp.Events.AddListener(core.OnVideoEvent);
-                mp.Events.AddListener(node.OnVideoEvent);
-
-                bool found = mp.OpenVideoFromFile(mp.m_VideoLocation, mp.m_VideoPath, false);
-
-                if (!found)
-                {
-                    Debug.Log("File not found!");
-                    obj.name = "Video<Not Found>";
-                }
-                else
-                {
-                    string[] split = mp.m_VideoPath.Split('/');
-                    obj.name = "Video<" + split[split.Length - 1] + ">";
-                }
-
-
-            }
-
-            Debug.Log("Loading Movies...Done");
-
-
-
-        }
-
-
-
+  
 
 
         public void unloadContent()
@@ -421,6 +359,11 @@ namespace Babel.System.Data
             }
 
             Debug.Log("Executing Actions in End Stage...Done");
+        }
+
+        public void SetActive(bool b)
+        {
+            scene_obj.SetActive(b);
         }
     }
 }

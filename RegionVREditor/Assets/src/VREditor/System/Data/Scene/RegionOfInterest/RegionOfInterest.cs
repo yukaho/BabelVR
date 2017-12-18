@@ -101,7 +101,7 @@ namespace Babel.System.Data
         }
 
 
-        public GameObject createMesh()
+        public GameObject createObject()
         {
 
             //get core in game

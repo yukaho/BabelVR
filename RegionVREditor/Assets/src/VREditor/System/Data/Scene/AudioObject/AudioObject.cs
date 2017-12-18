@@ -51,8 +51,6 @@ public class AudioObject : KeyframedMonoBehaviour
 
     public void Load()
     {
-
-
         //load audio to file reader
         reader = new WaveFileReader(audio_data.file_dir);
 
