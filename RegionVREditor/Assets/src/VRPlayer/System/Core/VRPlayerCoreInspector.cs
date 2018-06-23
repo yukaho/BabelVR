@@ -94,7 +94,7 @@ public class VRPlayerCoreInspector : Editor
 
     public void GUIROISettings()
     {
-        if (!Application.isPlaying)
+        if (!Application.isPlaying || !core.isFileOpened)
             return;
 
         //RoI Setting
@@ -113,7 +113,7 @@ public class VRPlayerCoreInspector : Editor
             return;
 
 
-        EditorGUILayout.LabelField("Passive ROIs Information", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Scene ROIs Information", EditorStyles.boldLabel);
 
 
 
@@ -133,11 +133,11 @@ public class VRPlayerCoreInspector : Editor
         EditorGUILayout.LabelField(content, roi_display, GUILayout.Height(roi_display.CalcHeight(content, EditorGUIUtility.fieldWidth)));
 
 
-        GUIShowButton("Passive ROIs Log", ref gazing_log);
+        GUIShowButton("Scene ROIs Log", ref gazing_log);
 
         if (gazing_log)
         {
-            EditorGUILayout.LabelField("Passive ROIs Log", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Scene ROIs Log", EditorStyles.boldLabel);
             content = new GUIContent(currentNode_info_roi_log.stringValue);
             EditorGUILayout.LabelField(content, roi_display, GUILayout.Height(roi_display.CalcHeight(content, EditorGUIUtility.fieldWidth)));
 
@@ -146,7 +146,7 @@ public class VRPlayerCoreInspector : Editor
     }
     public void GUISceneNode()
     {
-        if (!Application.isPlaying)
+        if (!Application.isPlaying || !core.isFileOpened)
             return;
 
 

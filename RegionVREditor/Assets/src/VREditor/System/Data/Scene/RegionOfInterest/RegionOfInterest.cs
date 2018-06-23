@@ -169,8 +169,8 @@ namespace Babel.System.Data
 
     public enum RegionOfInterestFlag
     {
-        Passive,
-        Active
+        Scene,
+        Shot
     }
 
 

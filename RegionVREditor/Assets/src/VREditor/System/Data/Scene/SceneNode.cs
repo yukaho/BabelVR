@@ -224,10 +224,10 @@ namespace Babel.System.Data
                     executeRunningActions(core);
 
                     //update timecode info
-                    current_timeMs = core.mesh_content.Player.Control.GetCurrentTimeMs();
-                    float current_time = core.mesh_content.Player.Control.GetCurrentTimeMs() / 1000;
-                    float total_duration = core.mesh_content.Player.Info.GetDurationMs() / 1000;
-                    float fps = core.mesh_content.Player.Info.GetVideoFrameRate();
+                    current_timeMs = core.GetCurrentApplyToMesh().Player.Control.GetCurrentTimeMs();
+                    float current_time = core.GetCurrentApplyToMesh().Player.Control.GetCurrentTimeMs() / 1000;
+                    float total_duration = core.GetCurrentApplyToMesh().Player.Info.GetDurationMs() / 1000;
+                    float fps = core.GetCurrentApplyToMesh().Player.Info.GetVideoFrameRate();
                     current_frame = (int)(fps * current_time);
                     total_frames = (int)(fps * total_duration);
 

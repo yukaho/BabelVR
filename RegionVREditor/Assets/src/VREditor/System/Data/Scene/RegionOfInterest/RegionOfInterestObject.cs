@@ -76,12 +76,7 @@ public class RegionOfInterestObject : KeyframedMonoBehaviour
 
     public void lookAt(Transform t)
     {
-
         this.transform.LookAt(eye_cam.transform);
-
-
-
-
     }
 
     public override void initialize(params object[] obj)
@@ -125,11 +120,11 @@ public class RegionOfInterestObject : KeyframedMonoBehaviour
         //assign material based on type
         switch (roi.flag)
         {
-            case RegionOfInterestFlag.Active:
-                material = Resources.Load<Material>("Materials/ROI_Active");
+            case RegionOfInterestFlag.Shot:
+                material = Resources.Load<Material>("Materials/ROI_Shot");
                 break;
-            case RegionOfInterestFlag.Passive:
-                material = Resources.Load<Material>("Materials/ROI_Passive");
+            case RegionOfInterestFlag.Scene:
+                material = Resources.Load<Material>("Materials/ROI_Scene");
                 break;
         }
 

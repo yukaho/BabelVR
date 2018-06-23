@@ -51,11 +51,15 @@ namespace Babel.System.Data
                     break;
                 case Flag.SetVideo:
                     int i = Convert.ToInt32(parameters_list[0]);
-                    core.setVideo(i);
+                    // Newly Created 21/6/2018
+                    core.SwitchShotNode(i);
+                    //core.setVideo(i);
                     break;
                 case Flag.SetScene:
                     scene_index = Convert.ToInt32(parameters_list[0]);
-                    core.switchSceneNode(scene_index);
+                    // Newly Created 21/6/2018
+                    core.SwitchSceneNode(scene_index);
+                    //core.switchSceneNode(scene_index);
                     break;
                 case Flag.PlayAudio:
 
@@ -63,18 +67,20 @@ namespace Babel.System.Data
                 case Flag.SwitchSceneDefault:
                     Debug.Log("Switch Scene - Default");
                     scene_index = Convert.ToInt32(parameters_list[0]);
-                    core.switchSceneNode(scene_index);
+                    // Newly Created 10/6/2018
+                    core.SwitchSceneNode(scene_index);
+                    // core.switchSceneNode(scene_index);
                     break;
                 case Flag.SwitchSceneMaxGazingTime:
                     Debug.Log("Switch Scene - Max Gazing");
                     //get maximum gazing time ROI and switch to corresponding node
-                    Ref_ROI = core.current_node.currentShotNode.Passive_ROIList[0];
+                    Ref_ROI = core.current_node.currentShotNode.Scene_ROIList[0];
                     core.triggerROI(Ref_ROI);
                     break;
                 case Flag.SwitchSceneMinGazingTime:
                     Debug.Log("Switch Scene - Min Gazing");
                     //get mininal gazing time ROI and switch to corresponding node
-                    Ref_ROI = core.current_node.currentShotNode.Passive_ROIList[core.current_node.currentShotNode.Passive_ROIList.Count - 1];
+                    Ref_ROI = core.current_node.currentShotNode.Scene_ROIList[core.current_node.currentShotNode.Scene_ROIList.Count - 1];
                     core.triggerROI(Ref_ROI);
                     break;
                 case Flag.SwitchSceneLastSeenRegion:
@@ -140,7 +146,9 @@ namespace Babel.System.Data
                     }
                     //pick scene node randomly 
                     Debug.Log("Switch Scene - Random");
-                    core.switchSceneNode(ran_index);
+                    // Newly Created 10/6/2018
+                    core.SwitchSceneNode(ran_index);
+                    //core.switchSceneNode(ran_index);
                     break;
 
                 case Flag.TimeToScene:

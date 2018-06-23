@@ -26,10 +26,10 @@ namespace Babel.System.Data
 
         //Region Of Interest List
         [JsonPropertyAttribute]
-        public List<RegionOfInterest> Active_ROIList;
+        public List<RegionOfInterest> Shot_ROIList;
 
         [JsonPropertyAttribute]
-        public List<RegionOfInterest> Passive_ROIList;
+        public List<RegionOfInterest> Scene_ROIList;
 
         [JsonPropertyAttribute]
         public List<AudioData> AudioData_List;
@@ -56,8 +56,8 @@ namespace Babel.System.Data
 
         public ShotNode()
         {
-            Active_ROIList = new List<RegionOfInterest>();
-            Passive_ROIList = new List<RegionOfInterest>();
+            Shot_ROIList = new List<RegionOfInterest>();
+            Scene_ROIList = new List<RegionOfInterest>();
             AudioData_List = new List<AudioData>();
             movie_dir = "";
             shot_id = shot_count++;
@@ -69,13 +69,12 @@ namespace Babel.System.Data
             switch (et)
             {
                 case MediaPlayerEvent.EventType.ReadyToPlay:
-                    string[] split = videoplayer.m_VideoPath.Split('/');
-                    videoplayer.gameObject.name = "Video<" + split[split.Length - 1] + ">";
+                    string[] split = mp.m_VideoPath.Split('/');
+                    mp.gameObject.name = "Video<" + split[split.Length - 1] + ">";
                     Debug.Log("##READYTOPLAY");
                     isReadyToPlay = true;
                     break;
                 case MediaPlayerEvent.EventType.FirstFrameReady:
-               
                     break;
                 case MediaPlayerEvent.EventType.FinishedPlaying:
                     break;
@@ -86,7 +85,7 @@ namespace Babel.System.Data
         {
             int video_files_count = 1;
             int audio_files_count = AudioData_List.Count;
-            int roi_files_count = Active_ROIList.Count + Passive_ROIList.Count;
+            int roi_files_count = Shot_ROIList.Count + Scene_ROIList.Count;
             return (video_files_count + audio_files_count + roi_files_count);
         }
 
@@ -128,11 +127,11 @@ namespace Babel.System.Data
             Transform passive_rois = group.FindChild("PassiveROIs");
 
             //load active ROI from current shot node
-            foreach (RegionOfInterest roi in Active_ROIList)
+            foreach (RegionOfInterest roi in Shot_ROIList)
             {
                 GameObject created_mesh = roi.createObject();
                 created_mesh.transform.parent = active_rois;
-                created_mesh.GetComponent<RegionOfInterestObject>().roi.flag = RegionOfInterestFlag.Active;
+                created_mesh.GetComponent<RegionOfInterestObject>().roi.flag = RegionOfInterestFlag.Shot;
                 created_mesh.name = "A_ROI_#" + RegionOfInterest.active_roi_count.ToString("D3");
                 RegionOfInterest.active_roi_count++;
                 OnShotNodeContentLoaded(this, new EventArgs());
@@ -140,11 +139,11 @@ namespace Babel.System.Data
 
 
             //load active ROI from current node
-            foreach (RegionOfInterest roi in Passive_ROIList)
+            foreach (RegionOfInterest roi in Scene_ROIList)
             {
                 GameObject created_mesh = roi.createObject();
                 created_mesh.transform.parent = passive_rois;
-                created_mesh.GetComponent<RegionOfInterestObject>().roi.flag = RegionOfInterestFlag.Passive;
+                created_mesh.GetComponent<RegionOfInterestObject>().roi.flag = RegionOfInterestFlag.Scene;
                 created_mesh.name = "P_ROI_#" + RegionOfInterest.passive_roi_count.ToString("D3");
                 RegionOfInterest.passive_roi_count++;
                 OnShotNodeContentLoaded(this, new EventArgs());
