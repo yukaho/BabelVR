@@ -2,22 +2,33 @@
 using UnityEngine;
 using Babel.System.Data;
 using RenderHeads.Media.AVProVideo;
+using UnityEngine.UI;
 
 public class JsonReader : MonoBehaviour
 {
-
+    // GameObject Prefab
     public GameObject shotdata_prefab;
     public GameObject mediaplayer_prefab;
 
+    // List of storing cureent all shots of current scene
     public Dictionary<int, GameObject> current_scene_shot_objs;
+    // List of storing those next possible scene-shot (one only)
     public Dictionary<int, GameObject> other_scene_shot_objs;
     private List<int> scenes_index;
     private List<int> shots_index;
 
+    // serialised data from vrs
     public SystemData data;
+    // The current scene node reference
     public SceneNode root_scene_node;
 
+    // VRPlayerCore
     private VRPlayerCore core;
+
+    // ErrorMessage GameObject (UI)
+    public GameObject errorMessageObj;
+    private float showErrorTime = 5f;
+    private float currentErrorAnimTime;
 
     private void Start()
     {
@@ -161,7 +172,7 @@ public class JsonReader : MonoBehaviour
         //core.current_node = scenenode_data;
 
         videoplayer.m_VideoLocation = new MediaPlayer.FileLocation();
-        videoplayer.m_VideoPath = core.relativePath + "\\" + shotnode_data.movie_dir;
+        videoplayer.m_VideoPath = core.videoPath + shotnode_data.movie_dir;
         videoplayer.m_StereoPacking = StereoPacking.TopBottom;
         videoplayer.m_Loop = false;
         //videoplayer.Events.AddListener(shotnode_data.OnVideoEvent);
@@ -211,7 +222,7 @@ public class JsonReader : MonoBehaviour
 
         foreach (AudioData data in shotnode_data.AudioData_List)
         {
-            GameObject created_audio_obj = data.createObject();
+            GameObject created_audio_obj = data.createObject(core.audioPath + data.file_dir);
             created_audio_obj.transform.parent = AudioObjectGroup.transform;
             data.audio_obj.Load();
             //OnShotNodeContentLoaded(this, new EventArgs());
@@ -264,5 +275,68 @@ public class JsonReader : MonoBehaviour
         }
 
         return false;
+    }
+
+    // Check .vrs error before applying
+    public bool CheckVRSError()
+    {
+        string errorText = "- Error -\n";
+
+        bool hvError = false;
+
+        Text errorMessage = errorMessageObj.GetComponentInChildren<Text>();
+
+        for (int i = 0; i < data.scene_nodes.Count; i++)
+        {
+            SceneNode node = data.scene_nodes[i];
+
+            // no end actions recorded
+            if (node.end_actions.Count <= 0)
+            {
+                errorMessage.text = errorText + "Missing SwitchSceneDefault end action.\n" + "In Scene ( " + i + " )";
+                hvError = true;
+                break;
+            }
+
+            // more than 2 end actions recorded
+            if ( node.end_actions.Count > 2 )
+            {
+                errorMessage.text = errorText + "Only TWO end actions in each scene are allowed.\n" + "In Scene ( " + i + " )";
+                hvError = true;
+                break;
+            }
+
+            // missing SwitchSceneDefault at the beginning
+            if (node.end_actions[0].action_flag != SceneAction.Flag.SwitchSceneDefault)
+            {
+                errorMessage.text = errorText + "All scenes end actions must have SwitchSceneDefault at first.\n" + "In Scene ( " + i + " )";
+                hvError = true;
+                break;
+            }
+        }
+
+        // Display error message
+        if (hvError)
+        {
+            errorMessageObj.SetActive(true);
+            currentErrorAnimTime = showErrorTime;
+            return true;
+        }
+
+        // return no error
+        return false;
+    }
+
+    // Update error message showing time
+    private void Update()
+    {
+        if (currentErrorAnimTime > 0)
+        {
+            currentErrorAnimTime -= Time.deltaTime;
+        }
+        else
+        {
+            errorMessageObj.SetActive(false);
+        }
     }
 }

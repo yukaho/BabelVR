@@ -28,8 +28,13 @@ public class AudioData
     [JsonPropertyIgnore]
     public AudioObject audio_obj;
 
-    public GameObject createObject()
+    [JsonPropertyIgnore]
+    public string absolutePath;
+
+    public GameObject createObject(string audioFilePath)
     {
+        absolutePath = audioFilePath;
+
         //load prefab from asset
         GameObject return_obj = GameObject.Instantiate(Resources.Load<GameObject>("Prefab/AudioObject"));
         return_obj.GetComponent<AudioObject>().initialize(this);

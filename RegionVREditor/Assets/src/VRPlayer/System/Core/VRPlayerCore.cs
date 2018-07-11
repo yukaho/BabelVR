@@ -101,7 +101,11 @@ public class VRPlayerCore : MonoBehaviour
     [HideInInspector]
     public bool isFileOpened = false;
     [HideInInspector]
-    public string relativePath = "";
+    public string videoPath = "";
+    [HideInInspector]
+    public string audioPath = "";
+    [HideInInspector]
+    public int endActionIndex = 0;
 
     void Start()
     {
@@ -125,16 +129,21 @@ public class VRPlayerCore : MonoBehaviour
         Debug.Log("Try Opening..." + folderPath);
 
         // Check .vrs file exist or not
-        string vrsPath = CheckVRSFileExist(folderPath);
+        string vrsPath = CheckOpenedFileType(folderPath);
+        // Not a valid folder path or .vrs file
         if (vrsPath == null)
         {
-            Debug.LogError(".vrs file not found. Please make sure all contents are inside one single folder.");
+            Debug.LogError("INVALID. (Path Problem)");
             return;
         }
 
-        relativePath = folderPath;
-
         openFile(vrsPath);
+
+        if(reader.CheckVRSError())
+        {
+            Debug.LogError("INVALID. (VRS Problem)");
+            return;
+        }
 
         // Newly created 21/6/2018
         SwitchSceneNode(0);
@@ -188,19 +197,14 @@ public class VRPlayerCore : MonoBehaviour
                     currentNode_info += "\n-> Shot#" + s + " - " + current_node.shot_list[s].getShotVideoFileName();
             }
 
+            // display scene end-action
+            if (current_node.end_actions.Count > 0)
+                currentNode_endAction = current_node.end_actions[endActionIndex].action_flag.ToString();
+            else
+                currentNode_endAction = "Non-Defined";
+
             //update frames
             currentNode_currentframes = current_node.current_frame;
-
-            //update 
-            if (current_node.end_actions.Count > 0)
-            {
-                currentNode_endAction = current_node.end_actions[0].action_flag.ToString();
-            }
-            else
-            {
-                currentNode_endAction = "Non-Defined";
-            }
-
         }
 
 
@@ -220,9 +224,11 @@ public class VRPlayerCore : MonoBehaviour
         if (Physics.Raycast(ray, out hitInfo))
         {
             //draw debug collision ray
-            Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
-            target_anchor.SetActive(true);
-            target_anchor.transform.position = hitInfo.point;
+
+            //Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
+            //target_anchor.SetActive(true);
+            //target_anchor.transform.position = hitInfo.point;
+
             //      Debug.Log("HIT: " + hitInfo.collider.GetComponent<RegionOfInterestObject>().ToString());
 
 
@@ -251,11 +257,19 @@ public class VRPlayerCore : MonoBehaviour
                         FirstSeenROI = LastSeenROI;
                         currentNode_info_firstSeen_roi = FirstSeenROI.name;
                     }
+
+                    // TODO
+                    // wait detail implementation
+                    // it is now set to the second end action which is for changing scene
+                    // also please see reader method CheckError() if there are changes
+                    endActionIndex = 1;
+
                     break;
             }
 
             //sort roi list
             SortROI();
+
 
         }
         else
@@ -266,7 +280,8 @@ public class VRPlayerCore : MonoBehaviour
                 CurrentGazingROI.GetComponent<RegionOfInterestObject>().OnExit();
             }
             CurrentGazingROI = null;
-            target_anchor.SetActive(false);
+
+            //target_anchor.SetActive(false);
         }
 
 
@@ -286,7 +301,6 @@ public class VRPlayerCore : MonoBehaviour
         current_node.currentShotNode.Scene_ROIList.Sort((x, y) => -1 * x.score.CompareTo(y.score));
         foreach (RegionOfInterest roi in current_node.currentShotNode.Scene_ROIList)
         {
-            Debug.Log("##" + roi.mesh_object);
             roi.mesh_object.transform.parent = null;
             roi.mesh_object.transform.parent = ROI_group.transform.GetChild(1);
         }
@@ -302,7 +316,6 @@ public class VRPlayerCore : MonoBehaviour
         {
             string serialized_str = readfile.ReadToEnd();
 
-
             //deserialize
             data = JsonConvert.DeserializeObject<SystemData>(serialized_str);
 
@@ -311,8 +324,10 @@ public class VRPlayerCore : MonoBehaviour
 
         }
 
-        // Newly created 10/6/2018
         reader.data = data;
+        SceneNodeList = data.scene_nodes;
+
+
     }
 
     //Video Controller
@@ -421,11 +436,9 @@ public class VRPlayerCore : MonoBehaviour
         switch (content_type)
         {
             case 0:  //scene
-                // Newly Created 10/6/2018
                 SwitchSceneNode(content_index);
                 break;
             case 1:  //video
-                // Newly Created 10/6/2018
                 SwitchShotNode(content_index);
                 break;
             case 2: //audio
@@ -456,8 +469,8 @@ public class VRPlayerCore : MonoBehaviour
             for (int i = 0; i < current_node.currentShotNode.Scene_ROIList.Count; i++)
             {
                 RegionOfInterest roi = current_node.currentShotNode.Scene_ROIList[i];
-                currentNode_info_roi_score_list += roi.mesh_object.gameObject.name + " - " +
-                   roi.score + "\n";
+                if(roi.mesh_object.gameObject != null)
+                    currentNode_info_roi_score_list += roi.mesh_object.gameObject.name + " - " + roi.score + "\n";
             }
         }
         return currentNode_info_roi_score_list;
@@ -474,7 +487,7 @@ public class VRPlayerCore : MonoBehaviour
         int i = 0;
         foreach (GazingLog log in GazingLog_List)
         {
-            currentNode_info_roi_log += i++.ToString("D3") + ". " + log + "\n";
+            currentNode_info_roi_log += i++.ToString("D3") + ". " + log + " in S" + currSceneNumber + "-" + currShotNumber + "\n";
 
         }
     }
@@ -483,10 +496,10 @@ public class VRPlayerCore : MonoBehaviour
     public void SwitchSceneNode(int scene_index)
     {
         // Check if it is the first time running
-        if(current_node == null)
+        if (current_node == null)
         {
             // Set current_node to current scene
-            current_node = reader.data.scene_nodes[currSceneNumber];
+            current_node = SceneNodeList[currSceneNumber];
 
 
             // Preload all possible path in Scene 0
@@ -503,22 +516,25 @@ public class VRPlayerCore : MonoBehaviour
         }
         else
         {            
-            // Set current_node to current scene
-            current_node = reader.data.scene_nodes[scene_index];
-
-
             // Play the preloaded video
             reader.other_scene_shot_objs[scene_index].transform.GetChild(0).GetComponentInChildren<MediaPlayer>().Play();
-            // Stop render old shot video
-            reader.current_scene_shot_objs[currShotNumber].transform.GetChild(0).GetComponentInChildren<ApplyToMesh>().MeshRenderer = null;
             // Change to render new scene video
             reader.other_scene_shot_objs[scene_index].transform.GetChild(0).GetComponentInChildren<ApplyToMesh>().MeshRenderer = videoSphere;
+            // Stop render old shot video
+            reader.current_scene_shot_objs[currShotNumber].transform.GetChild(0).GetComponentInChildren<ApplyToMesh>().MeshRenderer = null;
 
             // Preload and unload
             reader.LoadNextNode(scene_index);
 
+
+            // Set current_node to current scene
+            current_node = SceneNodeList[scene_index];
+
+
+
             // Load the initial shot video from this scene
             SwitchShotNode(reader.GetOtherSceneShotIndex(scene_index));
+
 
             // Play all the other video at the same time in this scene
             foreach (KeyValuePair<int, GameObject> item in reader.current_scene_shot_objs)
@@ -526,6 +542,12 @@ public class VRPlayerCore : MonoBehaviour
 
             currSceneNumber = scene_index;
         }
+
+        // the 0 index end action must be SwitchSceneDefault
+        endActionIndex = 0;
+
+        // Reset roi inspector info
+        currentNode_info_firstSeen_roi = currentNode_info_lastSeen_roi = "Empty";
     }
 
     // Newly Created 19/6/2018
@@ -535,7 +557,7 @@ public class VRPlayerCore : MonoBehaviour
 
         currShotNumber = shot_index;
         //set current shot node in current scene node
-        current_node.currentShotNode = reader.data.scene_nodes[currSceneNumber].shot_list[currShotNumber];
+        current_node.currentShotNode = SceneNodeList[currSceneNumber].shot_list[currShotNumber];
 
         // Active current shot object and deactive others
         foreach (KeyValuePair<int, GameObject> item in reader.current_scene_shot_objs)
@@ -575,16 +597,34 @@ public class VRPlayerCore : MonoBehaviour
     }
 
     // Newly Created 23/6/2018
-    public string CheckVRSFileExist(string path)
+    public string CheckOpenedFileType(string path)
     {
         // Folder must contain .vrs with this name
-        string vrsName = "vrs.vrs";
+        string vrsName = "default.vrs";
 
-        // Check exist
-        if (File.Exists(path + "\\" + vrsName))
+        // Check whether it is .vrs or folder path
+        string[] fileName = Path.GetFileName(path).Split('.');
+        bool isVRSFile = fileName.Length == 1 ? false : true;
+
+        // .vrs - Absolute Path
+        if (isVRSFile)
+        {
+            if (fileName[1].Equals("vrs"))
+            {
+                videoPath = "";
+                audioPath = "";
+                return path;
+            }
+        }
+        // Folder - Relative Path
+        else if (File.Exists(path + "\\" + vrsName))
+        {
+            videoPath = path + "\\Video\\";
+            audioPath = path + "\\Audio\\";
             return path + "\\" + vrsName;
+        }
 
-        // No .vrs file found
+        // not found
         return null;
     }
 }

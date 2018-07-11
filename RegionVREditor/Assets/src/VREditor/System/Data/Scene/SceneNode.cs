@@ -353,10 +353,13 @@ namespace Babel.System.Data
 
         public void executeEndActions(VRPlayerCore core)
         {
-            foreach (SceneAction sa in end_actions)
-            {
-                sa.execute(core);
-            }
+
+            //foreach (SceneAction sa in end_actions)
+            //{
+                //sa.execute(core);
+            //}
+
+            end_actions[core.endActionIndex].execute(core);
 
             Debug.Log("Executing Actions in End Stage...Done");
         }

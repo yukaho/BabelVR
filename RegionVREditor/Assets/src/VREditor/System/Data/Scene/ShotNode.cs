@@ -157,7 +157,8 @@ namespace Babel.System.Data
 
             foreach (AudioData data in AudioData_List)
             {
-                GameObject created_audio_obj = data.createObject();
+                // string = dataPath
+                GameObject created_audio_obj = data.createObject("");
                 created_audio_obj.transform.parent = AudioObjectGroup.transform;
                 data.audio_obj.Load();
                 OnShotNodeContentLoaded(this, new EventArgs());

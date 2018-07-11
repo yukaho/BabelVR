@@ -51,25 +51,21 @@ namespace Babel.System.Data
                     break;
                 case Flag.SetVideo:
                     int i = Convert.ToInt32(parameters_list[0]);
-                    // Newly Created 21/6/2018
+                    // switch shot in same scene
                     core.SwitchShotNode(i);
-                    //core.setVideo(i);
                     break;
                 case Flag.SetScene:
                     scene_index = Convert.ToInt32(parameters_list[0]);
-                    // Newly Created 21/6/2018
+                    // switch scene
                     core.SwitchSceneNode(scene_index);
-                    //core.switchSceneNode(scene_index);
                     break;
                 case Flag.PlayAudio:
-
+                    //
                     break;
                 case Flag.SwitchSceneDefault:
                     Debug.Log("Switch Scene - Default");
                     scene_index = Convert.ToInt32(parameters_list[0]);
-                    // Newly Created 10/6/2018
                     core.SwitchSceneNode(scene_index);
-                    // core.switchSceneNode(scene_index);
                     break;
                 case Flag.SwitchSceneMaxGazingTime:
                     Debug.Log("Switch Scene - Max Gazing");
@@ -146,9 +142,7 @@ namespace Babel.System.Data
                     }
                     //pick scene node randomly 
                     Debug.Log("Switch Scene - Random");
-                    // Newly Created 10/6/2018
                     core.SwitchSceneNode(ran_index);
-                    //core.switchSceneNode(ran_index);
                     break;
 
                 case Flag.TimeToScene:

@@ -12,6 +12,7 @@ public class AudioObject : KeyframedMonoBehaviour
     AudioClip clip;
     WaveFileReader reader;
     bool oneshoted;
+
     void Start()
     {
 
@@ -52,7 +53,7 @@ public class AudioObject : KeyframedMonoBehaviour
     public void Load()
     {
         //load audio to file reader
-        reader = new WaveFileReader(audio_data.file_dir);
+        reader = new WaveFileReader(audio_data.absolutePath);
 
         //create audio clip
         clip = AudioClip.Create(reader.getFileName(), reader.samples_array.Length, 2, reader.getSampleRate(), false);
