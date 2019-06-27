@@ -12,7 +12,7 @@ namespace Babel.System.Data
     public class RegionOfInterest
     {
 
-      
+
         public enum ROI_Shape { RECTANGLE, CIRCLE }
 
 
@@ -29,12 +29,7 @@ namespace Babel.System.Data
         public ROI_Shape roi_detection_shape;
 
         [JsonPropertyAttribute]
-        public RegionOfInterestAnimationData[] animation_data;
-        //[JsonPropertyAttribute]
-        //public SimpleVector3[] vertics;
-
-        //[JsonPropertyAttribute]
-        //public SceneAction action;
+        public Keyframe[] animation_data;
 
         [JsonPropertyAttribute]
         [JsonConverter(typeof(StringEnumConverter))]
@@ -64,9 +59,7 @@ namespace Babel.System.Data
         /// </summary>
         /// 
 
-        //current keyframe
-        public int animation_keyframe_current_index = 0;
-        public RegionOfInterestAnimationData animation_current_keyframe;
+
 
         //interest scoring
         [JsonIgnore]
@@ -108,16 +101,18 @@ namespace Babel.System.Data
         }
 
 
-        public GameObject createMesh()
+        public GameObject createObject()
         {
 
             //get core in game
             this.core = GameObject.Find("VRPlayerSystem").GetComponent<VRPlayerCore>();
-            GameObject new_mesh = Resources.Load<GameObject>("Prefab/RegionOfInterestMesh");
+            GameObject new_mesh = Resources.Load<GameObject>("Prefab/RegionOfInterestObject");
             new_mesh = GameObject.Instantiate(new_mesh);
-            new_mesh.GetComponent<RegionOfInterestMesh>().initializeMesh(this);
+            RegionOfInterestObject roi_m = new_mesh.GetComponent<RegionOfInterestObject>();
+            roi_m.initialize(this);
             this.mesh_object = new_mesh;
-            //new_mesh.transform.rotation =Quaternion.EulerAngles(this.rotation.getUnityVector3());
+
+
 
 
             return new_mesh;
@@ -134,7 +129,7 @@ namespace Babel.System.Data
         public override string ToString()
         {
 
- 
+
 
             return this.roi_detection_shape.ToString();
             //return vertics[0] + "," +
@@ -174,8 +169,8 @@ namespace Babel.System.Data
 
     public enum RegionOfInterestFlag
     {
-        Passive,
-        Active
+        Scene,
+        Shot
     }
 
 

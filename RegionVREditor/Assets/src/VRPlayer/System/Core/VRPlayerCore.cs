@@ -8,27 +8,27 @@ using UnityEngine;
 using Babel.System.Data;
 using System.IO;
 using Newtonsoft.Json;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using RenderHeads.Media.AVProVideo;
 using System;
 using System.Threading;
+using uFileBrowser;
 
 public class VRPlayerCore : MonoBehaviour
 {
-
+    //File Browser
+    public FileBrowser browser;
 
     //Node List
-    List<SceneNode> NodeList;
+    public List<SceneNode> SceneNodeList;
     public SceneNode current_node;
 
-    [Header("ROI Settings")]
+    [Header("ROI")]
     //Region Of Interest Group (gameobj)
     public GameObject ROI_group;
 
-
-
-    [TextArea]
-    public string ROIGroupInformation = "All roi will be sorted in descending order by score in roi group";
 
     //Camera Base Transform
     public Transform headset_base;
@@ -39,14 +39,20 @@ public class VRPlayerCore : MonoBehaviour
     //locator for collision experiment
     public GameObject target_anchor;
 
-    [Header("Current Scene Node")]
+
     //Display Information Debug Only
+    [HideInInspector]
     public string SceneNode;
+
+    [HideInInspector]
     public string SceneNodeStatus;
 
     [Header("Information Collector")]
     //Collecting Info
     public GameObject LastSeenROI;
+    public GameObject FirstSeenROI;
+    public GameObject CurrentGazingROI;
+    public List<GazingLog> GazingLog_List;
 
     //
     //AVPro Video Player
@@ -55,28 +61,117 @@ public class VRPlayerCore : MonoBehaviour
     //set Video
     public Transform VideoList;
     public ApplyToMesh mesh_content;
+    public MeshRenderer videoSphere;
 
 
+
+    /// <summary>
+    /// Inspector Data 
+    /// </summary>
+
+
+    [SerializeField]
+    private string currentNode_info = "Empty";
+
+    [SerializeField]
+    private string currentNode_info_lastSeen_roi = "Empty";
+
+    [SerializeField]
+    private string currentNode_info_firstSeen_roi = "Empty";
+
+    [SerializeField]
+    private string currentNode_info_roi_score_list = "Empty";
+
+    [SerializeField]
+    private int currentNode_currentframes = 0;
+
+    [SerializeField]
+    private string currentNode_endAction = "Empty";
+
+    [SerializeField]
+    private string currentNode_info_roi_log = "Empty";
+
+    //Loading Thread
+    Thread loading_thread;
+
+    // Newly created 10/6/2018
+    private JsonReader reader;
+    [HideInInspector]
+    public int currSceneNumber, currShotNumber;
+    [HideInInspector]
+    public bool isFileOpened = false;
+    [HideInInspector]
+    public string videoPath = "";
+    [HideInInspector]
+    public string audioPath = "";
+    [HideInInspector]
+    public int endActionIndex = 0;
 
     void Start()
     {
-
         //create new scene node
-        NodeList = new List<SceneNode>();
+        SceneNodeList = new List<SceneNode>();
+
+        //creqte new log next
+        GazingLog_List = new List<GazingLog>();
 
         Debug.Log("VR Player Ready.");
-   
-        //open file
-        string path = EditorUtility.OpenFilePanel("Please select your saved template", Application.dataPath+ "/../../Data/saved_data/", "");
-        openFile(path);
 
+        MediaPlayer m = new MediaPlayer();
 
-
+        // Newly created 10/6/2018
+        reader = GetComponent<JsonReader>();
     }
+
+    public void startVR(String folderPath)
+    {
+        //open file
+        Debug.Log("Try Opening..." + folderPath);
+
+        // Check .vrs file exist or not
+        string vrsPath = CheckOpenedFileType(folderPath);
+        // Not a valid folder path or .vrs file
+        if (vrsPath == null)
+        {
+            Debug.LogError("INVALID. (Path Problem)");
+            return;
+        }
+
+        openFile(vrsPath);
+
+        if(reader.CheckVRSError())
+        {
+            Debug.LogError("INVALID. (VRS Problem)");
+            return;
+        }
+
+        // Newly created 21/6/2018
+        SwitchSceneNode(0);
+        //Load Objects in Game 
+        //Load();
+        //** wait for implement, load first scene node as default node
+        //switchSceneNode(0);
+
+        // For inspector
+        isFileOpened = true;
+    }
+
+    void Load()
+    {
+        foreach (SceneNode node in SceneNodeList)
+        {
+            node.Load(this);
+        }
+    }
+
+
 
     // Update is called once per frame
     void Update()
     {
+        // Keep UI File Browser opening
+        if (!isFileOpened)
+            browser.gameObject.SetActive(true);
 
         //update current scene node
         if (current_node != null)
@@ -84,6 +179,32 @@ public class VRPlayerCore : MonoBehaviour
             current_node.update(this);
             SceneNodeStatus = current_node.update_status.ToString();
             SceneNode = current_node.s_name;
+
+            //#########
+            //update node info on inspector
+            //#########
+
+
+            //update node status
+            currentNode_info = SceneNode + " - " + SceneNodeStatus;
+
+            //update relationship between show and scene node
+            for (int s = 0; s < current_node.shot_list.Count; s++)
+            {
+                if (current_node.currentShotNode == current_node.shot_list[s])
+                    currentNode_info += "\n-> Shot#" + s + " - " + current_node.shot_list[s].getShotVideoFileName() + "*";
+                else
+                    currentNode_info += "\n-> Shot#" + s + " - " + current_node.shot_list[s].getShotVideoFileName();
+            }
+
+            // display scene end-action
+            if (current_node.end_actions.Count > 0)
+                currentNode_endAction = current_node.end_actions[endActionIndex].action_flag.ToString();
+            else
+                currentNode_endAction = "Non-Defined";
+
+            //update frames
+            currentNode_currentframes = current_node.current_frame;
         }
 
 
@@ -91,6 +212,10 @@ public class VRPlayerCore : MonoBehaviour
 
     void FixedUpdate()
     {
+        //
+        //Detect headset gazing to ROIs
+        //
+
         //get forward vector of headset
         Vector3 fwd = headset_cam.TransformDirection(Vector3.forward);
         RaycastHit hitInfo;
@@ -98,115 +223,111 @@ public class VRPlayerCore : MonoBehaviour
 
         if (Physics.Raycast(ray, out hitInfo))
         {
-            //print("There is something in front of the object!");
-
-
             //draw debug collision ray
-            Debug.DrawLine(ray.origin, hitInfo.point, Color.yellow);
-            target_anchor.SetActive(true);
-            target_anchor.transform.position = hitInfo.point;
-            // Debug.Log(hitInfo.collider.GetComponent<RegionOfInterestMesh>().ToString());
+
+            //Debug.DrawLine(ray.origin, hitInfo.point, Color.red);
+            //target_anchor.SetActive(true);
+            //target_anchor.transform.position = hitInfo.point;
+
+            //      Debug.Log("HIT: " + hitInfo.collider.GetComponent<RegionOfInterestObject>().ToString());
 
 
-
-            switch (hitInfo.collider.GetComponent<RegionOfInterestMesh>().roi.flag)
+            //which type of roi was hit
+            switch (hitInfo.collider.GetComponent<RegionOfInterestObject>().roi.flag)
             {
-                case RegionOfInterestFlag.Active:
-                    //  hitInfo.collider.GetComponent<RegionOfInterestMesh>().roi.triggerAction();
-                    triggerROI(hitInfo.collider.GetComponent<RegionOfInterestMesh>().roi);
+                case RegionOfInterestFlag.Shot:
+                    //  hitInfo.collider.GetComponent<RegionOfInterestObject>().roi.triggerAction();
+                    triggerROI(hitInfo.collider.GetComponent<RegionOfInterestObject>().roi);
                     break;
-                case RegionOfInterestFlag.Passive:
+                case RegionOfInterestFlag.Scene:
+                    if (CurrentGazingROI != null && !CurrentGazingROI.GetComponent<RegionOfInterestObject>().Equals(hitInfo.collider.gameObject.GetComponent<RegionOfInterestObject>()))
+                    {
+                        CurrentGazingROI.GetComponent<RegionOfInterestObject>().OnExit();
+                    }
+
                     LastSeenROI = hitInfo.collider.gameObject;
-                    hitInfo.collider.GetComponent<RegionOfInterestMesh>().roi.addScore(1);
+                    CurrentGazingROI = hitInfo.collider.gameObject;
+                    currentNode_info_lastSeen_roi = LastSeenROI.name;
+                    hitInfo.collider.GetComponent<RegionOfInterestObject>().roi.addScore(1);
+                    hitInfo.collider.GetComponent<RegionOfInterestObject>().OnEntered();
+
+
+                    if (FirstSeenROI == null)
+                    {
+                        FirstSeenROI = LastSeenROI;
+                        currentNode_info_firstSeen_roi = FirstSeenROI.name;
+                    }
+
+                    // TODO
+                    // wait detail implementation
+                    // it is now set to the second end action which is for changing scene
+                    // also please see reader method CheckError() if there are changes
+                    endActionIndex = 1;
+
                     break;
             }
-
-
 
             //sort roi list
             SortROI();
 
 
-
         }
         else
         {
-            LastSeenROI = null;
-            target_anchor.SetActive(false);
+            if (CurrentGazingROI != null)
+            {
+                //gazing nothing
+                CurrentGazingROI.GetComponent<RegionOfInterestObject>().OnExit();
+            }
+            CurrentGazingROI = null;
+
+            //target_anchor.SetActive(false);
         }
+
+
+
+        //refresh rois list in inspector view
+        getSceneROIScoringList();
 
     }
 
 
     public void SortROI()
     {
+        if (current_node == null || current_node.currentShotNode == null)
+            return;
+
         //Sort only passive ROIs in current shot node
-        current_node.currentShotNode.Passive_ROIList.Sort((x, y) => -1 * x.score.CompareTo(y.score));
-        foreach (RegionOfInterest roi in current_node.currentShotNode.Passive_ROIList)
+        current_node.currentShotNode.Scene_ROIList.Sort((x, y) => -1 * x.score.CompareTo(y.score));
+        foreach (RegionOfInterest roi in current_node.currentShotNode.Scene_ROIList)
         {
-            Debug.Log("##"+roi.mesh_object);
             roi.mesh_object.transform.parent = null;
-            roi.mesh_object.transform.parent = ROI_group.transform.FindChild("PassiveROIGroup");
-
-
+            roi.mesh_object.transform.parent = ROI_group.transform.GetChild(1);
         }
-
     }
 
 
     //open file
-    public void openFile(string path)
+    public void openFile(string vrsPath)
     {
-        //check whether path is null
-        if (path == null || path.Length == 0)
-            return;
-
-
+        SystemData data;
         //Read File
-        using (StreamReader readfile = new StreamReader(path))
+        using (StreamReader readfile = new StreamReader(vrsPath))
         {
             string serialized_str = readfile.ReadToEnd();
 
-
             //deserialize
-            SystemData data = JsonConvert.DeserializeObject<SystemData>(serialized_str);
+            data = JsonConvert.DeserializeObject<SystemData>(serialized_str);
 
             //display message
             Debug.Log(data);
 
-            //
-            //clear data
-            //
-            NodeList.Clear();
-
-
-            foreach (SceneNode sn in data.scene_nodes)
-            {
-                NodeList.Add(sn);
-            }
-
-
-            //foreach (RegionOfInterest roi in data.roi_list)
-            //{
-            //    switch (roi.flag)
-            //    {
-            //        case RegionOfInterestFlag.Active:
-            //            Active_ROIList.Add(roi);
-            //            break;
-            //        case RegionOfInterestFlag.Passive:
-            //            Passive_ROIList.Add(roi);
-            //            break;
-            //    }
-
-            //    roi.createMesh();
-
-            //}
-
-
-            //** wait for implement, load first scene node as default node
-            switchSceneNode(0);
-
         }
+
+        reader.data = data;
+        SceneNodeList = data.scene_nodes;
+
+
     }
 
     //Video Controller
@@ -216,45 +337,65 @@ public class VRPlayerCore : MonoBehaviour
         {
             case MediaPlayerEvent.EventType.ReadyToPlay:
                 //auto play
-                mp.Control.Play();
+                //if (mp.Equals(mesh_content.Player))
+                //{
+                //    mesh_content.Player.Control.Play();
+                //}
                 break;
             case MediaPlayerEvent.EventType.FirstFrameReady:
-                Debug.Log("VR Video:"+mp.name+" First frame ready");
+                Debug.Log("VR Video:" + mp.name + " First frame ready");
                 break;
             case MediaPlayerEvent.EventType.FinishedPlaying:
                 current_node.update_status = Babel.System.Data.SceneNode.NodeStatus.end;
                 break;
         }
-    
+
     }
 
     //set video
     public void setVideo(int videolist_index)
     {
-        Debug.Log("Set #VIDEO_" + videolist_index);
-
-        //set player 
-        mesh_content.Player = VideoList.GetChild(videolist_index).GetComponent<MediaPlayer>();
-    
+        float last_shot_time = current_node.current_timeMs;
 
         //set current shot node in current scene node
         current_node.currentShotNode = current_node.shot_list[videolist_index];
+        current_node.currentShotNode.SetActive(true);
 
-        //reload ROI from shot node
-        current_node.loadROI();
+        //Disable another shot node's ROI and audio object
+        //**not video player
+        foreach (ShotNode shot_node in current_node.shot_list)
+        {
+            if (shot_node != current_node.currentShotNode)
+            {
+                shot_node.SetActive(false);
+            }
+        }
+
+        ROI_group = current_node.currentShotNode.shotdata_obj.GetChild(2).gameObject;
+
+        Debug.Log(last_shot_time+"#Set Video To" + current_node.currentShotNode.shotdata_obj.GetChild(0).GetChild(0).GetComponent<MediaPlayer>());
+
+        if(mesh_content.Player != null)
+            mesh_content.Player.Pause();
+
+        //set player 
+        mesh_content.Player = current_node.currentShotNode.shotdata_obj.GetChild(0).GetChild(0).GetComponent<MediaPlayer>();
+
+        //jump to same time
+        //mesh_content.Player.Control.Seek(last_shot_time);
+        mesh_content.Player.Control.Play();
+
 
         //set camera angle
-        Debug.Log("Set Initial Angle:"+ current_node.currentShotNode.camera_orientation.getUnityVector3());
+        Debug.Log("#Set Initial Angle:" + current_node.currentShotNode.camera_orientation.getUnityVector3());
         headset_base.rotation = current_node.currentShotNode.camera_orientation.getUnityRotationQuaternion();
-
-
-
-
     }
 
     public void switchSceneNode(int index)
     {
         Debug.Log("Switch To Scene Node" + index);
+
+        //clear media player
         mesh_content.Player = null;
 
         //unload all contents include videos,ROIs, if current node exists
@@ -263,7 +404,18 @@ public class VRPlayerCore : MonoBehaviour
             current_node.unloadContent();
         }
 
-        current_node = NodeList[index];
+        //switch to specified scene node
+        current_node = SceneNodeList[index];
+        current_node.SetActive(true);
+
+        ////Disable another shot node
+        //foreach (SceneNode scene_node in SceneNodeList)
+        //{
+        //    if (scene_node != current_node)
+        //    {
+        //        scene_node.SetActive(false);
+        //    }
+        //}
 
 
     }
@@ -280,20 +432,199 @@ public class VRPlayerCore : MonoBehaviour
         //get content info
         roi.getContentInfo(out content_type, out content_index);
 
-        Debug.Log("Trigger ROI:" + roi + "ct:" + content_type + "ci:" + content_index);
-
+        Debug.Log("ROI Triggerd - Changing to Scene(" + roi.scene_index + ") Shot(" + roi.video_index + ")");
         switch (content_type)
         {
             case 0:  //scene
-                switchSceneNode(content_index);
+                SwitchSceneNode(content_index);
                 break;
             case 1:  //video
-                setVideo(content_index);
+                SwitchShotNode(content_index);
                 break;
             case 2: //audio
                 //wait for implementation
                 break;
         }
     }
+    public void setROIVisibility(bool visible)
+    {
 
+        //set all ROIs' visibility that exist within the list
+
+        for (int g = 0; g < 2; g++)
+        {
+            for (int i = 0; i < ROI_group.transform.GetChild(g).childCount; i++)
+            {
+                ROI_group.transform.GetChild(g).GetChild(i).GetComponent<Renderer>().enabled = visible;
+
+            }
+        }
+
+    }
+    public string getSceneROIScoringList()
+    {
+        currentNode_info_roi_score_list = "----Scene ROIs Scoring List----\n";
+        if (current_node != null && current_node.currentShotNode != null)
+        {
+            for (int i = 0; i < current_node.currentShotNode.Scene_ROIList.Count; i++)
+            {
+                RegionOfInterest roi = current_node.currentShotNode.Scene_ROIList[i];
+                if(roi.mesh_object.gameObject != null)
+                    currentNode_info_roi_score_list += roi.mesh_object.gameObject.name + " - " + roi.score + "\n";
+            }
+        }
+        return currentNode_info_roi_score_list;
+    }
+
+
+    public void addGazingLog(RegionOfInterestObject roi_mesh, GazingAction flag)
+    {
+        //add new log to the list
+        GazingLog_List.Add(new GazingLog(roi_mesh.roi, currentNode_currentframes, flag));
+
+
+        currentNode_info_roi_log = "";
+        int i = 0;
+        foreach (GazingLog log in GazingLog_List)
+        {
+            currentNode_info_roi_log += i++.ToString("D3") + ". " + log + " in S" + currSceneNumber + "-" + currShotNumber + "\n";
+
+        }
+    }
+
+    // Newly Created 19/6/2018
+    public void SwitchSceneNode(int scene_index)
+    {
+        // Check if it is the first time running
+        if (current_node == null)
+        {
+            // Set current_node to current scene
+            current_node = SceneNodeList[currSceneNumber];
+
+
+            // Preload all possible path in Scene 0
+            reader.LoadNextNode(0);
+
+            currSceneNumber = 0;
+
+            // Set to Shot 0
+            SwitchShotNode(0);
+
+            // Play all the video at the same time
+            foreach (KeyValuePair<int, GameObject> item in reader.current_scene_shot_objs)
+                item.Value.transform.GetChild(0).GetComponentInChildren<MediaPlayer>().Play();
+        }
+        else
+        {            
+            // Play the preloaded video
+            reader.other_scene_shot_objs[scene_index].transform.GetChild(0).GetComponentInChildren<MediaPlayer>().Play();
+            // Change to render new scene video
+            reader.other_scene_shot_objs[scene_index].transform.GetChild(0).GetComponentInChildren<ApplyToMesh>().MeshRenderer = videoSphere;
+            // Stop render old shot video
+            reader.current_scene_shot_objs[currShotNumber].transform.GetChild(0).GetComponentInChildren<ApplyToMesh>().MeshRenderer = null;
+
+            // Preload and unload
+            reader.LoadNextNode(scene_index);
+
+
+            // Set current_node to current scene
+            current_node = SceneNodeList[scene_index];
+
+
+
+            // Load the initial shot video from this scene
+            SwitchShotNode(reader.GetOtherSceneShotIndex(scene_index));
+
+
+            // Play all the other video at the same time in this scene
+            foreach (KeyValuePair<int, GameObject> item in reader.current_scene_shot_objs)
+                item.Value.transform.GetChild(0).GetComponentInChildren<MediaPlayer>().Play();
+
+            currSceneNumber = scene_index;
+        }
+
+        // the 0 index end action must be SwitchSceneDefault
+        endActionIndex = 0;
+
+        // Reset roi inspector info
+        currentNode_info_firstSeen_roi = currentNode_info_lastSeen_roi = "Empty";
+    }
+
+    // Newly Created 19/6/2018
+    public void SwitchShotNode(int shot_index)
+    {
+        Debug.Log("Switching shot to : Scene " + currSceneNumber + " Shot " + shot_index);
+
+        currShotNumber = shot_index;
+        //set current shot node in current scene node
+        current_node.currentShotNode = SceneNodeList[currSceneNumber].shot_list[currShotNumber];
+
+        // Active current shot object and deactive others
+        foreach (KeyValuePair<int, GameObject> item in reader.current_scene_shot_objs)
+        {
+            if (item.Key != shot_index)
+            {
+                // Reset video renderer to null
+                item.Value.transform.GetChild(0).GetComponentInChildren<ApplyToMesh>().MeshRenderer = null;
+                // Set volume
+                item.Value.transform.GetChild(0).GetComponentInChildren<MediaPlayer>().m_Volume = 0;
+                item.Value.transform.GetChild(0).GetComponentInChildren<MediaPlayer>().Control.SetVolume(0);
+                // Deactive ROI
+                item.Value.transform.GetChild(2).gameObject.SetActive(false);
+            }
+            else
+            {
+                // Set video renderer to Sphere
+                item.Value.transform.GetChild(0).GetComponentInChildren<ApplyToMesh>().MeshRenderer = videoSphere;
+                // Set volume
+                item.Value.transform.GetChild(0).GetComponentInChildren<MediaPlayer>().m_Volume = 1;
+                item.Value.transform.GetChild(0).GetComponentInChildren<MediaPlayer>().Control.SetVolume(1);
+                // Active ROI
+                item.Value.transform.GetChild(2).gameObject.SetActive(true);
+                ROI_group = item.Value.transform.GetChild(2).gameObject;
+            }
+        }
+
+        //set camera angle
+        Debug.Log("#Set Initial Angle:" + current_node.currentShotNode.camera_orientation.getUnityVector3());
+        headset_base.rotation = current_node.currentShotNode.camera_orientation.getUnityRotationQuaternion();
+    }
+
+    // Newly Created 21/6/2018
+    public ApplyToMesh GetCurrentApplyToMesh()
+    {
+        return reader.current_scene_shot_objs[currShotNumber].transform.GetChild(0).GetComponentInChildren<ApplyToMesh>();
+    }
+
+    // Newly Created 23/6/2018
+    public string CheckOpenedFileType(string path)
+    {
+        // Folder must contain .vrs with this name
+        string vrsName = "default.vrs";
+
+        // Check whether it is .vrs or folder path
+        string[] fileName = Path.GetFileName(path).Split('.');
+        bool isVRSFile = fileName.Length == 1 ? false : true;
+
+        // .vrs - Absolute Path
+        if (isVRSFile)
+        {
+            if (fileName[1].Equals("vrs"))
+            {
+                videoPath = "";
+                audioPath = "";
+                return path;
+            }
+        }
+        // Folder - Relative Path
+        else if (File.Exists(path + "\\" + vrsName))
+        {
+            videoPath = path + "\\Video\\";
+            audioPath = path + "\\Audio\\";
+            return path + "\\" + vrsName;
+        }
+
+        // not found
+        return null;
+    }
 }
